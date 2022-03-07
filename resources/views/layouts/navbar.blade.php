@@ -1,34 +1,36 @@
 <ul>
-    <li><a href="{{ route('admin.dashboard') }}" role="menuitem"><i class="far fa-chart-bar"></i> Dashboard</a></li>
-    <li class="slicknav_collapsed slicknav_parent {{ (request()->is('admin/users*')) ? 'active-menu' : '' }}"><a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a><i class="fas fa-user"></i>Users</a>
-        <span class="slicknav_arrow"></span></a><ul role="menu" class="slicknav_hidden" aria-hidden="true" style="display: none;">
+    <li class="{{ (request()->is('admin/dashbard*')) ? 'active-menu' : '' }}"><a href="{{ route('admin.dashboard') }}" role="menuitem"><i class="far fa-chart-bar"></i> Dashboard</a></li>
+    <li class="active-menu"><a><i class="fas fa-user"></i>Users</a>
+        <ul>
             <li>
-                <a href="{{ route('admin.users.index') }}" role="menuitem" tabindex="-1">User</a>
+                <a href="{{ route('admin.users.index') }}">User</a>
             </li>
             <li>
-                <a href="{{ route('admin.users.create') }}" role="menuitem" tabindex="-1">New user</a>
-            </li>
-        </ul>
-    </li>
-    <li class="slicknav_collapsed slicknav_parent {{ (request()->is('admin/roles*')) ? 'active-menu' : '' }}">
-        <a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;"><a><i class="fas fa-user"></i>Roles</a>
-        <span class="slicknav_arrow"></span></a><ul role="menu" class="slicknav_hidden" aria-hidden="true" style="display: none;">
-            <li>
-                <a href="{{ route('admin.roles.index') }}" role="menuitem" tabindex="-1">Roles</a>
+                <a href="user-edit.html">User edit</a>
             </li>
             <li>
-                <a href="{{ route('admin.roles.create') }}" role="menuitem" tabindex="-1">New Role</a>
+                <a href="{{ route('admin.users.create') }}">New user</a>
             </li>
         </ul>
     </li>
-    <li><a href="{{ route('admin.packages.create') }}" role="menuitem"><i class="fas fa-umbrella-beach"></i>Add Package</a></li>
-    <li class="slicknav_collapsed slicknav_parent {{ (request()->is('admin/packages*')) ? 'active-menu' : '' }}">
-        <a href="#" role="menuitem" aria-haspopup="true" tabindex="-1" class="slicknav_item slicknav_row" style="outline: none;">
-        <a><i class="fas fa-hotel"></i>packages</a>
-        <span class="slicknav_arrow"></span></a><ul role="menu" class="slicknav_hidden" aria-hidden="true" style="display: none;">
-            <li><a href="{{ route('admin.packages.index') }}" role="menuitem" tabindex="-1">Active</a></li>
-            <li><a href="db-package-pending.html" role="menuitem" tabindex="-1">Pending</a></li>
-            <li><a href="db-package-expired.html" role="menuitem" tabindex="-1">Expired</a></li>
+    <li class="active-menu"><a><i class="fas fa-user"></i>Roles</a>
+        <ul>
+            <li>
+                <a href="{{ route('admin.roles.index') }}">Roles</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.roles.create') }}">New Role</a>
+            </li>
+        </ul>
+    </li>
+    
+    <li><a href="{{ route('admin.packages.create') }}"><i class="fas fa-umbrella-beach"></i>Add Package</a></li>
+    <li>
+        <a><i class="fas fa-hotel"></i></i>packages</a>
+        <ul>
+            <li><a href="{{ route('admin.packages.index') }}">Active</a></li>
+            <li><a href="db-package-pending.html">Pending</a></li>
+            <li><a href="db-package-expired.html">Expired</a></li>
         </ul>   
     </li>
     <li><a href="db-booking.html" role="menuitem"><i class="fas fa-ticket-alt"></i> Booking &amp; Enquiry</a></li>
@@ -40,3 +42,4 @@
         @csrf
     </form></li>
 </ul>
+

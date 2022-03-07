@@ -160,7 +160,7 @@
             <!-- Responsive Navigation Trigger -->
             <div id="dashboard-Navigation" class="slick-nav"></div>
             <div id="navigation" class="navigation-container">
-            @include('layouts.navbar')
+                @include('layouts.navbar')
             </div>
             </div>
 
