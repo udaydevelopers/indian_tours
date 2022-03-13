@@ -15,6 +15,7 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="{{ url('admin/style.css') }}">
         <!-- Bootstrap CSS -->
+        @yield('style')
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title> @yield('title')</title>
@@ -181,6 +182,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="{{ url('admin/assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ url('admin/assets/js/jquery.slicknav.js') }}"></script>
+    <script src="{{ url('admin/assets/js/dashboard-custom.js') }}"></script>
     @yield('script')
 </body>
 </html>

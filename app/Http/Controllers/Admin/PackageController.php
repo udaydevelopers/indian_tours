@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Package;
+use App\Models\Image;
+use Storage;
 
 class PackageController extends Controller
 {
@@ -51,7 +54,28 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+              'name' => 'required|string|max:255',
+              'description' => 'required|string|max:855',
+        ]);
+
+        $package = new Package;
+        $package->name = $request->name;
+        $package->description = $request->description;
+        $package->save();
+        
+        $image = new Image;
+        foreach ($request->input('document', []) as $file) {
+            $image->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
+        }
+
+        foreach ($request->file('images') as $imagefile) {
+            $image = new Image;
+            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
+            $image->url = $path;
+            $image->product_id = $package->id;
+            $image->save();
+        }
     }
 
     /**
@@ -97,5 +121,25 @@ class PackageController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function storeMedia(Request $request)
+    {
+        $path = storage_path('tmp/uploads');
+
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $file = $request->file('file');
+
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+
+        $file->move($path, $name);
+
+        return response()->json([
+            'name'          => $name,
+            'original_name' => $file->getClientOriginalName(),
+        ]);
     }
 }

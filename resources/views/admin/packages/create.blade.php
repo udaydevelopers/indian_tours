@@ -1,9 +1,9 @@
 
 @extends('layouts.admin')
 
-@push('head')
-
-@endpush
+@section('style')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+@endsection
 
 @section('content')
 @if ($message = Session::get('success'))
@@ -11,6 +11,7 @@
         <p>{{ $message }}</p>
     </div>
 @endif
+{!! Form::open(array('route' => 'admin.packages.store','method'=>'POST')) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
                     <!-- Listings -->
@@ -19,19 +20,19 @@
                             <div class="custom-field-wrap">
                                 <div class="form-group">
                                     <label><h4>Title</h4></label>
-                                    <input type="text" name="name">
+                                    <input type="text" name="name" required>
                                 </div>
                             <div class="form-group">
                                 <label for="description" class="form-label"><h4>Description</h4></label>
-                                <input value="" type="text"  class="form-control" name="description" placeholder="Description" id="description" required>
+                                <textarea class="form-control" name="description" placeholder="Description" id="description"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="program" class="form-label"><h4>Program</h4></label>
-                                <input value="" type="text"  class="form-control" name="program" placeholder="Program" id="program" required>
+                                <input class="form-control" name="program" placeholder="Program" id="program">
                             </div>
                             <div class="form-group">
                                 <label for="policy" class="form-label"><h4>Policy</h4></label>
-                                <input value="" type="text"  class="form-control" name="policy" placeholder="Policy" id="policy" required>
+                                <input class="form-control" name="policy" placeholder="Policy" id="policy">
                             </div>
                         </div>
                         </div>
@@ -43,12 +44,12 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <input type="number" placeholder="Days">
+                                                    <input type="number" placeholder="Days" name="trip_days">
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <input type="number" placeholder="Nights">
+                                                    <input type="number" placeholder="Nights" name="trip_nights">
                                                 </div>
                                             </div>
                                         </div>
@@ -63,19 +64,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="adult_sp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="adult_rp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="adult_dsc">
                                         </div>
                                     </div>
                                 </div>
@@ -88,19 +89,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="child_sp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="child_rp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="child_dsc">
                                         </div>
                                     </div>
                                 </div>
@@ -113,19 +114,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="infant_sp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="infant_rp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="infant_dsc">
                                         </div>
                                     </div>
                                 </div>
@@ -138,19 +139,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="couple_sp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="couple_rp">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="name">
+                                            <input type="text" name="couple_dsc">
                                         </div>
                                     </div>
                                 </div>
@@ -160,29 +161,23 @@
                             <h4>Gallery</h4>
                             <div class="custom-field-wrap">
                                 <div class="dragable-field">
-                                    <div class="dragable-field-inner">
-                                        <p class="drag-drop-info">Drop Files To Upload</p>
-                                        <p>or</p>
-                                        <div class="upload-input">
-                                            <div class="form-group">
-                                              <span class="upload-btn">Upload a image</span>
-                                              <input type="file" name="myfile">
-                                            </div>
+                                    <div class="dragable-field-inner dz-message">
+                                        <div class="needsclick dropzone" id="document-dropzone">
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="dashboard-box">
-                            <h4>Location</h4>
+                            
                             <div class="custom-field-wrap">
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Add Google Map Embed Script</label>
-                                            <textarea>
-                                                
-                                            </textarea>
+                                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                            <button type="submit" class="btn btn-primary">Add Package</button>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +189,7 @@
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Popular</h4>
                                 <div class="form-group">
-                                    <label class="custom-input"><input type="checkbox">
+                                    <label class="custom-input"><input type="checkbox" name="popular" value="1">
                                         <span class="custom-input-field"></span>
                                         Use Polpular
                                     </label>
@@ -217,46 +212,38 @@
                                 @if($parentCategories)
                                 @foreach($parentCategories as $category)
                                 <div class="form-group">
-                                    <label class="custom-input"><input type="checkbox">
+                                    <label class="custom-input"><input type="checkbox" value="{{ $category->id }}" name="categories[]">
                                         <span class="custom-input-field"></span>
                                        {{ $category->name }}
+                                       <?php $dash=''; ?>
+                                       @include('admin.categories.subcatcheckbox',['subcategories' => $category->subcategory])
                                     </label>
                                 </div>
                                 @endforeach
                                 @endif
-                                <div class="form-group">
-                                    <label class="custom-input"><input type="checkbox" checked="checked">
-                                        <span class="custom-input-field"></span>
-                                        Walking
-                                    </label>
-                                </div>
+                
                                 <div class="add-btn">
-                                    <a href="#">Add category</a>
+                                    <a href="{{ route('admin.categories.create') }}">Add category</a>
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-media-field-wrap">
                                 <h4>package small image</h4>
-                                <div class="upload-input">
                                     <div class="form-group">
-                                      <span class="upload-btn">Upload a image</span>
-                                      <input type="file" name="myfile">
+                                      <input type="file" name="package_small_pic" class="form-control" required name="image">
                                     </div>
-                                </div>
+                                
                             </div>
                             <div class="custom-field-wrap db-media-field-wrap">
                                 <h4>package large image</h4>
-                                <div class="upload-input">
                                     <div class="form-group">
-                                      <span class="upload-btn">Upload a image</span>
-                                      <input type="file" name="myfile">
+                                    <input type="file" name="package_large_pic" class="form-control" required name="image">
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>      
             </div>
-
+            {!! Form::close() !!}
 @endsection
 
 @section('script')
@@ -277,4 +264,42 @@
             height: 300
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+    <script>
+  var uploadedDocumentMap = {}
+  Dropzone.options.documentDropzone = {
+    url: "{{ route('admin.storeMedia') }}",
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    success: function (file, response) {
+      $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+      uploadedDocumentMap[file.name] = response.name
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      var name = ''
+      if (typeof file.file_name !== 'undefined') {
+        name = file.file_name
+      } else {
+        name = uploadedDocumentMap[file.name]
+      }
+      $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+    },
+    init: function () {
+      @if(isset($project) && $project->document)
+        var files =
+          {!! json_encode($project->document) !!}
+        for (var i in files) {
+          var file = files[i]
+          this.options.addedfile.call(this, file)
+          file.previewElement.classList.add('dz-complete')
+          $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+        }
+      @endif
+    }
+  }
+</script>
 @endsection

@@ -33,4 +33,5 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('packages', PackageController::class);
     
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
+    Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
 });
