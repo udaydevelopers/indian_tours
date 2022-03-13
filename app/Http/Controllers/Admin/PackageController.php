@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 
 class PackageController extends Controller
 {
@@ -27,6 +28,7 @@ class PackageController extends Controller
      */
     public function index()
     {
+        $parentCategories = Category::where('parent_id',NULL)->get();
         return view('admin.packages.index'); 
     }
 
@@ -37,7 +39,8 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return view('admin.packages.create');
+        $parentCategories = Category::where('parent_id',NULL)->get();
+        return view('admin.packages.create', compact('parentCategories'));
     }
 
     /**

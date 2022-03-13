@@ -180,11 +180,7 @@
     <script src="{{ url('admin/assets/js/jquery-3.2.1.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="{{ url('admin/assets/js/bootstrap.min.js') }}"></script>
-    <script src="{{ url('admin/assets/js/canvasjs.min.js') }}"></script>
-    <script src="{{ url('admin/assets/js/chart.js') }}"></script>
-    <script src="{{ url('admin/assets/js/counterup.min.js') }}"></script>
     <script src="{{ url('admin/assets/js/jquery.slicknav.js') }}"></script>
-    <script src="{{ url('admin/assets/js/dashboard-custom.js') }}"></script>
     @yield('script')
 </body>
 </html>

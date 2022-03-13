@@ -13,7 +13,7 @@
             </li>
         </ul>
     </li>
-    <li class="active-menu"><a><i class="fas fa-user"></i>Roles</a>
+    <li class="active-menu"><a><i class="fas fa-user-lock"></i>Roles</a>
         <ul>
             <li>
                 <a href="{{ route('admin.roles.index') }}">Roles</a>
@@ -23,7 +23,16 @@
             </li>
         </ul>
     </li>
-    
+    <li class="active-menu"><a><i class="fas fa-list"></i>Categories</a>
+        <ul>
+            <li>
+                <a href="{{ route('admin.categories.index') }}">Categories</a>
+            </li>
+            <li>
+                <a href="{{ route('admin.categories.create') }}">New Category</a>
+            </li>
+        </ul>
+    </li>
     <li><a href="{{ route('admin.packages.create') }}"><i class="fas fa-umbrella-beach"></i>Add Package</a></li>
     <li>
         <a><i class="fas fa-hotel"></i></i>packages</a>
