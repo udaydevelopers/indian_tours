@@ -14,7 +14,7 @@ class CreatePackagesTable extends Migration
     public function up()
     {
         Schema::create('packages', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('name');
             $table->longText('description');
             $table->longText('program');
@@ -33,12 +33,12 @@ class CreatePackagesTable extends Migration
             $table->integer('couple_sp');
             $table->integer('couple_rp');
             $table->integer('couple_dsc');
-            $table->string('category');
             $table->boolean('popular');
-            $table->string('project_small_pic');
-            $table->string('project_large_pic');
+            $table->string('package_small_pic');
+            $table->string('package_large_pic');
             $table->string('meta_keywords');
             $table->string('meta_descriptions');
+            $table->enum('status', ['draft', 'publish'])->default('publish');
             $table->string('slug')->unique();
             $table->timestamps();
         });

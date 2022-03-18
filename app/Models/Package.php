@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Package extends Model
 {
     use HasFactory;
+    
+    protected $guard = [];
 
     public function images()
     {
-    return $this->hasMany('App\Image', 'package_id');
+    return $this->hasMany(\App\Models\Image::class, 'package_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(\App\Models\Category::class);
     }
 }

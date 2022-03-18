@@ -11,7 +11,7 @@
         <p>{{ $message }}</p>
     </div>
 @endif
-{!! Form::open(array('route' => 'admin.packages.store','method'=>'POST')) !!}
+{!! Form::open(array('route' => 'admin.packages.store','method'=>'POST', 'enctype' => "multipart/form-data")) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
                     <!-- Listings -->
@@ -186,6 +186,15 @@
                     </div>
                     <div class="col-lg-4 col-xl-3">
                         <div class="dashboard-box">
+                        <div class="custom-field-wrap db-pop-field-wrap">
+                                <h4>Status</h4>
+                                <div class="form-group">
+                                <select name="status">
+                                <option value="publish">Publish</option>
+                                <option value="draft">Draft</option>
+                                </select>
+                                </div>
+                            </div>
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Popular</h4>
                                 <div class="form-group">
@@ -198,7 +207,7 @@
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Meta Keywords</h4>
                                 <div class="form-group">
-                                    <input type="text" name="meta_keyword" placeholder="Meta Keywords">
+                                    <input type="text" name="meta_keywords" placeholder="Meta Keywords">
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-pop-field-wrap">

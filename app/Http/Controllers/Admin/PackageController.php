@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Package;
 use App\Models\Image;
-use Storage;
+use File;
+use Illuminate\Support\Str;
 
 class PackageController extends Controller
 {
@@ -54,28 +55,82 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
+
         $this->validate($request, [
               'name' => 'required|string|max:255',
               'description' => 'required|string|max:855',
         ]);
 
-        $package = new Package;
-        $package->name = $request->name;
-        $package->description = $request->description;
-        $package->save();
-        
-        $image = new Image;
-        foreach ($request->input('document', []) as $file) {
-            $image->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('document');
+        $package_small_pic = null;
+        $package_large_pic = null;
+
+        if ($request->hasFile('package_small_pic')) {
+            $imageSmallName = time().'.'.$request->package_small_pic->extension();  
+            $package_small_pic = $request->package_small_pic->move(public_path('images'), $imageSmallName);
         }
 
-        foreach ($request->file('images') as $imagefile) {
+        if ($request->hasFile('package_large_pic')) {
+            $imageLargeName = time().'.'.$request->package_large_pic->extension();  
+            $package_large_pic = $request->package_large_pic->move(public_path('images'), $imageLargeName);
+        }
+        
+        
+
+        $package = new Package;
+
+        $package->name = $request->name;
+        $package->description = $request->description;
+        $package->program = $request->program;
+        $package->policy = $request->policy;
+        $package->trip_days = $request->trip_days;
+        $package->trip_nights = $request->trip_nights;
+
+        $package->adult_sp = $request->adult_sp;
+        $package->adult_rp = $request->adult_rp;
+        $package->adult_dsc = $request->adult_dsc;
+        $package->child_sp = $request->child_sp;
+        $package->child_rp = $request->child_rp;
+        $package->child_dsc = $request->child_dsc;
+        $package->infant_sp = $request->infant_sp;
+        $package->infant_rp = $request->infant_rp;
+        $package->infant_dsc = $request->infant_dsc;
+
+        $package->couple_sp = $request->couple_sp;
+        $package->couple_rp = $request->couple_rp;
+        $package->couple_dsc = $request->couple_dsc;
+
+        $package->popular = $request->popular;
+        $package->package_small_pic = $package_small_pic;
+        $package->package_large_pic = $package_large_pic;
+        $package->meta_keywords = $request->meta_keywords;
+        $package->meta_descriptions = $request->meta_descriptions;
+        $package->status = $request->status;
+        $package->slug = Str::slug($request->name);
+
+        $package->save();
+        
+        $package->categories()->sync($request->categories);
+
+
+        
+        foreach ($request->input('document', []) as $file) {
             $image = new Image;
-            $path = $imagefile->store('/images/resource', ['disk' =>   'my_files']);
-            $image->url = $path;
-            $image->product_id = $package->id;
+            //echo $from_path = public_path('tmp/uploads/' . $file);
+            //echo $to_path = public_path('images/gallery'. $file);
+            File::copy(storage_path('tmp/uploads/'.$file), public_path('images/'.$file));
+            $image->url = public_path('images/'.$file);
+            $image->package_id = $package->id;
             $image->save();
         }
+
+        // foreach ($request->input('document', []) as $imagefile) {
+        //     $image = new Image;
+        //     $path = $imagefile->move('/images/resource', ['disk' =>   'my_files']);
+        //     $image->url = $path;
+        //     $image->package_id = $package->id;
+        //     $image->save();
+        // }
     }
 
     /**
