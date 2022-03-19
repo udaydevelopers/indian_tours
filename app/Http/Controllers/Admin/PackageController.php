@@ -30,10 +30,20 @@ class PackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $parentCategories = Category::where('parent_id',NULL)->get();
-        return view('admin.packages.index'); 
+        $packages = Package::with('categories','images')->paginate(5);
+        
+        // foreach($packages as $package)
+        // {
+        //     foreach($package->categories as $category)
+        //     {
+        //         echo $category->name;
+        //     }
+        // }
+        // die;
+        return view('admin.packages.index', compact('packages'))
+        ->with('i', ($request->input('page', 1) - 1) * 5);; 
     }
 
     /**
@@ -56,7 +66,6 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-
         $this->validate($request, [
               'name' => 'required|string|max:255',
               'description' => 'required|string|max:855',
@@ -67,16 +76,16 @@ class PackageController extends Controller
 
         if ($request->hasFile('package_small_pic')) {
             $imageSmallName = time().'.'.$request->package_small_pic->extension();  
-            $package_small_pic = $request->package_small_pic->move(public_path('images'), $imageSmallName);
+            $request->package_small_pic->move(public_path('images'), $imageSmallName);
+            $package_small_pic = $imageSmallName;
         }
 
         if ($request->hasFile('package_large_pic')) {
             $imageLargeName = time().'.'.$request->package_large_pic->extension();  
-            $package_large_pic = $request->package_large_pic->move(public_path('images'), $imageLargeName);
+            $request->package_large_pic->move(public_path('images'), $imageLargeName);
+            $package_large_pic = $imageLargeName;
         }
         
-        
-
         $package = new Package;
 
         $package->name = $request->name;
@@ -100,7 +109,7 @@ class PackageController extends Controller
         $package->couple_rp = $request->couple_rp;
         $package->couple_dsc = $request->couple_dsc;
 
-        $package->popular = $request->popular;
+        $package->popular = ($request->popular) ? $request->popular : 0;
         $package->package_small_pic = $package_small_pic;
         $package->package_large_pic = $package_large_pic;
         $package->meta_keywords = $request->meta_keywords;
@@ -112,25 +121,16 @@ class PackageController extends Controller
         
         $package->categories()->sync($request->categories);
 
-
         
         foreach ($request->input('document', []) as $file) {
             $image = new Image;
-            //echo $from_path = public_path('tmp/uploads/' . $file);
-            //echo $to_path = public_path('images/gallery'. $file);
             File::copy(storage_path('tmp/uploads/'.$file), public_path('images/'.$file));
-            $image->url = public_path('images/'.$file);
+            $image->url = $file;
             $image->package_id = $package->id;
             $image->save();
         }
-
-        // foreach ($request->input('document', []) as $imagefile) {
-        //     $image = new Image;
-        //     $path = $imagefile->move('/images/resource', ['disk' =>   'my_files']);
-        //     $image->url = $path;
-        //     $image->package_id = $package->id;
-        //     $image->save();
-        // }
+        return redirect()->route('admin.packages.index')
+        ->with('success','Package has been added successfully.');
     }
 
     /**
@@ -141,7 +141,8 @@ class PackageController extends Controller
      */
     public function show($id)
     {
-        //
+        $package = Package::with('categories','images')->find($id);
+        return view('admin.packages.show',compact('package'));
     }
 
     /**

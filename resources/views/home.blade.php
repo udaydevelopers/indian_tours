@@ -1,6 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.front')
 
 @section('content')
+<main id="content" class="site-main">
+<section class="inner-banner-wrap">
+               <div class="inner-baner-container" style="background-image: url(assets/images/inner-banner.jpg);">
+                  <div class="container">
+                     <div class="inner-banner-content">
+                        <h1 class="inner-title">Home</h1>
+                     </div>
+                  </div>
+               </div>
+               <div class="inner-shape"></div>
+            </section>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,4 +31,5 @@
         </div>
     </div>
 </div>
+</main>
 @endsection

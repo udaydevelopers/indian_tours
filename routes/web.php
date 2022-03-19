@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\PackageController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 Auth::routes(['register' => false]);

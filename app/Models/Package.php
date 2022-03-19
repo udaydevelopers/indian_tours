@@ -18,6 +18,6 @@ class Package extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(\App\Models\Category::class);
+        return $this->belongsToMany(\App\Models\Category::class,'category_package');
     }
 }
