@@ -45,9 +45,22 @@
                                     Infant:{{ $package->infant_sp }}
                                     </td>
                                     <td>
-                                    <a class="" href="{{ route('admin.packages.show',$package->id) }}"><span class="badge badge-info"><i class="fas fa-info-circle"></i> </span</a>
-                                    <span class="badge badge-success"><i class="far fa-edit"></i></span>
-                                    <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
+                                    <a class="" href="{{ route('admin.packages.show',$package->id) }}">
+                                        <span class=""><i class="fas fa-info-circle"></i> </span</a>
+                                    
+                                    @can('package-edit')
+                                    <a class="" href="{{ route('admin.packages.edit',$package->id) }}"><span class="badge badge-success"><i class="far fa-edit"></i></span></a>
+                                    @endcan
+                                    @can('package-delete')
+                                    <a href="#"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('delete-form').submit();">
+                                        <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
+                                    </a>
+                                        {!! Form::open(['id'=> 'delete-form','method' => 'DELETE','route' => ['admin.packages.destroy', $package->id],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}
+                                        {!! Form::close() !!}
+                                    @endcan
                                 </td>
                                 </tr>
                                 @endforeach

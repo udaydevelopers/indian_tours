@@ -76,8 +76,8 @@
                   <div class="site-identity">
                      <h1 class="site-title">
                         <a href="{{ url('/')}}">
-                           <img class="white-logo" src="assets/images/indian-tours-logo.png" alt="logo">
-                           <img class="black-logo" src="assets/images/indiantours-logo.png" alt="logo">
+                           <img class="white-logo" src="{{ url('assets/images/indian-tours-logo.png') }}" alt="logo">
+                           <img class="black-logo" src="{{ url('assets/images/indiantours-logo.png') }}" alt="logo">
                         </a>
                      </h1>
                   </div>
@@ -112,7 +112,7 @@
                               <a href="himachal-pradesh.html">Himachal</a>
                            </li>
                             <li>
-                              <a href="contact.html">Contact</a>
+                              <a href="{{ route('contact') }}">{{ __('Contact') }}</a>
                            </li>
                            <li>
                               <a href="#">Blog</a>
@@ -167,10 +167,27 @@
                                     <a href="admin/forgot.html">Forget Password</a>
                                  </li>
                               </ul>
-                           </li>
-                        </ul> -->
+                           </li>-->
+                           
+                        </ul> 
                      </nav>
                   </div>
+                  @guest
+                  <div class="header-btn">
+                  <a class="button-primary" href="{{ route('login') }}">{{ __('Login') }}</a>
+                  </div>
+                  @else
+                  <div class="header-btn">
+                  <a class="button-primary" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                  </form>
+                  </div>
+                  @endguest
                 <div class="header-btn">
                      <a href="tel:9876440250" class="button-primary">Call Now</a>
                   </div>
@@ -324,17 +341,17 @@
       </div>
 
       <!-- JavaScript -->
-      <script src="assets/js/jquery.js"></script>
+      <script src="{{ url('assets/js/jquery.js') }}"></script>
       <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-      <script src="assets/vendors/bootstrap/js/bootstrap.min.js"></script>
-      <script src="assets/vendors/jquery-ui/jquery-ui.min.js"></script>
-      <script src="assets/vendors/countdown-date-loop-counter/loopcounter.js"></script>
-      <script src="assets/js/jquery.counterup.js"></script>
-      <script src="assets/vendors/modal-video/jquery-modal-video.min.js"></script>
-      <script src="assets/vendors/masonry/masonry.pkgd.min.js"></script>
-      <script src="assets/vendors/lightbox/dist/js/lightbox.min.js"></script>
-      <script src="assets/vendors/slick/slick.min.js"></script>
-      <script src="assets/js/jquery.slicknav.js"></script>
-      <script src="assets/js/custom.min.js"></script>
+      <script src="{{ url('assets/vendors/bootstrap/js/bootstrap.min.js') }}"></script>
+      <script src="{{ url('assets/vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+      <script src="{{ url('assets/vendors/countdown-date-loop-counter/loopcounter.js') }}"></script>
+      <script src="{{ url('assets/js/jquery.counterup.js') }}"></script>
+      <script src="{{ url('assets/vendors/modal-video/jquery-modal-video.min.js') }}"></script>
+      <script src="{{ url('assets/vendors/masonry/masonry.pkgd.min.js') }}"></script>
+      <script src="{{ url('assets/vendors/lightbox/dist/js/lightbox.min.js') }}"></script>
+      <script src="{{ url('assets/vendors/slick/slick.min.js') }}"></script>
+      <script src="{{ url('assets/js/jquery.slicknav.js') }}"></script>
+      <script src="{{ url('assets/js/custom.min.js') }}"></script>
    </body>
 </html>

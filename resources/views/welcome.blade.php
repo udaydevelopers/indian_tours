@@ -113,153 +113,20 @@
                                        <span style="width: 60%"></span>
                                     </div>
                                  </div>
-                                 {!! $package->description !!}
+
+                                 {!! Str::limit($package->description, 300, ' ...') !!}
                                  <div class="btn-wrap">
-                                    <a href="triund-trek/triund-trek-dharamshala.html" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
+                                    @foreach($package->categories as $category)
+                                    @php $cat_slug = $category->slug @endphp
+                                    @endforeach
+                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
                                     <a href="tel: +91 96253-48288" class="button-text width-6">Call Now<i class="fa fa-phone"></i></a>
                                  </div>
                               </div>
                            </div>
                         </div>
                         @endforeach
-                        <div class="col-lg-6">
-                           <div class="package-wrap package-wrap-list">
-                              <figure class="feature-image">
-                                 <a href="#">
-                                    <img src="assets/images/img10.jpg" alt="">
-                                 </a>
-                                 <div class="package-price">
-                                    <h6>
-                                       <span>₹899</span> / per person
-                                    </h6>
-                                 </div>
-                                 <div class="package-meta text-center">
-                                    <ul>
-                                       <li>
-                                          <i class="far fa-clock"></i>
-                                          2D/1N
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-user-friends"></i>
-                                          People: 01
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-map-marker-alt"></i>
-                                          Himachal
-                                       </li>
-                                    </ul>
-                                 </div>
-                              </figure>
-                              <div class="package-content">
-                                 <h3>
-                                    <a href="#">Kheerganga Trek</a>
-                                 </h3>
-                                 <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                       <span style="width: 80%"></span>
-                                    </div>
-                                 </div>
-                                 <p>Kheerganga is one of the unique Himalayan treks in which you are rewarded with excellent meadows, forested ways with pine trees, couple of cascades and crossing towns on reaching the summit at almost 10,000 feet</p>
-                                 <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                     <a href="tel: +91 96253-48288" class="button-text width-6">Call Now<i class="fa fa-phone"></i></a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="package-wrap package-wrap-list">
-                              <figure class="feature-image">
-                                 <a href="#">
-                                    <img src="assets/images/img11.jpg" alt="">
-                                 </a>
-                                 <div class="package-price">
-                                    <h6>
-                                       <span>₹999 </span> / per person
-                                    </h6>
-                                 </div>
-                                 <div class="package-meta text-center">
-                                    <ul>
-                                       <li>
-                                          <i class="far fa-clock"></i>
-                                          2D/1N
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-user-friends"></i>
-                                          People: 01
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-map-marker-alt"></i>
-                                          Himachal
-                                       </li>
-                                    </ul>
-                                 </div>
-                              </figure>
-                              <div class="package-content">
-                                 <h3>
-                                    <a href="#">Camping in Kasol</a>
-                                 </h3>
-                                 <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                       <span style="width: 80%"></span>
-                                    </div>
-                                 </div>
-                                 <p> The best place to stay in Kasol, however it's 1.5 kilometres from the market. With the sound of River Parvati streams, camping at Kasol epitomises natural camping in Himachal Pradesh.</p>
-                                 <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                     <a href="tel: +91 96253-48288" class="button-text width-6">Call Now<i class="fa fa-phone"></i></a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="package-wrap">
-                              <figure class="feature-image">
-                                 <a href="#">
-                                    <img src="assets/images/img11-01.jpg" alt="">
-                                 </a>
-                                 <div class="package-price">
-                                    <h6>
-                                       <span>₹6499</span> / per person
-                                    </h6>
-                                 </div>
-                                 <div class="package-meta text-center">
-                                    <ul>
-                                       <li>
-                                          <i class="far fa-clock"></i>
-                                          4D/3N
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-user-friends"></i>
-                                          People: 01
-                                       </li>
-                                       <li>
-                                          <i class="fas fa-map-marker-alt"></i>
-                                          Himachal
-                                       </li>
-                                    </ul>
-                                 </div>
-                              </figure>
-                              <div class="package-content">
-                                 <h3>
-                                    <a href="#">Beas Kund Trek</a>
-                                 </h3>
-                                 <div class="review-area">
-                                    <span class="review-text">(22 reviews)</span>
-                                    <div class="rating-start" title="Rated 5 out of 5">
-                                       <span style="width: 100%"></span>
-                                    </div>
-                                 </div>
-                                 <p>Beas Kund has long been a popular hike in the Manali area. After all, it leads directly to the mouth of the river that runs through town.You may have arrived at Manali by following the same river upstream!</p>
-                                 <div class="btn-wrap">
-                                    <a href="#" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                     <a href="tel: +91 96253-48288" class="button-text width-6">Call Now<i class="fa fa-phone"></i></a>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
+
                      </div>
                      <div class="btn-wrap text-center">
                         <a href="#" class="button-primary">VIEW ALL PACKAGES</a>

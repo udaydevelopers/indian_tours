@@ -18,13 +18,16 @@ use App\Http\Controllers\Admin\PackageController;
 |
 */
 
-Route::get('/', function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-});
+
+Route::get('/', [HomeController::class, 'index']);
+
 
 Auth::routes(['register' => false]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
+Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
 
 Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('admin')->group(function () {
     Route::resource('roles', RoleController::class);

@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       $this->middleware('auth')->except('index' , 'contact', 'packageDetails');
     }
 
     /**
@@ -24,13 +24,30 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        $packages = Package::where('popular',0)->limit(20)->get();
+        $packages = Package::where('popular', 1)->limit(4)->get();
+        
         return view('welcome', compact('packages'));
     }
 
     public function dashboard()
     {
+        $this->middleware('auth');
         return view('admin.dashboard');
+    }
+
+    public function contact()
+    {
+        return view('contact');
+    }
+
+    public function categoryDetails($category)
+    {
+        dd($category);
+    }
+
+    public function packageDetails($category, $package)
+    {
+        $package = Package::with('images')->where('slug', $package)->first();
+        return view('package-details', compact('package'));
     }
 }

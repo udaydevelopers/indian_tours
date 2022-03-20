@@ -68,7 +68,7 @@ class PackageController extends Controller
         //dd($request);
         $this->validate($request, [
               'name' => 'required|string|max:255',
-              'description' => 'required|string|max:855',
+              'description' => 'required|string|max:2000',
         ]);
 
         $package_small_pic = null;
@@ -176,7 +176,9 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Package::find($id)->delete();
+        return redirect()->route('admin.packages.index')
+                        ->with('success','Package deleted successfully');
     }
 
     public function storeMedia(Request $request)
