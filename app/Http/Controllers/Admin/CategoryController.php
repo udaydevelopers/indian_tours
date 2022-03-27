@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Carbon\Carbon;
+use File;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -16,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Category::orderBy('id','DESC')->paginate(5);
+        $data = Category::orderBy('id','DESC')->paginate(20);
         return view('admin.categories.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -40,15 +42,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $this->validate($request, [
             'name'      => 'required',
             'parent_id' => 'nullable|numeric'
         ]);
 
+        $background_image = null;
+
+        if ($request->hasFile('background_image')) {
+            $background_image = time().'.'.$request->background_image->extension();  
+            $request->background_image->move(public_path('images/categories'), $background_image);
+        }
+
         Category::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
-            'parent_id' =>$request->parent_id
+            'parent_id' =>$request->parent_id,
+            'background_image' => $background_image
         ]);
         return redirect()->route('admin.categories.index')
         ->with('success','Category has been created successfully.');
@@ -93,10 +104,20 @@ class CategoryController extends Controller
             'parent_id' => 'nullable|numeric'
         ]);
 
+        $background_image = null;
+
+        if ($request->hasFile('background_image')) {
+            $background_image = time().'.'.$request->background_image->extension();  
+            $request->background_image->move(public_path('images/categories'), $background_image);
+        }
+
         $category = Category::find($id);
         $category->name = $request->input('name');
         $category->slug = Str::slug($request->name);
-        $category->parent_id = $request->parent_id ? $request->parent_id : '';
+        $category->parent_id = $request->parent_id;
+        $category->sort_order = 0;
+        $category->background_image = ($background_image) ? $background_image : $request->background_image;
+        $category->updated_at = Carbon::now();
         $category->save();
 
         return redirect()->route('admin.categories.index')

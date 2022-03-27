@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Package;
 
@@ -40,9 +41,10 @@ class HomeController extends Controller
         return view('contact');
     }
 
-    public function categoryDetails($category)
+    public function categoryDetails($slug)
     {
-        dd($category);
+        $category = Category::with('packages')->where('slug', $slug)->first();
+        return view('category-details', compact('category'));
     }
 
     public function packageDetails($category, $package)

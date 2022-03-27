@@ -24,10 +24,8 @@ Route::get('/', [HomeController::class, 'index']);
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
-Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
-Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
+
+
 
 Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('admin')->group(function () {
     Route::resource('roles', RoleController::class);
@@ -38,3 +36,9 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
 });
+
+/// Front End Root ///
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
+Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');

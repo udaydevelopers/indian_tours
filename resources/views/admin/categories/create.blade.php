@@ -32,7 +32,7 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control', 'enctype' => "multipart/form-data")) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -50,7 +50,13 @@
             @endif
         </select>
     </div>
-</div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Background Image:</strong>
+            <input type="file" name="background_image" class="form-control" required name="image">
+        </div>
+    </div>
 
 </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">

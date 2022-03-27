@@ -26,7 +26,7 @@
 @endif
 
 
-{!! Form::model($category, ['method' => 'PATCH','route' => ['admin.categories.update', $category->id]]) !!}
+{!! Form::model($category, ['method' => 'PATCH','route' => ['admin.categories.update', $category->id], 'enctype' => "multipart/form-data"]) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
@@ -50,7 +50,13 @@
                 @endforeach
             @endif
         </select>
-</div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Background Image:</strong>
+            <input type="file" name="background_image" class="form-control" required name="image">
+        </div>
+    </div>
 
 </div>
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">

@@ -75,10 +75,13 @@
                   <div class="package-inner package-inner-list">
                      <div class="row">
                         @foreach($packages as $package)
+                           @foreach($package->categories as $category)
+                              @php $cat_slug = $category->slug @endphp
+                           @endforeach
                         <div class="col-lg-6">
                            <div class="package-wrap package-wrap-list">
                               <figure class="feature-image">
-                                 <a href="triund-trek/triund-trek-dharamshala.html">
+                                 <a href="{{ $cat_slug }}/{{ $package->slug }}">
                                     <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="">
                                  </a>
                                  <div class="package-price">
@@ -105,7 +108,7 @@
                               </figure>
                               <div class="package-content">
                                  <h3>
-                                    <a href="triund-trek/triund-trek-dharamshala.html">{{ $package->name }}</a>
+                                    <a href="{{ $cat_slug }}/{{ $package->slug }}">{{ $package->name }}</a>
                                  </h3>
                                  <div class="review-area">
                                     <span class="review-text">(25 reviews)</span>
@@ -116,11 +119,8 @@
 
                                  {!! Str::limit($package->description, 300, ' ...') !!}
                                  <div class="btn-wrap">
-                                    @foreach($package->categories as $category)
-                                    @php $cat_slug = $category->slug @endphp
-                                    @endforeach
-                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6">Book Now<i class="fas fa-arrow-right"></i></a>
-                                    <a href="tel: +91 96253-48288" class="button-text width-6">Call Now<i class="fa fa-phone"></i></a>
+                                    
+                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
                                  </div>
                               </div>
                            </div>
@@ -135,10 +135,6 @@
                </div>
             </section>
             <!-- packages html end -->
-
-
-
-
 
        </section>
             <section class="home-about-section">
@@ -260,79 +256,84 @@
                      <div class="row">
                         <div class="col-lg-3 col-sm-6">
                            <div class="desti-item text-center">
+                           <a href="{{ url('north-india-tours') }}">
                               <figure class="desti-image">
                                  <img src="assets/images/img50.jpg" alt="north">
                                  <div class="rating-start" title="Rated 5 out of 4">
                                     <span style="width: 53%"></span>
                                  </div>
                               </figure>
+                              </a>
                               <div class="desti-content">
                                  <h3>
-                                    <a href="north-india-tours.html">North</a>
+                                    <a href="{{ url('north-india-tours') }}">North</a>
                                  </h3>
                                  <div class="meta-cat">
-                                    <a href="north-india-tours.html">INDIA</a>
+                                    <a href="{{ url('north-india-tours') }}">INDIA</a>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">
                            <div class="desti-item text-center">
+                           <a href="{{ url('east-india-tours') }}">
                               <figure class="desti-image">
                                  <img src="assets/images/img51.jpg" alt="east">
                                  <div class="rating-start" title="Rated 5 out of 4">
                                     <span style="width: 53%"></span>
                                  </div>
                               </figure>
+                              </a>
                               <div class="desti-content">
                                  <h3>
-                                    <a href="#">East</a>
+                                    <a href="{{ url('east-india-tours') }}">East</a>
                                  </h3>
                                  <div class="meta-cat">
-                                    <a href="#">INDIA</a>
+                                    <a href="{{ url('east-india-tours') }}">INDIA</a>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">
                            <div class="desti-item text-center">
+                              <a href="{{ url('west-india-tours') }}">
                               <figure class="desti-image">
                                  <img src="assets/images/img52.jpg" alt="west">
                                  <div class="rating-start" title="Rated 5 out of 4">
                                     <span style="width: 53%"></span>
                                  </div>
                               </figure>
+                              </a>
                               <div class="desti-content">
                                  <h3>
-                                    <a href="#">West</a>
+                                 <a href="{{ url('west-india-tours') }}">West</a>
                                  </h3>
                                  <div class="meta-cat">
-                                    <a href="#">INDIA</a>
+                                    <a href="{{ url('west-india-tours') }}">INDIA</a>
                                  </div>
                               </div>
                            </div>
                         </div>
                         <div class="col-lg-3 col-sm-6">
                            <div class="desti-item text-center">
+                           <a href="{{ url('south-india-tours') }}">
                               <figure class="desti-image">
                                  <img src="assets/images/img53.jpg" alt="south">
                                  <div class="rating-start" title="Rated 5 out of 4">
                                     <span style="width: 53%"></span>
                                  </div>
                               </figure>
+                              </a>
                               <div class="desti-content">
                                  <h3>
-                                    <a href="#">South</a>
+                                    <a href="{{ url('south-india-tours') }}">South</a>
                                  </h3>
                                  <div class="meta-cat">
-                                    <a href="#">INDIA</a>
+                                    <a href="{{ url('south-india-tours') }}">INDIA</a>
                                  </div>
                               </div>
                            </div>
                         </div>
-                     </div>
-                     <div class="btn-wrap text-center">
-                        <a href="#" class="button-primary">MORE DESTINATION</a>
                      </div>
                   </div>
                </div>   
@@ -351,7 +352,7 @@
                      </div>
                   </div>
                   <div class="activity-inner row">
-                     <div class="col-lg-2 col-md-4 col-6">
+                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="activity-item">
                            <div class="activity-icon">
                               <a href="#">
@@ -366,7 +367,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-lg-2 col-md-4 col-6">
+                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="activity-item">
                            <div class="activity-icon">
                               <a href="#">
@@ -381,22 +382,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-lg-2 col-md-4 col-6">
-                        <div class="activity-item">
-                           <div class="activity-icon">
-                              <a href="#">
-                                 <img src="assets/images/img46.png" alt="">
-                              </a>
-                           </div>
-                           <div class="activity-content">
-                              <h4>
-                                 <a href="#">Camp Fire</a>
-                              </h4>
-                              <p>7 Destination</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-lg-2 col-md-4 col-6">
+                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="activity-item">
                            <div class="activity-icon">
                               <a href="#">
@@ -411,22 +397,7 @@
                            </div>
                         </div>
                      </div>
-                     <div class="col-lg-2 col-md-4 col-6">
-                        <div class="activity-item">
-                           <div class="activity-icon">
-                              <a href="#">
-                                 <img src="assets/images/img48.png" alt="">
-                              </a>
-                           </div>
-                           <div class="activity-content">
-                              <h4>
-                                 <a href="#">Camping</a>
-                              </h4>
-                              <p>13 Destination</p>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="col-lg-2 col-md-4 col-6">
+                     <div class="col-lg-3 col-md-4 col-6">
                         <div class="activity-item">
                            <div class="activity-icon">
                               <a href="#">

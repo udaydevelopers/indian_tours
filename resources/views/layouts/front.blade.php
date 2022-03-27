@@ -91,16 +91,16 @@
                               <a href="#">Tour Program</a>
                               <ul>
                                  <li>
-                                    <a href="north-india-tours.html">North India Tours</a>
+                                    <a href="{{ url('north-india-tours') }}">North India Tours</a>
                                  </li>
                                  <li>
-                                    <a href="east-india-tours.html">East India Tours</a>
+                                    <a href="{{ url('east-india-tours') }}">East India Tours</a>
                                  </li>
                                  <li>
-                                    <a href="west-india-tours.html">West India Tours</a>
+                                    <a href="{{ url('west-india-tours') }}">West India Tours</a>
                                  </li>
                                  <li>
-                                    <a href="south-india-tours.html">South India Tours</a>
+                                    <a href="{{ url('south-india-tours') }}">South India Tours</a>
                                  </li>
                               </ul>
                            </li>
