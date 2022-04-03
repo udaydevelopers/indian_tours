@@ -3,12 +3,15 @@
 @section('content')
 
 <main id="content" class="site-main">
+   @if($category)
             <!-- Inner Banner html start-->
             <section class="inner-banner-wrap">
-               <div class="inner-baner-container" style="background-image: url({{ url('/images/categories/'.$category->background_image) }});">
+               @php $inner_banner = isset($category->background_image) ? $category->background_image : 'inner-banner.jpg'; @endphp
+               <div class="inner-baner-container" style="background-image: 
+                  url({{ url('/images/categories/'. $inner_banner) }});">
                   <div class="container">
                      <div class="inner-banner-content">
-                        <h1 class="inner-title">{{ $category->name }}</h1>
+                        <h1 class="inner-title">{{ $category->name? $category->name:''}}</h1>
                      </div>
                   </div>
                </div>
@@ -151,7 +154,8 @@
                      </div>
                   </div>
                </div>
-            </section>
+            </section>@endif
             <!-- activity html end -->
          </main>
+         
 @endsection

@@ -105,11 +105,11 @@
                               </ul>
                            </li>
                            <li>
-                              <a href="triund-trek/triund-trek-dharamshala.html">Triund Trek</a>
+                              <a href="{{ url('triund-trek/triund-trek-dharamshala') }}">Triund Trek</a>
                            </li>
                            
                             <li>
-                              <a href="himachal-pradesh.html">Himachal</a>
+                              <a href="{{ url('himachal-tours') }}">Himachal</a>
                            </li>
                             <li>
                               <a href="{{ route('contact') }}">{{ __('Contact') }}</a>
