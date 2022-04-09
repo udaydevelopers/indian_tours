@@ -26,8 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         $packages = Package::where('popular', 1)->limit(4)->get();
-        
-        return view('welcome', compact('packages'));
+        $title = "Home: Indian Tours";
+        $meta_keywords = 'Indian Tours';
+        $meta_descriptions = 'Indian Tours';
+        return view('welcome', compact('packages', 'title','meta_keywords','meta_descriptions'));
     }
 
     public function dashboard()
@@ -44,12 +46,18 @@ class HomeController extends Controller
     public function categoryDetails($slug)
     {
         $category = Category::with('packages')->where('slug', $slug)->first();
-        return view('category-details', compact('category'));
+        $title = $category->name?$category->name:"India Tours Categories";
+        $meta_keywords = $category->name?trim( $category->name):'';
+        $meta_descriptions = $category->name?trim( $category->name):'';
+        return view('category-details', compact('category','title','meta_keywords','meta_descriptions'));
     }
 
     public function packageDetails($category, $package)
     {
         $package = Package::with('images')->where('slug', $package)->first();
-        return view('package-details', compact('package'));
+        $title = $package->name?$package->name:"India Tours Packages";
+        $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        $meta_descriptions = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        return view('package-details', compact('package','title','meta_keywords','meta_descriptions'));
     }
 }

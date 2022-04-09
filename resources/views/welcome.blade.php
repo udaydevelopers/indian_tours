@@ -1,5 +1,9 @@
 @extends('layouts.front')
 
+@section('title', $title)
+@section('meta_keywords',  $meta_keywords)
+@section('meta_descriptions', $meta_descriptions)
+
 @section('content')
 <main id="content" class="site-main">
             <!-- Home banner html start -->

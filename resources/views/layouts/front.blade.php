@@ -25,6 +25,8 @@
       <!-- Custom CSS -->
       <link rel="stylesheet" type="text/css" href="{{ url('assets/css/style.css') }}">
       <title>@yield('title')</title>
+      <meta name="keywords" content="@yield('meta_keywords')">
+      <meta name="description" content="@yield('meta_descriptions')">  
    </head>
    <body class="home">
       <div id="siteLoader" class="site-loader">
