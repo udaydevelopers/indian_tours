@@ -44,19 +44,39 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
+                                                <span>Trip Days</span>
                                                     <input type="number" placeholder="Days" name="trip_days">
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
+                                                <span>Trip Nights</span>
                                                     <input type="number" placeholder="Nights" name="trip_nights">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>
+                        <div class="dashboard-box">
+                            <div class="custom-field-wrap">
+                                <div class="form-group">
+                                    <label><h4>Place Covered</h4></label>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                        <div class="col-12">
+                                                <div class="form-group">
+                                                    <span>Place Covered during the trip</span>
+                                                    <input type="text" placeholder="Place Covered Locations" name="place_covered">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="dashboard-box">
                             <div class="custom-field-wrap">
                                 <h4>Adult</h4>
@@ -222,7 +242,7 @@
                                 @foreach($parentCategories as $category)
                                 <div class="form-group">
                                     <label class="custom-input"><input type="checkbox" value="{{ $category->id }}" name="categories[]">
-                                        <span class="custom-input-field"></span>
+                                       <span class="custom-input-field"></span>
                                        {{ $category->name }}
                                        <?php $dash=''; ?>
                                        @include('admin.categories.subcatcheckbox',['subcategories' => $category->subcategory])
@@ -236,16 +256,26 @@
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-media-field-wrap">
-                                <h4>package small image</h4>
+                                <h4>Package Images</h4>
                                     <div class="form-group">
+                                    <span> Upload Small Image </span>
                                       <input type="file" name="package_small_pic" class="form-control" required name="image">
                                     </div>
-                                
-                            </div>
-                            <div class="custom-field-wrap db-media-field-wrap">
-                                <h4>package large image</h4>
                                     <div class="form-group">
+                                    <span> Upload Large Image </span>
                                     <input type="file" name="package_large_pic" class="form-control" required name="image">
+                                    </div>
+                            </div>
+                        
+                            <div class="custom-field-wrap db-media-field-wrap">
+                                <h4>Page Banner Image</h4>
+                                    <div class="form-group">
+                                    <span> Alt Text </span>
+                                    <input type="text" name="page_banner_alt" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                    <span> Upload Image </span>
+                                    <input type="file" name="page_banner_image" class="form-control">
                                     </div>
                             </div>
                         </div>

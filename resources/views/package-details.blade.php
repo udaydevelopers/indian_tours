@@ -2,27 +2,19 @@
 
 @section('content')
 <main id="content" class="site-main">
-
             <!-- Inner Banner html start-->
-
             <section class="inner-banner-wrap">
-
-               <div class="inner-baner-container" style="background-image: url(../assets/images/triund-trek/inner-banner.jpg);">
+            @php $inner_banner = isset($package->page_banner_image) ? $package->page_banner_image : 'inner-banner.jpg'; @endphp
+               <div class="inner-baner-container" style="background-image: 
+                  url({{ url('/images/'. $inner_banner) }});">
 
                   <div class="container">
-
                      <div class="inner-banner-content">
-
-                        <h1 class="inner-title">Triund Trek</h1>
-
+                        <h1 class="inner-title">{{ $package->page_banner_alt}}</h1>
                      </div>
-
                   </div>
-
                </div>
-
                <div class="inner-shape"></div>
-
             </section>
 
             <!-- Inner Banner html end-->

@@ -63,7 +63,7 @@
                                           <span style="width: 60%"></span>
                                        </div>
                                     </div>
-                                    
+                                    <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:''}}</p>
                                     <div class="btn-wrap">
                                        <a href="{{ $category->slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
                                     </div>

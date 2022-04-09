@@ -196,7 +196,17 @@
             <div class="mobile-menu-container"></div>
          </header>
          <main id="content" class="site-main">
-            @yield('content') 
+         @if ($errors->any())
+            <div class="alert alert-danger">
+               <ul>
+                     @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                     @endforeach
+               </ul>
+            </div>
+         @endif
+ 
+         @yield('content') 
          </main>
          <footer id="colophon" class="site-footer footer-primary">
             <div class="top-footer">

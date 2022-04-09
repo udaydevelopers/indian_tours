@@ -64,6 +64,23 @@
                         </div>
                         <div class="dashboard-box">
                             <div class="custom-field-wrap">
+                                <div class="form-group">
+                                    <label><h4>Place Covered</h4></label>
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                        <div class="col-12">
+                                                <div class="form-group">
+                                                    <span>Place Covered during the trip</span>
+                                                    <input type="text" value="{{ ($package->place_covered)?$package->place_covered:'' }}" placeholder="Place Covered Locations" name="place_covered">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="dashboard-box">
+                            <div class="custom-field-wrap">
                                 <h4>Adult</h4>
                                 <div class="row">
                                     <div class="col-sm-4">
@@ -244,19 +261,36 @@
                                     <a href="{{ route('admin.categories.create') }}">Add category</a>
                                 </div>
                             </div>
+                            
                             <div class="custom-field-wrap db-media-field-wrap">
-                                <h4>package small image</h4>
+                                <h4>Package Images</h4>
                                     <div class="form-group">
+                                    <span> Upload Small Image </span>
                                       <input type="file" name="package_small_pic" class="form-control" name="image">
+                                      
                                     </div>
-                                <img src="{{ url('/images/'. $package->package_small_pic) }}">
-                            </div>
-                            <div class="custom-field-wrap db-media-field-wrap">
-                                <h4>package large image</h4>
+                                    <img src="{{ url('/images/'. $package->package_small_pic) }}">
                                     <div class="form-group">
+                                    <span> Upload Large Image </span>
                                     <input type="file" name="package_large_pic" class="form-control" name="image">
+                                   
                                     </div>
                                     <img src="{{ url('/images/'. $package->package_large_pic) }}">
+                            </div>
+                            <hr>
+                            <div class="custom-field-wrap db-media-field-wrap">
+                                <h4>Page Banner Image</h4>
+                                    <div class="form-group">
+                                    <span> Alt Text </span>
+                                    <input type="text" name="page_banner_alt" class="form-control" value="{{ $package->page_banner_alt}}">
+                                    </div>
+                                    <div class="form-group">
+                                    <span> Upload Image </span>
+                                    <input type="file" name="page_banner_image" class="form-control">
+                                    </div>
+                                    @if($package->page_banner_image)
+                                    <img src="{{ url('/images/'. $package->page_banner_image) }}">
+                                    @endif
                             </div>
                         </div>
                     </div>

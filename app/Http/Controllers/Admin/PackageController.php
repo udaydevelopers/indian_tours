@@ -75,16 +75,25 @@ class PackageController extends Controller
         
         $package = new Package;
 
+        // Package small Image
         if ($request->hasFile('package_small_pic')) {
-            $imageSmallName = time().'_small.'.$request->package_small_pic->extension();  
+            $imageSmallName = time().'_small_'.$request->package_small_pic->getClientOriginalName();  
             $request->package_small_pic->move(public_path('images'), $imageSmallName);
             $package->package_small_pic = $imageSmallName;
         }
-
+        // Package Large Image
         if ($request->hasFile('package_large_pic')) {
-            $imageLargeName = time().'_large.'.$request->package_large_pic->extension();  
+            $imageLargeName = time().'_large_'.$request->package_large_pic->getClientOriginalName();  
             $request->package_large_pic->move(public_path('images'), $imageLargeName);
             $package->package_large_pic = $imageLargeName;
+        }
+        
+        // Packge Banner and alt text settings
+        if ($request->hasFile('page_banner_image')) {
+            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
+            $request->page_banner_image->move(public_path('images'), $pageBanner);
+            $package->page_banner_image = $pageBanner;
+            $package->page_banner_alt = $request->page_banner_alt;
         }
 
         $package->name = $request->name;
@@ -113,6 +122,8 @@ class PackageController extends Controller
         $package->meta_keywords = $request->meta_keywords;
         $package->meta_descriptions = $request->meta_descriptions;
         $package->status = $request->status;
+        $package->place_covered = $request->place_covered;
+
         $package->slug = Str::slug($request->name);
 
         $package->save();
@@ -184,6 +195,14 @@ class PackageController extends Controller
             $package->package_large_pic = $imageLargeName;
         }
 
+        // Packge Banner and alt text settings
+        if ($request->hasFile('page_banner_image')) {
+            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
+            $request->page_banner_image->move(public_path('images'), $pageBanner);
+            $package->page_banner_image = $pageBanner;
+            $package->page_banner_alt = $request->page_banner_alt;
+        }
+
         $package->name = $request->name;
         $package->description = $request->description;
         $package->program = $request->program;
@@ -211,7 +230,7 @@ class PackageController extends Controller
         $package->meta_descriptions = $request->meta_descriptions;
         $package->status = $request->status;
         $package->slug = Str::slug($request->name);
-
+        $package->place_covered = $request->place_covered;
         $package->save();
         if($request->categories == null) $request->categories = [1];
         $package->categories()->sync($request->categories);
