@@ -39,6 +39,9 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
 
 /// Front End Root ///
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/popular-packages', [HomeController::class, 'popularPackages'])->name('popular-packages');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
 Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
+
+Route::post('/booking', [HomeController::class, 'bookingStore'])->name('booking.store');

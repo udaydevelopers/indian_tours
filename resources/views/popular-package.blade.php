@@ -7,62 +7,16 @@
 @section('content')
 <main id="content" class="site-main">
             <!-- Home banner html start -->
-            <section class="home-banner-section">
-               <div class="home-banner-items">
-                  <div class="banner-inner-wrap" style="background-image: url(assets/images/slider-banner-2.jpg);"></div>
-                     <div class="banner-content-wrap">
-                        <div class="container">
-                           <div class="row align-items-center">
-                              <div class="col-lg-8">
-                                 <div class="banner-content section-heading section-heading-white">
-                                    <h5>EXPLORE. DISCOVER. TRAVEL</h5>
-                                    <h2 class="banner-title">JOURNEY TO EXPLORE INDIA </h2>
-                                    <div class="title-icon-divider"><i class="fas fa-suitcase-rolling"></i></div>
-                                    <p>The impeccable service bouquet of  Indian Tours includes all avenues of Inbound Tours</p>
-                                    <div class="slider-button">
-                                       <a href="#" class="button-primary">READ MORE</a>
-                                       <a href="#" class="button-secondary">SEE ALL OFFER</a>
-                                    </div>
-                                 </div>
-                              </div>
-<!--                               <div class="col-lg-4"> -->
-                                 <!-- Home search field html start -->
-                                 <!-- <div class="trip-search-section">
-                                    <div class="container">
-                                       <div class="trip-search-inner secondary-bg">
-                                          <div class="input-group width-col-1">
-                                             <label> Destination* </label>
-                                             <input type="text" name="s" placeholder="Enter Destination">
-                                          </div>
-                                          <div class="input-group width-col-1">
-                                             <label> Mobile Number* </label>
-                                             <input type="tel" name="s" placeholder="Enter Mobile No" maxlength="10">
-                                          </div>
-                                          <div class="input-group width-col-1">
-                                             <label> Checkin Date* </label>
-                                             <i class="far fa-calendar"></i>
-                                             <input class="input-date-picker" type="text" name="s" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
-                                          </div>
-                                          <div class="input-group width-col-1">
-                                             <label> Checkout Date* </label>
-                                             <i class="far fa-calendar"></i>
-                                             <input class="input-date-picker" type="text" name="s" placeholder="MM / DD / YY" autocomplete="off" readonly="readonly">
-                                          </div>
-                                          <div class="input-group width-col-1">
-                                             <label class="screen-reader-text"> Search </label>
-                                             <input type="submit" name="travel-search" value="INQUIRE NOW">
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div> -->
-                                 <!-- search search field html end -->
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  <div class="overlay"></div>
-               </div>
-            </section>
+            <section class="inner-banner-wrap">
+            <div class="inner-baner-container" style="background-image: url(assets/images/inner-banner.jpg);">
+                <div class="container">
+                    <div class="inner-banner-content">
+                    <h1 class="inner-title">Popular Packages</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-shape"></div>
+        </section>
 
             <!-- Home packages section html start -->
             <section class="package-section bg-light-grey">
@@ -121,7 +75,7 @@
                                     </div>
                                  </div>
 
-                                 {!! Str::limit($package->description, 150, ' ...') !!}
+                                 {!! Str::limit($package->description, 300, ' ...') !!}
                                  <div class="btn-wrap">
                                     
                                     <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
@@ -133,10 +87,12 @@
 
                      </div>
                      <div class="btn-wrap text-center">
-                        <a href="{{ route('popular-packages')}}" class="button-primary">VIEW ALL PACKAGES</a>
+                        
                      </div>
+                     
                   </div>
                </div>
+               {{ $packages->links()}}
             </section>
             <!-- packages html end -->
 

@@ -42,7 +42,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $this->validate($request, [
             'name'      => 'required',
             'parent_id' => 'nullable|numeric'

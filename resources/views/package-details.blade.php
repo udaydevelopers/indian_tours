@@ -183,198 +183,6 @@
 
                                     <!-- review comment html -->
 
-                                    <div class="comment-area">
-
-                                       <h3 class="comment-title">3 Reviews</h3>
-
-                                       <div class="comment-area-inner">
-
-                                          <ol>
-
-                                             <li>
-
-                                                <figure class="comment-thumb">
-
-                                                  <!--  <img src="../assets/images/img20.jpg" alt=""> -->
-
-                                                </figure>
-
-                                                <div class="comment-content">
-
-                                                   <div class="comment-header">
-
-                                                      <h5 class="author-name">Manoj Kumar </h5>
-
-                                                      <span class="post-on"></span>
-
-                                                      <div class="rating-wrap">
-
-                                                         <div class="rating-start" title="Rated 5 out of 5">
-
-                                                            <span style="width: 90%;"></span>
-
-                                                         </div>
-
-                                                      </div>
-
-                                                   </div>
-
-                                                   <p>The team completed the trek valuable for us right from knowledge of the guide to food and water stipulation. Safety of girls is taken care of, however. It was a magnificent experience.</p>
-
-                                                   <a href="#" class="reply"><i class="fas fa-reply"></i>Reply</a>
-
-                                                </div>
-
-                                             </li>
-
-                                             <li>
-
-                                                <ol>
-
-                                                   <li>
-
-                                                      <figure class="comment-thumb">
-
-                                                         <!-- <img src="../assets/images/img21.jpg" alt=""> -->
-
-                                                      </figure>
-
-                                                      <div class="comment-content">
-
-                                                         <div class="comment-header">
-
-                                                            <h5 class="author-name">Deshraj </h5>
-
-                                                            <span class="post-on"></span>
-
-                                                            <div class="rating-wrap">
-
-                                                               <div class="rating-start" title="Rated 5 out of 5">
-
-                                                                  <span style="width: 90%"></span>
-
-                                                               </div>
-
-                                                            </div>
-
-                                                         </div>
-
-                                                         <p>It is a have to do for those visiting Mcleodganj over the weekends. The view of Dhauladhars from Triund top is imposing. Good for first time trekkers while experienced ones can move in advance to Indrahar pass. Good to see.</p>
-
-                                                         <a href="#" class="reply"><i class="fas fa-reply"></i>Reply</a>
-
-                                                      </div>
-
-                                                   </li>
-
-                                                </ol>
-
-                                             </li>
-
-                                          </ol>
-
-                                          <ol>
-
-                                             <li>
-
-                                                <figure class="comment-thumb">
-
-                                                  <!--  <img src="../assets/images/img22.jpg" alt=""> -->
-
-                                                </figure>
-
-                                                <div class="comment-content">
-
-                                                   <div class="comment-header">
-
-                                                      <h5 class="author-name">Amit Malhotra</h5>
-
-                                                      <span class="post-on"></span>
-
-                                                      <div class="rating-wrap">
-
-                                                         <div class="rating-start" title="Rated 5 out of 5">
-
-                                                            <span></span>
-
-                                                         </div>
-
-                                                      </div>
-
-                                                   </div>
-
-                                                   <p>Because it was my first trek, I hunted it to be a lifetime memory. And it turned out exactly like that, thanks to Triund Trek the whole trip was unforgettable. Right from the start, to the food, the camps and the sightseeing, the whole thing was very well organized. I will absolutely advise this to anyone who wants a nice, relaxed and reasonable trip.</p>
-
-                                                   <a href="#" class="reply"><i class="fas fa-reply"></i>Reply</a>
-
-                                                </div>
-
-                                             </li>
-
-                                          </ol>
-
-                                       </div>
-
-                                       <div class="comment-form-wrap">
-
-                                          <h3 class="comment-title">Leave a Review</h3>
-
-                                          <form class="comment-form">
-
-                                             <div class="full-width rate-wrap">
-
-                                                <label>Your rating</label>
-
-                                                <div class="procduct-rate">
-
-                                                   <span></span>
-
-                                                </div>
-
-                                             </div>
-
-                                             <p>
-
-                                                <input type="text" name="name" placeholder="Name">
-
-                                             </p>
-
-                                             <p>
-
-                                                <input type="text" name="name" placeholder="Last name">
-
-                                             </p>
-
-                                             <p>
-
-                                                <input type="email" name="email" placeholder="Email">
-
-                                             </p>
-
-                                             <p>
-
-                                                <input type="text" name="subject" placeholder="Subject">
-
-                                             </p>
-
-                                             <p>
-
-                                                <textarea rows="6" placeholder="Your review"></textarea>
-
-                                             </p>
-
-                                             <p>
-
-                                                <input type="submit" name="submit" value="Submit">
-
-                                             </p>
-
-                                          </form>
-
-                                       </div>
-
-                                    </div>
-
                                  </div>
 
                                  <!-- <div class="tab-pane" id="map" role="tabpanel" aria-labelledby="map-tab">
@@ -698,8 +506,12 @@
                                 <div class="single-tour-item">
 
                                     <figure class="feature-image">
-
-                                       <img src="{{ url('/images/'.$image->url) }}" alt="triund-trek">
+                                       @php 
+                                       $image_name = $image->url;
+                                       $last_dot_index = strrpos($image_name, ".");
+                                       $without_extention = substr($image_name, 0, $last_dot_index);
+                                       @endphp
+                                       <img src="{{ url('/images/'.$image->url) }}" alt="{{ $without_extention }}">
 
                                     </figure>
 
@@ -739,19 +551,26 @@
                            </div>
 
                            <div class="widget-bg booking-form-wrap">
-
+                              @if ($message = Session::get('success'))
+                                 <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                 </div>
+                              @endif
                               <h4 class="bg-title">Booking</h4>
-
-                              <form class="booking-form">
-
+                              {!! Form::open(array('route' => 'booking.store','method'=>'POST', 'class' => 'booking-form')) !!}
+                                 @csrf
                                  <div class="row">
 
                                     <div class="col-sm-12">
 
                                        <div class="form-group">
 
-                                          <input name="name_booking" type="text" placeholder="Full Name">
-
+                                          <input name="full_name" type="text" placeholder="Full Name" class="form-control @error('full_name') is-invalid @enderror" value="{{old('full_name')}}">
+                                          @error('full_name')
+                                             <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                             </span>
+                                          @enderror
                                        </div>
 
                                     </div>
@@ -760,8 +579,12 @@
 
                                        <div class="form-group">
 
-                                          <input name="email_booking" type="text" placeholder="Email">
-
+                                          <input name="email" type="text" placeholder="Email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
+                                          @error('email')
+                                             <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                             </span>
+                                          @enderror
                                        </div>
 
                                     </div>
@@ -770,8 +593,12 @@
 
                                        <div class="form-group">
 
-                                          <input name="phone_booking" type="text" placeholder="Mobile Number" maxlength="10">
-
+                                          <input name="mobile" type="text" placeholder="Mobile Number" maxlength="10" class="form-control @error('mobile') is-invalid @enderror"  value="{{old('mobile')}}">
+                                          @error('mobile')
+                                             <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                             </span>
+                                          @enderror
                                        </div>
 
                                     </div>
@@ -780,8 +607,12 @@
 
                                        <div class="form-group">
 
-                                          <input name="phone_booking" type="number" placeholder="Number of Person" min="1">
-
+                                          <input name="no_of_persons" type="number" placeholder="Number of Person" min="1" class="form-control @error('no_of_persons') is-invalid @enderror"  value="{{old('no_of_persons')}}">
+                                          @error('no_of_persons')
+                                             <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                             </span>
+                                          @enderror
                                        </div>
 
                                     </div>
@@ -790,55 +621,20 @@
 
                                        <div class="form-group">
 
-                                          <input class="input-date-picker" type="text" name="s" autocomplete="off" readonly="readonly" placeholder="Date">
-
+                                          <input type="text" name="booking_date" autocomplete="off" readonly="readonly" placeholder="Date" class="input-date-picker form-control @error('booking_date') is-invalid @enderror" value="{{old('booking_date')}}">
+                                          @error('booking_date')
+                                             <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                             </span>
+                                          @enderror
                                        </div>
 
                                     </div>
-
-
-    
-
-                                    <!-- <div class="col-sm-6">
-
-                                       <div class="form-group">
-
-                                          <label class="checkbox-list">
-
-                                             <input type="checkbox" name="s">
-
-                                             <span class="custom-checkbox"></span>
-
-                                             Dinner
-
-                                          </label>
-
-                                       </div>
-
-                                    </div>
-
-                                    <div class="col-sm-6">
-
-                                       <div class="form-group">
-
-                                          <label class="checkbox-list">
-
-                                             <input type="checkbox" name="s">
-
-                                             <span class="custom-checkbox"></span>
-
-                                             Bike rent
-
-                                          </label>
-
-                                       </div>
-
-                                    </div> -->
 
                                     <div class="col-sm-12">
 
                                        <div class="form-group submit-btn">
-
+                                          <input type="hidden" name="package_name" value="{{$package->name }}">
                                           <input type="submit" name="submit" value="Boook Now">
 
                                        </div>
@@ -847,7 +643,7 @@
 
                                  </div>
 
-                              </form>
+                                 {!! Form::close() !!}
 
                            </div>
 
@@ -881,8 +677,7 @@
 
                               <a href="https://api.whatsapp.com/send?phone=919876440250&text=Hi%20There" target="_blank">
 
-                              <i class="fa fa-whatsapp" aria-hidden="true"></i>
-
+                              <i class="fab fa-whatsapp" aria-hidden="true"></i>
                            </a>
 
                         </div>
