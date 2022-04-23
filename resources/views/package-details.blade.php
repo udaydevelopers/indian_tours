@@ -33,7 +33,7 @@
 
                         <div class="single-tour-inner">
 
-                           <h2>{{ $package->name }}</h2>
+                        <h2>{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</h2>
 
                            <figure class="feature-image">
 
@@ -142,8 +142,6 @@
                                     <div class="itinerary-content">
 
                                        <h3>Program <span>(  {{ $package->trip_days }} days / {{ $package->trip_nights }} nights )</span></h3>
-
-                                       <h4>{{ $package->name }} ITINERARY</h4>
 
                                     </div>
 

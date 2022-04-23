@@ -190,6 +190,8 @@
                                     </div>
                                 </div>
                             </div>
+                       
+                            
                         </div>
                         <div class="dashboard-box">
                             
@@ -241,19 +243,25 @@
                             </div>
                             <div class="custom-field-wrap db-cat-field-wrap">
                                 <h4>Category</h4>
-                                @if($parentCategories) 
+                                @if($parentCategories)
+                                    @php $selectedCat = []; @endphp
+                                @foreach($package->categories as $cat) 
+                                    @php $selectedCat[] = $cat->id @endphp
+                                @endforeach
                                 @foreach($parentCategories as $category) 
                                 <div class="form-group">
                                     <label class="custom-input">
-                                        @foreach($package->categories as $cat)  
-                                        <input type="checkbox" value="{{ $category->id }}" name="categories[]" {{ ($cat->id == $category->id)?'checked':'' }}>
+                                    
+                                        @php $checked = ''; if(in_array($category->id, $selectedCat)){ $checked = 'checked';} @endphp
+                                        <input type="checkbox" value="{{ $category->id }}" name="categories[]" {{ $checked }}>
                                         <span class="custom-input-field"></span>
-                                       {{ $category->name }}
+                                       {{ $category->name }} <br/>
                                        <?php $dash='--'; ?>
+                        
                                        @include('admin.categories.subcatcheckbox',['subcategories' => $category->subcategory])
-                                       @endforeach
                                     </label>
                                 </div>
+                               
                                 @endforeach
                                 @endif
                 
@@ -281,22 +289,60 @@
                             <div class="custom-field-wrap db-media-field-wrap">
                                 <h4>Page Banner Image</h4>
                                     <div class="form-group">
-                                    <span> Alt Text </span>
-                                    <input type="text" name="page_banner_alt" class="form-control" value="{{ $package->page_banner_alt}}">
+                                        <span> Alt Text(H1 Tags) </span>
+                                        <input type="text" name="page_banner_alt" class="form-control" value="{{ $package->page_banner_alt}}">
                                     </div>
                                     <div class="form-group">
-                                    <span> Upload Image </span>
-                                    <input type="file" name="page_banner_image" class="form-control">
+                                        <span> Upload Image </span>
+                                        <input type="file" name="page_banner_image" class="form-control">
                                     </div>
                                     @if($package->page_banner_image)
                                     <img src="{{ url('/images/'. $package->page_banner_image) }}">
                                     @endif
+                                    <div class="form-group">
+                                        <span> H2 Tags </span>
+                                        <input type="text" name="h2_tags" class="form-control"  value="{{ $package->h2_tags}}">
+                                    </div>
+                            </div>
+                            <hr>
+                            <div class="custom-field-wrap db-media-field-wrap">
+                                <h4>Page URL</h4>
+                                    <div class="form-group">
+                                    <span> Page URL </span>
+                                    <input type="text" name="slug" class="form-control" value="{{ $package->slug}}">
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>      
             </div>
             {!! Form::close() !!}
+   
+            <div class="dashboard-box col-sm-9">
+                <h4>Gallery Images</h4>
+                    <div class="row" style="padding: 5px;;">
+                    @foreach($package->images as $image)
+                    <div class="custom-field-wrap col-sm-2 text-center">
+                    <img src="{{ url('/images/'.$image->url) }}" width="100"> 
+
+                    <form id="image-{{ $image->id }}" 
+                    action="{{ route('admin.images.destroy') }}"
+                    method="POST" style="display: block;">
+                    <a href="#"
+                    onclick="event.preventDefault();
+                    document.getElementById('image-{{ $image->id }}').submit();">
+                    <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
+                    </a>
+                    <input type="hidden" name="package_id" value="{{ $package->id }}">
+                    <input type="hidden" name="image_id" value="{{ $image->id }}">
+                    {{ csrf_field() }}
+                    {{ method_field('POST') }}
+                    </form>
+                    <br/>
+                    </div>
+                    @endforeach 
+                    </div>
+                </div>  
 @endsection
 
 @section('script')

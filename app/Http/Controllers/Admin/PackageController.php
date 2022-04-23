@@ -93,8 +93,8 @@ class PackageController extends Controller
             $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
             $request->page_banner_image->move(public_path('images'), $pageBanner);
             $package->page_banner_image = $pageBanner;
-            $package->page_banner_alt = $request->page_banner_alt;
         }
+        $package->page_banner_alt = $request->page_banner_alt;
 
         $package->name = $request->name;
         $package->description = $request->description;
@@ -122,10 +122,15 @@ class PackageController extends Controller
         $package->meta_keywords = $request->meta_keywords;
         $package->meta_descriptions = $request->meta_descriptions;
         $package->status = $request->status;
+        $package->h2_tags = $request->h2_tags;
         $package->place_covered = $request->place_covered;
 
-        $package->slug = Str::slug($request->name);
-
+        if(!empty($request->slug)){
+            $package->slug = Str::slug($request->slug);
+        }else{
+            $package->slug = Str::slug($request->name);
+        }
+       
         $package->save();
         
         $package->categories()->sync($request->categories);
@@ -178,7 +183,7 @@ class PackageController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
+            'description' => 'required|string',
         ]);
         
         $package = Package::find($id);
@@ -200,8 +205,8 @@ class PackageController extends Controller
             $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
             $request->page_banner_image->move(public_path('images'), $pageBanner);
             $package->page_banner_image = $pageBanner;
-            $package->page_banner_alt = $request->page_banner_alt;
         }
+        $package->page_banner_alt = $request->page_banner_alt;
 
         $package->name = $request->name;
         $package->description = $request->description;
@@ -229,7 +234,15 @@ class PackageController extends Controller
         $package->meta_keywords = $request->meta_keywords;
         $package->meta_descriptions = $request->meta_descriptions;
         $package->status = $request->status;
-        $package->slug = Str::slug($request->name);
+        $package->h2_tags = $request->h2_tags;
+        $package->place_covered = $request->place_covered;
+        
+        if(!empty($request->slug)){
+            $package->slug = Str::slug($request->slug);
+        }else{
+            $package->slug = Str::slug($request->name);
+        }
+
         $package->place_covered = $request->place_covered;
         $package->save();
         if($request->categories == null) $request->categories = [1];
@@ -277,5 +290,25 @@ class PackageController extends Controller
             'name'          => $name,
             'original_name' => $file->getClientOriginalName(),
         ]);
+    }
+
+    public function deleteImage(Request $request)
+    {
+        $package_id = $request->package_id;
+        $image_id = $request->image_id;
+
+        $image = Image::find($image_id);
+        $image_path = $image->url;
+        $filename = public_path(DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$image_path);
+        
+        // Destroy the Image
+        if(File::exists($filename)) { 
+            File::delete($filename);
+        }
+        
+        $image->delete();
+        // Redirect Back
+        return redirect()->route('admin.packages.index')
+                        ->with('success','Selected image deleted successfully');
     }
 }

@@ -32,10 +32,11 @@
                   </div>
                   <div class="package-inner package-inner-list">
                      <div class="row">
-                        @foreach($packages as $package)
+                     @foreach($packages as $package)
+                        @php $cat_slug = null; @endphp
                            @foreach($package->categories as $category)
-                              @php $cat_slug = $category->slug @endphp
-                           @endforeach
+                              @php  $cat_slug .= "/".$category->slug @endphp
+                           @endforeach 
                         <div class="col-lg-6">
                            <div class="package-wrap package-wrap-list">
                               <figure class="feature-image">

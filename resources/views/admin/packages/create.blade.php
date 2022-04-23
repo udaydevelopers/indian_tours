@@ -239,6 +239,7 @@
                             <div class="custom-field-wrap db-cat-field-wrap">
                                 <h4>Category</h4>
                                 @if($parentCategories)
+                                @php $selectedCat = []; @endphp
                                 @foreach($parentCategories as $category)
                                 <div class="form-group">
                                     <label class="custom-input"><input type="checkbox" value="{{ $category->id }}" name="categories[]">
@@ -270,12 +271,24 @@
                             <div class="custom-field-wrap db-media-field-wrap">
                                 <h4>Page Banner Image</h4>
                                     <div class="form-group">
-                                    <span> Alt Text </span>
+                                    <span> Alt Text(H1 Tags) </span>
                                     <input type="text" name="page_banner_alt" class="form-control">
                                     </div>
                                     <div class="form-group">
                                     <span> Upload Image </span>
                                     <input type="file" name="page_banner_image" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                    <span> H2 Tags </span>
+                                    <input type="text" name="h2_tags" class="form-control">
+                                    </div>
+                            </div>
+                            <hr>
+                            <div class="custom-field-wrap db-media-field-wrap">
+                                <h4>Page URL</h4>
+                                    <div class="form-group">
+                                    <span> Page URL </span>
+                                    <input type="text" name="slug" class="form-control">
                                     </div>
                             </div>
                         </div>

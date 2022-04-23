@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -17,7 +18,7 @@ class HomeController extends Controller
     public function __construct()
     {
        $this->middleware('auth')->except(
-           'index' , 'contact', 'categoryDetails', 'packageDetails', 'popularPackages', 'bookingStore'
+           'index' , 'contact', 'categoryDetails', 'packageDetails', 'popularPackages', 'bookingStore','subpackageDetails'
         );
     }
 
@@ -74,6 +75,15 @@ class HomeController extends Controller
         return view('package-details', compact('package','title','meta_keywords','meta_descriptions'));
     }
 
+    public function subpackageDetails($category, $subcat, $package)
+    {
+        $package = Package::with('images')->where('slug', $package)->first();
+        $title = ($package->name)?$package->name:"India Tours Packages";
+        $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        $meta_descriptions = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        return view('package-details', compact('package','title','meta_keywords','meta_descriptions'));
+    }
+
     public function bookingStore(Request $request)
     {
         $this->validate($request, [
@@ -94,6 +104,18 @@ class HomeController extends Controller
         $booking->package_name = $request->package_name;
 
         $booking->save();
+
+        $to_name = 'Indian Tours';
+        $to_email = 'indiantours2@gmail.com';
+        $from_name = $request->full_name;
+        $from_email = $request->email;
+
+        $data = array('body' => $booking, 'name' => $to_name, 'booking_date' => $request->booking_date);
+        Mail::send('emails.mail', $data, function($message) use ($to_name, $to_email, $from_name, $from_email) {
+        $message->to($to_email, $to_name)
+        ->subject('India Tours Booking Request');
+        $message->from($from_email, $from_name);
+        });
       
         return back()->with('success', 'Your booking requested successfully.');
     }

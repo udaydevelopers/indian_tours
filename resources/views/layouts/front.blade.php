@@ -76,12 +76,12 @@
             <div class="bottom-header">
                <div class="container d-flex justify-content-between align-items-center">
                   <div class="site-identity">
-                     <h1 class="site-title">
+                     <div class="site-title">
                         <a href="{{ url('/')}}">
                            <img class="white-logo" src="{{ url('assets/images/indian-tours-logo.png') }}" alt="logo">
                            <img class="black-logo" src="{{ url('assets/images/indiantours-logo.png') }}" alt="logo">
                         </a>
-                     </h1>
+                     </div>
                   </div>
                   <div class="main-navigation d-none d-lg-block">
                      <nav id="navigation" class="navigation">

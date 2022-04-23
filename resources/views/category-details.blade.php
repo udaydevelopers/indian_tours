@@ -27,7 +27,10 @@
                <div class="container">
                   <div class="package-inner package-inner-list">
                      <div class="row">
-                     @foreach($category->packages as $package)
+                     @foreach($category->packages as $package) 
+                        @php $catsubcat_slug = '';
+                        if($category->parent !== '') $catsubcat_slug = ($category->parent)->slug."/";
+                        @endphp
                         <div class="col-lg-6">
                            <div class="package-wrap package-wrap-list">
                               <figure class="feature-image">
@@ -68,7 +71,7 @@
                               </div>
                                  <p>{!! Str::limit($package->description, 300, ' ...') !!}</p>
                                  <div class="btn-wrap">
-                                    <a href="{{ $category->slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
+                                    <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
                                  </div>
                               </div>
                            </div>

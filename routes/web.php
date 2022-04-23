@@ -35,6 +35,7 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
+    Route::post('/delete-image', [PackageController::class, 'deleteImage'])->name('images.destroy');
 });
 
 /// Front End Root ///
@@ -43,5 +44,6 @@ Route::get('/popular-packages', [HomeController::class, 'popularPackages'])->nam
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
 Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
-
+Route::get('/{category}/{subcategory}/{package}', [HomeController::class, 'subpackageDetails'])->name('package-details-subcat');
 Route::post('/booking', [HomeController::class, 'bookingStore'])->name('booking.store');
+
