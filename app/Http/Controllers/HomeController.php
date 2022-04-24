@@ -17,6 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        
        $this->middleware('auth')->except(
            'index' , 'contact', 'categoryDetails', 'packageDetails', 'popularPackages', 'bookingStore','subpackageDetails'
         );
@@ -28,7 +29,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+        parent::__construct();
         $packages = Package::where('popular', 1)->limit(4)->get();
         $title = "Home: Indian Tours";
         $meta_keywords = 'Indian Tours';

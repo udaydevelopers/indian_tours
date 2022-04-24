@@ -45,6 +45,7 @@
     <li><a href="db-booking.html" role="menuitem"><i class="fas fa-ticket-alt"></i> Booking &amp; Enquiry</a></li>
     <li><a href="db-wishlist.html" role="menuitem"><i class="far fa-heart"></i>Wishlist</a></li>
     <li><a href="db-comment.html" role="menuitem"><i class="fas fa-comments"></i>Comments</a></li>
+    <li><a href="{{ route('admin.settings.index') }}" role="menuitem"><i class="fa fa-wrench"></i>Website Settings</a></li>
     <li><a href="{{ route('logout') }}"
         onclick="event.preventDefault();
             document.getElementById('logout-form').submit();" role="menuitem"><i class="fas fa-sign-out-alt"></i> Logout</a><form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

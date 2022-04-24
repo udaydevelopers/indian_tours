@@ -79,7 +79,7 @@
                                  {!! Str::limit($package->description, 300, ' ...') !!}
                                  <div class="btn-wrap">
                                     
-                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
+                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View Details<i class="fas fa-arrow-right"></i></a>
                                  </div>
                               </div>
                            </div>

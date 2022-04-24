@@ -44,10 +44,10 @@
                         <div class="header-contact-info">
                            <ul>
                               <li>
-                                 <a href="#"><i class="fas fa-phone-alt"></i> +91 96253-48288</a>
+                                 <a href="#"><i class="fas fa-phone-alt"></i> +91 {!! session('mobile') !!}</a>
                               </li>
                               <li>
-                                 <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i>support@indian-tours.in</a>
+                                 <a href="mailto:info@Travel.com"><i class="fas fa-envelope"></i>{!! session('email') !!}</a>
                               </li>
                               <li>
                                  <i class="fas fa-map-marker-alt"></i> No. 671, Sector 19, New Delhi 110075
@@ -228,13 +228,13 @@
                                  <li>
                                     <a href="tel:9625348288 ">
                                        <i class="fas fa-phone-alt"></i>
-                                       +91 96253-48288
+                                       +91 {!! session('mobile') !!}
                                     </a>
                                  </li>
                                  <li>
                                     <a href="#">
                                        <i class="fas fa-envelope"></i>
-                                       support@indian-tours.in
+                                       {!! session('email') !!}
                                     </a>
                                  </li>
                                  <li>

@@ -22,26 +22,28 @@
                <div class="inner-shape"></div>
             </section>
             <!-- Inner Banner html end-->
-            <!-- Home packages section html start -->
-            <section class="package-section bg-light-grey">
-               <div class="container">
-                  <div class="package-inner package-inner-list">
+                <!-- packages html start -->
+                <section class="package-section bg-light-grey">
+                <div class="container">
+                  <div class="package-inner">
                      <div class="row">
                      @foreach($category->packages as $package) 
                         @php $catsubcat_slug = '';
                         if($category->parent !== '') $catsubcat_slug = ($category->parent)->slug."/";
                         @endphp
-                        <div class="col-lg-6">
-                           <div class="package-wrap package-wrap-list">
+                        <div class="col-lg-4 col-md-6">
+                           <div class="package-wrap">
                               <figure class="feature-image">
                               <a href="{{ $category->slug }}/{{ $package->slug }}">
                               <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
                                  </a>
-                                 <div class="package-price">
-                                    <h6>
-                                    <span>₹{{ $package->adult_sp }}</span> / per person
-                                    </h6>
-                                 </div>
+                              </figure>
+                              <div class="package-price">
+                                 <h6>
+                                    <span>₹{{ $package->adult_sp }} </span> / per person
+                                 </h6>
+                              </div>
+                              <div class="package-content-wrap">
                                  <div class="package-meta text-center">
                                     <ul>
                                        <li>
@@ -58,29 +60,29 @@
                                        </li>
                                     </ul>
                                  </div>
-                              </figure>
-                              <div class="package-content">
-                              <h3>
-                              <a href="{{ $category->slug }}/{{ $package->slug }}">{{ $package->name }}</a>
-                              </h3>
-                              <div class="review-area">
-                                 <span class="review-text">(25 reviews)</span>
-                                 <div class="rating-start" title="Rated 5 out of 5">
-                                    <span style="width: 60%"></span>
-                                 </div>
-                              </div>
-                                 <p>{!! Str::limit($package->description, 300, ' ...') !!}</p>
-                                 <div class="btn-wrap">
-                                    <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-6">View Details<i class="fas fa-arrow-right"></i></a>
+                                 <div class="package-content">
+                                    <h3>
+                                       <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
+                                    </h3>
+                                    <div class="review-area">
+                                       <span class="review-text">({!! rand(1,50) !!} reviews)</span>
+                                       <div class="rating-start" title="Rated 5 out of 5">
+                                          <span style="width: 60%"></span>
+                                       </div>
+                                    </div>
+                                    <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:'...' }}</p>
+                                    <div class="btn-wrap">
+                                       <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
+                                    </div>
                                  </div>
                               </div>
                            </div>
                         </div>
-                     @endforeach
+                        @endforeach
+                        </div>
                      </div>
                   </div>
-               </div>
-            </section>
+                </section>
             <!-- packages html end -->
             <!-- Home activity section html start -->
             <section class="activity-section">

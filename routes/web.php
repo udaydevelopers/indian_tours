@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,8 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('packages', PackageController::class);
+    Route::resource('bookings', BookingController::class);
+    Route::resource('settings', SettingController::class);
     
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');

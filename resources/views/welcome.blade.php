@@ -116,16 +116,15 @@
                                     <a href="{{ $cat_slug }}/{{ $package->slug }}">{{ $package->name }}</a>
                                  </h3>
                                  <div class="review-area">
-                                    <span class="review-text">(25 reviews)</span>
+                                    <span class="review-text">({!! rand(1,50) !!} reviews)</span>
                                     <div class="rating-start" title="Rated 5 out of 5">
                                        <span style="width: 60%"></span>
                                     </div>
                                  </div>
 
                                  {!! Str::limit($package->description, 150, ' ...') !!}
-                                 <div class="btn-wrap" style="padding-left:5px">
-                                    
-                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-6 text-white button-primary">View Details<i class="fas fa-arrow-right"></i></a>
+                                 <div class="btn-wrap">
+                                 <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View Details<i class="fas fa-arrow-right"></i></a>
                                  </div>
                               </div>
                            </div>
