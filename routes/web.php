@@ -2,12 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,7 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('packages', PackageController::class);
     Route::resource('bookings', BookingController::class);
     Route::resource('settings', SettingController::class);
+    Route::resource('contacts', AdminContactController::class);
     
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
@@ -45,7 +48,8 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
 /// Front End Root ///
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/popular-packages', [HomeController::class, 'popularPackages'])->name('popular-packages');
-Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+Route::get('/contact', [ContactController::class, 'create'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
 Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
 Route::get('/{category}/{subcategory}/{package}', [HomeController::class, 'subpackageDetails'])->name('package-details-subcat');

@@ -54,10 +54,10 @@ class HomeController extends Controller
         return view('admin.dashboard');
     }
 
-    public function contact()
-    {
-        return view('contact');
-    }
+    // public function contact()
+    // {
+    //     return view('contact');
+    // }
 
     public function categoryDetails($slug)
     {
@@ -68,21 +68,28 @@ class HomeController extends Controller
         return view('category-details', compact('category','title','meta_keywords','meta_descriptions'));
     }
 
-    public function packageDetails($category, $package)
+    public function packageDetails($category, $packageslug)
     {
-        $package = Package::with('images')->where('slug', $package)->first();
+        $package = Package::with('images')->where('slug', $packageslug)->first(); 
+        $categoryIds = $package->categories()->pluck('categories.id')->toArray();
+      $similarPackages = Package::with('categories')->whereIn('categories.id', $categoryIds)->get();
+
+        dd($similarPackages);
         $title = ($package->name)?$package->name:"India Tours Packages";
         $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
-        $meta_descriptions = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
         return view('package-details', compact('package','title','meta_keywords','meta_descriptions'));
     }
 
     public function subpackageDetails($category, $subcat, $package)
     {
         $package = Package::with('images')->where('slug', $package)->first();
+
+        $packageCateogoriesArray = $package->categories()->pluck('categories.id')->toArray();
+
         $title = ($package->name)?$package->name:"India Tours Packages";
         $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
-        $meta_descriptions = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+        $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
         return view('package-details', compact('package','title','meta_keywords','meta_descriptions'));
     }
 

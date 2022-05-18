@@ -25,8 +25,14 @@
                             <h5 class="dash-style">GET IN TOUCH</h5>
                             <h2>CONTACT US TO GET MORE INFO</h2>
                             <p></p>
+                            @if ($message = Session::get('success'))
+                                 <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                 </div>
+                              @endif
                         </div>
-                        <form class="contact-from">
+                        {!! Form::open(array('route' => 'contact.store','method'=>'POST', 'class' => 'contact-from')) !!}
+                            @csrf
                             <p>
                             <input type="text" name="name" placeholder="Your Name*">
                             </p>
@@ -34,12 +40,12 @@
                             <input type="email" name="email" placeholder="Your Email*">
                             </p>
                             <p>
-                            <textarea rows="8" placeholder="Your Message*"></textarea>
+                            <textarea name="message" rows="8" placeholder="Your Message*"></textarea>
                             </p>
                             <p>
                             <input type="submit" name="submit" value="SUBMIT MESSAGE">
                             </p>
-                        </form>
+                        {!! Form::close() !!}
                     </div>
                 </div>
                 <div class="col-md-6">

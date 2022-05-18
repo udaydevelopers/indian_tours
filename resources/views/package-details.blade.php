@@ -729,7 +729,62 @@
                </div>
 
             </div>
+            
+            <!-- similar packages section html start -->
+            <section class="similar-packages" style="margin-block-end: 75px;">
 
+               <div class="container">
+
+                  <div class="row">
+
+                     <div class="col-lg-12">
+
+                        <div class="section-heading section-heading-black">
+
+                           <h3 class="dash-style">Similar Packages</h3>
+
+                           <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+                           <!-- The slideshow -->
+                           <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Los Angeles">
+                     
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Chicago">
+                              
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="New York">
+                              </div>
+                              <div class="carousel-item">
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Los Angeles">
+                     
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Chicago">
+                              
+                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="New York">
+                              </div>
+                           </div>
+
+                           <!-- Left and right controls -->
+                           <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                              <span class="carousel-control-prev-icon"></span>
+                           </a>
+                           <a class="carousel-control-next" href="#demo" data-slide="next">
+                              <span class="carousel-control-next-icon"></span>
+                           </a>
+
+                           </div>
+
+                        </div>
+
+                     </div>
+
+                  </div>
+
+               </div>
+
+            </section>
+
+            <!-- similar packages html end -->
             <!-- subscribe section html start -->
 
             <section class="subscribe-section" style="background-image: url(../assets/images/triund-trek/triund-snow-mountains.jpg);">

@@ -42,8 +42,8 @@
             <li><a href="db-package-expired.html">Expired</a></li>
         </ul>   
     </li>
-    <li><a href="db-booking.html" role="menuitem"><i class="fas fa-ticket-alt"></i> Booking &amp; Enquiry</a></li>
-    <li><a href="db-wishlist.html" role="menuitem"><i class="far fa-heart"></i>Wishlist</a></li>
+    <li><a href="{{ route('admin.bookings.index') }}" role="menuitem"><i class="fas fa-ticket-alt"></i> Booking &amp; Enquiry</a></li>
+    <li><a href="{{ route('admin.contacts.index') }}" role="menuitem"><i class="fa fa-phone"></i>Contact &amp; Enquiry</a></li>
     <li><a href="db-comment.html" role="menuitem"><i class="fas fa-comments"></i>Comments</a></li>
     <li><a href="{{ route('admin.settings.index') }}" role="menuitem"><i class="fa fa-wrench"></i>Website Settings</a></li>
     <li><a href="{{ route('logout') }}"

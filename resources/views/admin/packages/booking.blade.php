@@ -16,51 +16,41 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>#sl</th>
                                     <th>Name</th>
-                                    <th>Trip</th>
-                                    <th>Category</th>
-                                    <th>Price</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>No of People</th>
+                                    <th>Booking Date </th>
+                                    <th>Package Name</th>
                                     <th>action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($bookings as $booking)
+                                @foreach($bookings as $booking) 
                                 <tr>
-                                <td>
-                                    </span><span class="package-name">{{ $booking->name }}</span>
+                                <td>{{ ++$i }}</td>
+                                <td> 
+                                    </span><span class="package-name">{{ $booking->full_name }}</span>
                                 </td>
-                                <td>{{ $booking->trip_days }} days {{ $booking->trip_nights }}</td>
+                                <td>{{ $booking->email }}</td>
+                                <td>{{ $booking->mobile }}</td>
                                 
-                                <td>
-                                @foreach($booking->categories as $category)
-                                    {{ $category->name }} 
-                                    @if(!$loop->last)
-                                    ,
-                                    @endif
-                                @endforeach  
-                                </td>
-                                    <td>Adult:{{ $booking->adult_sp }}<br/>
-                                    Couple:{{ $booking->couple_sp }}<br/>
-                                    Child:{{ $booking->child_sp }}<br/>
-                                    Infant:{{ $booking->infant_sp }}
-                                    </td>
+                                <td>{{ $booking->no_of_persons }}</td>
+                                <td>{{ $booking->booking_date }}</td>
+                                
+                                <td>{{ $booking->package_name }}</td>
                                     <td>
-                                    <a class="" href="{{ route('admin.bookings.show',$package->id) }}">
-                                        <span class=""><i class="fas fa-info-circle"></i> </span</a>
-                                    
-                                    @can('package-edit')
-                                    <a class="" href="{{ route('admin.packages.edit',$package->id) }}"><span class="badge badge-success"><i class="far fa-edit"></i></span></a>
-                                    @endcan
-                                    @can('package-delete')
+                   
                                     <a href="#"
                                        onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();">
                                         <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
                                     </a>
-                                        {!! Form::open(['id'=> 'delete-form','method' => 'DELETE','route' => ['admin.packages.destroy', $package->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['id'=> 'delete-form','method' => 'DELETE','route' => ['admin.bookings.destroy', $booking->id],'style'=>'display:inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}
                                         {!! Form::close() !!}
-                                    @endcan
+                                    
                                 </td>
                                 </tr>
                                 @endforeach
@@ -70,7 +60,7 @@
                 </div>
                 <!-- pagination html -->
                 <div class="pagination-wrap">
-                    {!! $packages->render() !!}
+                    {!! $bookings->render() !!}
                 </div>
             </div>
 @endsection

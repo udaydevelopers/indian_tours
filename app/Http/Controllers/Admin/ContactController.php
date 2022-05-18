@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Booking;
+use App\Models\Contact;
 
-class BookingController extends Controller
+class ContactController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-        $bookings = Booking::orderBy('id','DESC')->paginate(20); 
-        return view('admin.packages.booking',compact('bookings'))
+        $contacts = Contact::orderBy('id','DESC')->paginate(20); 
+        return view('admin.contacts.index',compact('contacts'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -49,8 +49,8 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        $booking = Booking::find($id);
-        return view('admin.packages.booking-show',compact('booking'));
+        $contact = Contact::find($id);
+        return view('admin.contacts.show',compact('contact'));
     }
 
     /**
@@ -84,8 +84,8 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        Booking::find($id)->delete();
-        return redirect()->route('admin.bookings.index')
-                        ->with('success','Bookings deleted successfully');
+        Contact::find($id)->delete();
+        return redirect()->route('admin.contacts.index')
+                        ->with('success','Contact us Enquiry deleted successfully');
     }
 }

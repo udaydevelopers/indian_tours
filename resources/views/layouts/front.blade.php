@@ -24,9 +24,21 @@
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
       <!-- Custom CSS -->
       <link rel="stylesheet" type="text/css" href="{{ url('assets/css/style.css') }}">
-      <title>@yield('title')</title>
+      <title>@yield('title') | Indian Tours</title>
       <meta name="keywords" content="@yield('meta_keywords')">
-      <meta name="description" content="@yield('meta_descriptions')">  
+      <meta name="description" content="@yield('meta_descriptions')" />
+      <link rel="canonical" href="{{ Request::url() }}" />
+      <meta property="og:locale" content="en_US" />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="@yield('title') | Indian Tours" />
+      <meta property="og:description" content="@yield('meta_descriptions')" />
+      <meta property="og:url" content="{{ Request::url() }}" />
+      <meta property="og:site_name" content="Indian Tours" />
+      <meta property="article:publisher" content="https://www.facebook.com/indiantours.in" />
+      <meta property="og:image" content="{{ url('/') }}/assets/images/indiantours-logo.png" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@IndianTours3" />
+      <script type="application/ld+json" >{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.indian-tours.in/#website","url":"https://www.indian-tours.in/","name":"Indian Tours","description":"Delhi India,"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.indian-tours.in/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://www.indian-tours.in/#primaryimage","inLanguage":"en-US","url":"https://www.indian-tours.in/assets/images/indiantours-logo.png","contentUrl":"https://www.indian-tours.in/assets/images/indiantours-logo.png","width":180,"height":46,"caption":"Indian Tours"},{"@type":"WebPage","@id":"https://www.https://www.indian-tours.in/assets/images/indiantours-logo.png/#webpage","url":"https://www.indian-tours.in/","name":"India Travel Trips Family Honeymoon Packages | Indian Tours","isPartOf":{"@id":"https://www.indian-tours.in/#website"},"primaryImageOfPage":{"@id":"https://www.indian-tours.in/#primaryimage"},"datePublished":"2022-04-21T08:41:46+00:00","description":"India Travel Booking Online is easy a beautiful trekking places in India get route itinerary Indian Tours package from Delhi","breadcrumb":{"@id":"https://www.indian-tours.in/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.indian-tours.in/"]}]},{"@type":"BreadcrumbList","@id":"https://www.indian-tours.in/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home"}]}]}</script> 
    </head>
    <body class="home">
       <div id="siteLoader" class="site-loader">

@@ -15,11 +15,12 @@ class Booking extends Model
 
     public function getBookingDateAttribute($date)
     {
-        $this->attributes['booking_date'] = Carbon::createFromFormat('Y-m-d', $date)->format('m/d/Y');
+        return $this->attributes['booking_date'] = Carbon::createFromFormat('Y-m-d', $date)->format('d/m/Y');
     }
 
     public function setBookingDateAttribute($date)
     {
-        $this->attributes['booking_date'] = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
+        
+        return $this->attributes['booking_date'] = Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d');
     }
 }
