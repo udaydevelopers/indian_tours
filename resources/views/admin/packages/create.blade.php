@@ -11,6 +11,16 @@
         <p>{{ $message }}</p>
     </div>
 @endif
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </div>
+@endif
 {!! Form::open(array('route' => 'admin.packages.store','method'=>'POST', 'enctype' => "multipart/form-data")) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
@@ -31,8 +41,12 @@
                                 <input class="form-control" name="program" placeholder="Program" id="program">
                             </div>
                             <div class="form-group">
-                                <label for="policy" class="form-label"><h4>Policy</h4></label>
+                                <label for="policy" class="form-label"><h4>Cancellation Policy</h4></label>
                                 <input class="form-control" name="policy" placeholder="Policy" id="policy">
+                            </div>
+                            <div class="form-group">
+                                <label for="inclusions" class="form-label"><h4>Inclusions</h4></label>
+                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions">
                             </div>
                         </div>
                         </div>
@@ -315,6 +329,11 @@
             selector: '#policy',
             height: 300
         });
+        tinymce.init({
+            selector: '#inclusions',
+            height: 300
+        });
+        
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
     <script>

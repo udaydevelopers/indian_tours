@@ -20,4 +20,9 @@ class Package extends Model
     {
         return $this->belongsToMany(\App\Models\Category::class,'category_package');
     }
+
+    public function faqs()
+    {
+        return $this->belongsToMany(\App\Models\Faq::class,'faq_package');
+    }
 }

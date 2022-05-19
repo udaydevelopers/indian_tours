@@ -131,6 +131,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd('dsfd');
     }
 }

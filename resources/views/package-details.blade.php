@@ -203,45 +203,17 @@
 
                                     </div>
 
-                                    <div class="accordion" id="accordionOne">
-
+                              <div class="accordion" id="accordionOne">
+                                 @foreach($package->faqs as $faq)
                                  <div class="card">
 
                                     <div class="card-header" id="headingOne">
 
                                        <h4 class="mb-0">
 
-                                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{ $loop->index }}" aria-expanded="false" aria-controls="collapseOne">
 
-                                           CAN WE KEEP OUR LUGGAGE AT MCLEODGANJ?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                         Yes. You will be provided with a luggage room facility at Mcleodganj where you can keep your luggage and take a water bottle, camera, etc. on a daysack to the hilltop with you.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingTwo">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-
-                                             WHEN DOES THE TRIUND TREK START?
+                                           {{ $faq->question }}
 
                                           </button>
 
@@ -249,215 +221,20 @@
 
                                     </div>
 
-                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionOne">
+                                    <div id="collapseOne{{ $loop->index }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionOne">
 
                                        <div class="card-body">
 
-                                          The trek start timing is generally 10 AM. So you have to reach the reporting site (Near Mcleodganj Bus stand) by 10 AM.
+                                         {{ $faq->answer }}
 
                                        </div>
 
                                     </div>
 
                                  </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingThree">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-
-                                             WILL WE GO TO LAHESH CAVE AND LAKA GLACIER?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          In the 2D1N trek, it is not possible to cover the Laka glacier and Lahesh cave. It will take 2D2N to cover Triund with Laka. Check out 3D2N Laka glacier Trek.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingFour">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-
-                                             WILL WE COVER BHAGUSU NAG AND SNOWLINE?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          Yes. Bhagusunag and the snowline will be covered.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingFive">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-
-                                             HOW MUCH TIME DOES IT TAKE TO TREK TO TRIUND HILLTOP FROM MCLEODGANJ?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          It will take approx. 4-5 hours to complete the trek. The trek total distance is approx. 9 km.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingSix">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-
-                                             WHERE DO I NEED TO REPORT BEFORE THE TREK STARTS?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          Reporting place will be near to Mcleodganj bus stand. All the details will be shared with you once you book the trek.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingSeven">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-
-                                          WHAT ABOUT SAFETY?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          Each trekker is responsible for his/her own safety. Trek organizers, guides, porters will not be responsible for any damage, theft, or loss of goods.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingEight">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-
-                                          WHAT ALL FACILITIES ARE PROVIDED DURING THE TREK?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                          You will be provided with a sleeping bag, tent accommodation, food, guidance, and a dry pit toilet as per the plan. No other facilities can be provided.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                                 <div class="card">
-
-                                    <div class="card-header" id="headingNine">
-
-                                       <h4 class="mb-0">
-
-                                          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
-
-                                          HOW MUCH TIME DOES IT TAKE TO REACH MCLEODGANJ FROM DELHI?
-
-                                          </button>
-
-                                       </h4>
-
-                                    </div>
-
-                                    <div id="collapseNine" class="collapse" aria-labelledby="headingNine" data-parent="#accordionOne">
-
-                                       <div class="card-body">
-
-                                         It will take approx. 10-12 hours to reach Mcleodganj from Delhi by overnight Volvo.
-
-                                       </div>
-
-                                    </div>
-
-                                 </div>
-
-                              </div>  
+                                 @endforeach
+                                 
+                               </div>  
 
                            </div>
 

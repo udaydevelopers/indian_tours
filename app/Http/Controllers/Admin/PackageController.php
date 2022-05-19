@@ -67,7 +67,7 @@ class PackageController extends Controller
     {
         $this->validate($request, [
               'name' => 'required|string|max:255',
-              'description' => 'required|string|max:2000',
+              'description' => 'required|string',
         ]);
 
         $package_small_pic = null;
@@ -100,6 +100,7 @@ class PackageController extends Controller
         $package->description = $request->description;
         $package->program = $request->program;
         $package->policy = $request->policy;
+        $package->inclusions = $request->inclusions;
         $package->trip_days = $request->trip_days;
         $package->trip_nights = $request->trip_nights;
 
@@ -212,6 +213,7 @@ class PackageController extends Controller
         $package->description = $request->description;
         $package->program = $request->program;
         $package->policy = $request->policy;
+        $package->inclusions = $request->inclusions;
         $package->trip_days = $request->trip_days;
         $package->trip_nights = $request->trip_nights;
 
@@ -266,7 +268,7 @@ class PackageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    { 
         Package::find($id)->delete();
         return redirect()->route('admin.packages.index')
                         ->with('success','Package deleted successfully');

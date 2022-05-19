@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 
 /*
@@ -39,7 +40,8 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('bookings', BookingController::class);
     Route::resource('settings', SettingController::class);
     Route::resource('contacts', AdminContactController::class);
-    
+    Route::resource('faqs', FaqController::class);
+
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
     Route::post('/delete-image', [PackageController::class, 'deleteImage'])->name('images.destroy');

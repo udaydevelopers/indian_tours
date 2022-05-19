@@ -11,7 +11,16 @@
         <p>{{ $message }}</p>
     </div>
 @endif
-
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+    </div>
+@endif
 {!! Form::model($package, ['method' => 'PATCH','route' => ['admin.packages.update', $package->id], 'enctype' => "multipart/form-data"]) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
@@ -36,6 +45,10 @@
                             <div class="form-group">
                                 <label for="policy" class="form-label"><h4>Policy</h4></label>
                                 <input class="form-control" name="policy" placeholder="Policy" id="policy" value="{{ $package->policy }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="inclusions" class="form-label"><h4>Inclusions</h4></label>
+                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions" value="{{ $package->inclusions }}">
                             </div>
                         </div>
                         </div>
@@ -360,6 +373,10 @@
 
         tinymce.init({
             selector: '#policy',
+            height: 300
+        });
+        tinymce.init({
+            selector: '#inclusions',
             height: 300
         });
     </script>

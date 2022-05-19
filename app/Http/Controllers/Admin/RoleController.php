@@ -128,7 +128,7 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    { 
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('admin.roles.index')
                         ->with('success','Role deleted successfully');
