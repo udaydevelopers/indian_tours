@@ -35,11 +35,15 @@ class ContactController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $this->validate($request, [
             'name'   => 'required',
             'email' => 'required|email',
-            'message' => 'required'
+            'message' => 'required',
+            'captcha' => 'required|captcha'
+        ],
+        [
+            'captcha' => 'Invalid Captcha code entered'
         ]);
 
         $contact = new Contact;
@@ -62,5 +66,10 @@ class ContactController extends Controller
         });
       
         return back()->with('success', 'Your booking requested successfully.');
+    }
+
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha'=> captcha_img()]);
     }
 }

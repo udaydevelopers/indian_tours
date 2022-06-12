@@ -45,7 +45,7 @@
     <li><a href="{{ route('admin.faqs.index') }}" role="menuitem"><i class="fa fa-question"></i> Faqs</a></li>
     <li><a href="{{ route('admin.bookings.index') }}" role="menuitem"><i class="fas fa-ticket-alt"></i> Booking &amp; Enquiry</a></li>
     <li><a href="{{ route('admin.contacts.index') }}" role="menuitem"><i class="fa fa-phone"></i>Contact &amp; Enquiry</a></li>
-    <li><a href="db-comment.html" role="menuitem"><i class="fas fa-comments"></i>Comments</a></li>
+    <li><a href="{{ route('admin.reviews.index') }}" role="menuitem"><i class="fas fa-comments"></i>Package Reviews</a></li>
     <li><a href="{{ route('admin.settings.index') }}" role="menuitem"><i class="fa fa-wrench"></i>Website Settings</a></li>
     <li><a href="{{ route('logout') }}"
         onclick="event.preventDefault();

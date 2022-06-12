@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ReviewController;
+
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -11,6 +13,7 @@ use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +28,9 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 
 
 Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/reload-captcha', [ContactController::class, 'reloadCaptcha'])->name('reload-captcha');
 
 Auth::routes(['register' => false]);
-
-
 
 
 Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('admin')->group(function () {
@@ -41,6 +42,8 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('settings', SettingController::class);
     Route::resource('contacts', AdminContactController::class);
     Route::resource('faqs', FaqController::class);
+    Route::resource('reviews', AdminReviewController::class);
+    Route::get('/reviews/approve/{id}', [AdminReviewController::class, 'approve'])->name('reviews.approve');
 
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
@@ -56,4 +59,7 @@ Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('cat
 Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
 Route::get('/{category}/{subcategory}/{package}', [HomeController::class, 'subpackageDetails'])->name('package-details-subcat');
 Route::post('/booking', [HomeController::class, 'bookingStore'])->name('booking.store');
+Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
+
+
 

@@ -34,13 +34,42 @@
                         {!! Form::open(array('route' => 'contact.store','method'=>'POST', 'class' => 'contact-from')) !!}
                             @csrf
                             <p>
-                            <input type="text" name="name" placeholder="Your Name*">
+                            <input type="text" name="name" placeholder="Your Name*" value="{{ old('name') }}">
+                            @error('name')
+                                <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             </p>
                             <p>
-                            <input type="email" name="email" placeholder="Your Email*">
+                            <input type="email" name="email" placeholder="Your Email*" value="{{ old('email') }}">
+                            @error('email')
+                                <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                             </p>
                             <p>
-                            <textarea name="message" rows="8" placeholder="Your Message*"></textarea>
+                            <textarea name="message" rows="8" placeholder="Your Message*">{{ old('message') }}</textarea>
+                            @error('message')
+                                <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            </p>
+                            <p class="captcha">
+                            <span>{!! captcha_img() !!}</span>
+                            <button type="button" class="btn btn-danger" class="reload" id="reload">
+                            ↻
+                            </button>
+                            </p>
+                            <p>
+                            <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
+                            @error('captcha')
+                                <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror    
                             </p>
                             <p>
                             <input type="submit" name="submit" value="SUBMIT MESSAGE">
@@ -104,4 +133,17 @@
     </div> -->
     <!-- contact form html end -->
 </main>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+    $('#reload').click(function () {
+    $.ajax({
+    type: 'GET',
+    url: 'reload-captcha',
+    success: function (data) { console.log(data);
+    $(".captcha span").html(data.captcha);
+    }
+    });
+    });
+    </script>
 @endsection

@@ -51,17 +51,20 @@
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="form-group">
         <strong>Packages:</strong>
-           @php $selectArray = []; @endphp
-           @foreach($faq->packages as $pkg)
-           @php $selectArray[] = $pkg->id @endphp
-           @endforeach
+        @php $selectArray = []; @endphp
+        @foreach($faq->packages as $pkg)
+        @php $selectArray[] = $pkg->id @endphp
+        @endforeach
 
-        <select name="faq_package[]" multiple style="height:400px;">
-            @foreach($packages as $package)
-            @php $checked = ''; if(in_array($package->id, $selectArray)){ $checked = 'selected';} @endphp
-            <option value="{{ $package->id }}" {{ $checked}}>{{ $package->name }} </option>
-            @endforeach
-        </select>
+        @foreach($packages as $package)
+        @php $checked = ''; if(in_array($package->id, $selectArray)){ $checked = 'checked';} @endphp
+        <div class="form-check">
+        <input name="faq_package[]" class="form-check-input" type="checkbox" value="{{ $package->id }}" id="defaultCheck1" style="z-index: 9999; opacity: unset !important;" {{ $checked}}>
+        <label class="form-check-label" for="defaultCheck1">
+           {{ $package->name }}
+        </label>
+        </div>
+        @endforeach
     </div>
 </div>
 </div>

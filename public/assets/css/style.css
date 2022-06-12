@@ -2412,7 +2412,7 @@ input[type=submit]:focus {
   position: relative;
 }
 .shape-search-section .slider-shape {
-  background-image: url(assets/images/slider-pattern.png);
+  background-image: url(/assets/images/slider-pattern.png);
   background-size: cover;
   background-repeat: no-repeat;
   content: "";
@@ -4510,7 +4510,7 @@ Due to the split circle of progress-left and progress right, we must use the ani
 }
 
 .inner-shape {
-  background-image: url(assets/images/slider-pattern.png);
+  background-image: url(/assets/images/slider-pattern.png);
   background-size: cover;
   background-repeat: no-repeat;
   content: "";
@@ -8744,3 +8744,64 @@ whatsapp
   }
 }
   #mobileshow    { display:none; }
+/** Rating ***/
+.txt-center {
+  text-align: center;
+}
+.hide {
+  display: none;
+}
+
+.clear {
+  float: none;
+  clear: both;
+}
+
+.rating {
+    width: 90px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}
+
+.form-control[type=date]::-webkit-inner-spin-button, 
+.form-control[type=date]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}   
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    z-index: -1;
+    position: relative;
+    transform: translateX(16px);
+}

@@ -317,21 +317,36 @@
     <script type="text/javascript">
         tinymce.init({
             selector: '#description',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
         });
 
         tinymce.init({
             selector: '#program',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+
         });
 
         tinymce.init({
             selector: '#policy',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+
         });
         tinymce.init({
             selector: '#inclusions',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+
         });
         
     </script>

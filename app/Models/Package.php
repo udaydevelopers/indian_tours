@@ -25,4 +25,9 @@ class Package extends Model
     {
         return $this->belongsToMany(\App\Models\Faq::class,'faq_package');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(\App\Models\Review::class,'package_id');
+    }
 }

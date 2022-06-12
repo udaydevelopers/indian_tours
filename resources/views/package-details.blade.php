@@ -75,7 +75,11 @@
 
                            </figure>
 
-                           
+                           @if ($message = Session::get('review-success'))
+                                 <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                 </div>
+                           @endif
 
                            <div class="tab-container ">
 
@@ -154,21 +158,23 @@
                                  </div>
 
                                  <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="review-tab">
-
+                                    @if($package->reviews->count())
                                     <div class="summary-review">
 
                                        <div class="review-score">
 
-                                          <span>4.9</span>
+                                          <span>{{ ($package->reviews->sum('rated') * 5) / (5 * $package->reviews->count()) }}</span>
 
                                        </div>
 
                                        <div class="review-score-content">
 
                                           <h3>
-
+                                          @if(($package->reviews->sum('rated') * 5) / (5 * $package->reviews->count()) > 4)
                                              Excellent
-
+                                          @else
+                                             Good
+                                          @endif
                                              <span>( Based on reviews )</span>
 
                                           </h3>
@@ -178,11 +184,121 @@
                                        </div>
 
                                     </div>
-
+                                    @endif
                                     <!-- review comment html -->
 
-                                 </div>
+                                    <div class="comment-area">
 
+                                       <h3 class="comment-title">{{ $reviewCount }} Reviews</h3>
+
+                                       <div class="comment-area-inner">
+
+                                          <ol>
+                                          @foreach($package->reviews as $review)
+                                          @php if($review->status == 'unpublish') continue; @endphp
+                                             <li>
+
+                                                <figure class="comment-thumb">
+
+                                                  <!--  <img src="../assets/images/img20.jpg" alt=""> -->
+
+                                                </figure>
+
+                                                <div class="comment-content">
+
+                                                   <div class="comment-header">
+
+                                                      <h5 class="author-name">{{ $review->name }} </h5>
+
+                                                      <span class="post-on"></span>
+
+                                                      <div class="rating-wrap">
+
+                                                         <div class="" title="Rated 5 out of 5">
+                                                            @for ($i = $review->rated; $i >= 1; $i--)
+                                                            <span style="font-size:200%;color:#ff8800;">&starf;</span>
+                                                            @endfor
+                                                            <span style="width: 90%;"></span>
+
+                                                         </div>
+
+                                                      </div>
+
+                                                   </div>
+
+                                                   <p>{{ $review->comments }}</p>
+
+                                                </div>
+
+                                             </li>
+                                                @endforeach
+
+                                          </ol>
+
+                                       </div>
+
+                                       <div class="comment-form-wrap">
+
+                                          <h3 class="comment-title">Leave a Review</h3>
+
+                                          {!! Form::open(array('route' => 'review.store','method'=>'POST', 'class' => 'comment-form', 'id' => 'cmt_form')) !!}
+                                          @csrf
+                                             <div class="full-width rate-wrap">
+
+                                                <label>Your rating</label>
+
+                                                <div class="rating">
+                                                      <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                                                      <label for="star5">☆</label>
+                                                      <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                                                      <label for="star4" >☆</label>
+                                                      <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                                                      <label for="star3" >☆</label>
+                                                      <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                                                      <label for="star2" >☆</label>
+                                                      <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                                                      <label for="star1" >☆</label>
+                                                      <div class="clear"></div>
+                                                </div>
+                                                
+                                             </div>
+
+                                             <p>
+
+                                                <input type="text" name="name" placeholder="Name" required>
+
+                                             </p>
+
+                                             <p>
+
+                                                <input type="email" name="email" placeholder="Email" required>
+
+                                             </p>
+
+                                             <p>
+
+                                                <input type="text" name="subject" placeholder="Subject" required>
+
+                                             </p>
+
+                                             <p>
+
+                                                <textarea name="comments" rows="6" placeholder="Your review" required></textarea>
+
+                                             </p>
+
+                                             <p>
+                                             <input type="hidden" name="package_id" value="{{$package->id }}">
+                                                <input type="submit" name="submit" value="Submit">
+                                             </p>
+
+                                             {!! Form::close() !!}
+
+                                       </div>
+
+                                    </div>
+
+                                 </div>
                                  <!-- <div class="tab-pane" id="map" role="tabpanel" aria-labelledby="map-tab">
 
                                     <div class="map-area">
@@ -211,7 +327,7 @@
 
                                        <h4 class="mb-0">
 
-                                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{ $loop->index }}" aria-expanded="false" aria-controls="collapseOne">
+                                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne{{ $loop->index }}" aria-expanded="false " aria-controls="collapseOne">
 
                                            {{ $faq->question }}
 
@@ -261,15 +377,8 @@
                                  </div>
 
                               </div>
-
-                          
-
+                         
                            </div>
-
-
-
-
-
 
 
                            <div class="single-tour-gallery">
@@ -343,7 +452,7 @@
                                           <input name="full_name" type="text" placeholder="Full Name" class="form-control @error('full_name') is-invalid @enderror" value="{{old('full_name')}}">
                                           @error('full_name')
                                              <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                             {{ $message }}
                                              </span>
                                           @enderror
                                        </div>
@@ -357,7 +466,7 @@
                                           <input name="email" type="text" placeholder="Email" class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}">
                                           @error('email')
                                              <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                             {{ $message }}
                                              </span>
                                           @enderror
                                        </div>
@@ -371,7 +480,7 @@
                                           <input name="mobile" type="text" placeholder="Mobile Number" maxlength="10" class="form-control @error('mobile') is-invalid @enderror"  value="{{old('mobile')}}">
                                           @error('mobile')
                                              <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                             {{ $message }}
                                              </span>
                                           @enderror
                                        </div>
@@ -385,7 +494,7 @@
                                           <input name="no_of_persons" type="number" placeholder="Number of Person" min="1" class="form-control @error('no_of_persons') is-invalid @enderror"  value="{{old('no_of_persons')}}">
                                           @error('no_of_persons')
                                              <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                             {{ $message }}
                                              </span>
                                           @enderror
                                        </div>
@@ -397,9 +506,10 @@
                                        <div class="form-group">
 
                                           <input type="text" name="booking_date" autocomplete="off" readonly="readonly" placeholder="Date" class="input-date-picker form-control @error('booking_date') is-invalid @enderror" value="{{old('booking_date')}}">
+                                          
                                           @error('booking_date')
                                              <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                {{ $message }}
                                              </span>
                                           @enderror
                                        </div>
@@ -520,36 +630,64 @@
 
                            <h3 class="dash-style">Similar Packages</h3>
 
-                           <div id="demo" class="carousel slide" data-ride="carousel">
+                        <div class="single-tour-slider" style="margin-bottom: 70px;">
+                        @foreach($similarPackages as $package) 
 
-
-                           <!-- The slideshow -->
-                           <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Los Angeles">
-                     
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Chicago">
-                              
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="New York">
+                        @php $catsubcat_slug = '';
+                        
+                           $catsubcat_slug = $category->parent ? ($category->parent)->slug."/" : ''; 
+                        
+                        @endphp
+                        <div class="col-lg-4 col-md-6">
+                           <div class="package-wrap" style="width: 375px;">
+                              <figure class="feature-image">
+                              <a href="/{{ $category->slug }}/{{ $package->slug }}">
+                              <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
+                                 </a>
+                              </figure>
+                              <div class="package-price">
+                                 <h6>
+                                    <span>₹{{ $package->adult_sp }} </span> / per person
+                                 </h6>
                               </div>
-                              <div class="carousel-item">
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Los Angeles">
-                     
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="Chicago">
-                              
-                                 <img src="http://127.0.0.1:8000/images/62375077e4e90_triund-breakfast.jpg" alt="New York">
+                              <div class="package-content-wrap">
+                                 <div class="package-meta text-center">
+                                    <ul>
+                                       <li>
+                                          <i class="far fa-clock"></i>
+                                          {{ $package->trip_days }}D/{{ $package->trip_nights }}N
+                                       </li>
+                                       <li>
+                                          <i class="fas fa-user-friends"></i>
+                                          People: 01
+                                       </li>
+                                       <li>
+                                          <i class="fas fa-map-marker-alt"></i>
+                                          {{ $category->name }}
+                                       </li>
+                                    </ul>
+                                 </div>
+                                 <div class="package-content">
+                                    <h3>
+                                       <a href="/{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
+                                    </h3>
+                                    <div class="review-area">
+                                       <span class="review-text">({!! rand(1,50) !!} reviews)</span>
+                                       <div class="rating-start" title="Rated 5 out of 5">
+                                          <span style="width: 60%"></span>
+                                       </div>
+                                    </div>
+                                    <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:'...' }}</p>
+                                    <div class="btn-wrap">
+                                       <a href="/{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
+                                    </div>
+                                 </div>
                               </div>
                            </div>
+                        </div>
 
-                           <!-- Left and right controls -->
-                           <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                              <span class="carousel-control-prev-icon"></span>
-                           </a>
-                           <a class="carousel-control-next" href="#demo" data-slide="next">
-                              <span class="carousel-control-next-icon"></span>
-                           </a>
-
-                           </div>
+                        @endforeach
+                        </div>
 
                         </div>
 
@@ -605,4 +743,18 @@
             <!-- subscribe html end -->
 
          </main>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+   //  $('#reload').click(function () { 
+   //  $.ajax({
+   //  type: 'GET',
+   //  url: '/reload-captcha',
+   //  success: function (data) { console.log(data);
+   //  $(".captcha span").html(data.captcha);
+   //  }
+   //  });
+   //  });
+
+    </script>
 @endsection
