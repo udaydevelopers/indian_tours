@@ -44,10 +44,10 @@
                    
                                     <a href="#" class="show_confirm"
                                        onclick="event.preventDefault(); 
-                                                     " data-toggle="tooltip" title='Delete'>
+                                                     " data-toggle="tooltip" title='Delete' data-id={{$booking->id}}>
                                         <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
                                     </a>
-                                        {!! Form::open(['id'=> 'delete-form','method' => 'DELETE','route' => ['admin.bookings.destroy', $booking->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['id'=> 'delete-form-'.$booking->id,'method' => 'DELETE','route' => ['admin.bookings.destroy', $booking->id],'style'=>'display:inline']) !!}
                                         {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}
                                         {!! Form::close() !!}
                                     
@@ -70,6 +70,7 @@
 <script type="text/javascript">
  
      $('.show_confirm').click(function(event) {
+          var rowId = $(this).data('id');
           var form =  $(this).closest("form");
           var name = $(this).data("name");
           event.preventDefault();
@@ -82,7 +83,7 @@
           })
           .then((willDelete) => {
             if (willDelete) {
-                document.getElementById('delete-form').submit();
+                document.getElementById('delete-form-'+rowId).submit();
             }
           });
       });

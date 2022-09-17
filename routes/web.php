@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
+use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,10 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::get('dashbard', [HomeController::class, 'dashboard'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
     Route::post('/delete-image', [PackageController::class, 'deleteImage'])->name('images.destroy');
+    
+    // Routes for Blog Admin pages
+    Route::resource('tags', TagController::class);
+    Route::resource('posts', PostController::class);
 });
 
 /// Front End Root ///

@@ -11,7 +11,14 @@
 <div class="col-lg-12 margin-tb">
                 <div class="dashboard-box table-opp-color-box">
                     <h4>Packages List</h4>
-                    <p>List of active packages.</p>
+<form class="form-inline" method="GET">
+  <div class="form-group col-sm-8 mb-5">
+    <label for="filter" class="col-sm-8 col-form-label">Search by package name</label>
+    <input type="text" class="form-control" id="filter" name="filter" placeholder="Product name..." value="{{ $filter }}">
+  </div>
+  <button type="submit" class="btn btn-info mb-2">Search</button>
+</form>
+                    
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -27,7 +34,7 @@
                                 @foreach($packages as $package)
                                 <tr>
                                 <td>
-                                    </span><span class="package-name">{{ $package->name }}</span>
+                                    <strong>{{ ++$i }}</strong>. <span class="package-name">{{ $package->name }}</span>
                                 </td>
                                 <td>{{ $package->trip_days }} days {{ $package->trip_nights }}</td>
                                 
@@ -72,9 +79,14 @@
                 <div class="pagination-wrap">
                     {!! $packages->render() !!}
                 </div>
+                <div class="p-2 text-info">
+                    <p>
+                        Displaying {{$packages->count()}} of {{ $packages->total() }} package(s).
+                    </p>
+
+                </div>
             </div>
 @endsection
-
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">

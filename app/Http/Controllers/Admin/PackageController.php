@@ -32,18 +32,19 @@ class PackageController extends Controller
      */
     public function index(Request $request)
     {
-        $packages = Package::with('categories','images')->paginate(5);
+        $packages = Package::with('categories','images')->orderBy('name','asc')->paginate(50);
         
-        // foreach($packages as $package)
-        // {
-        //     foreach($package->categories as $category)
-        //     {
-        //         echo $category->name;
-        //     }
-        // }
-        // die;
-        return view('admin.packages.index', compact('packages'))
-        ->with('i', ($request->input('page', 1) - 1) * 5);; 
+        $filter = $request->query('filter');
+    
+        if (!empty($filter)) {
+            $packages = Package::with('categories','images')->where('packages.name', 'like', '%'.$filter.'%')->orderBy('name','asc')->paginate(50);
+
+        } else {
+            $packages = Package::with('categories','images')->orderBy('name','asc')->paginate(50);
+        }
+        
+        return view('admin.packages.index', compact('packages','filter'))
+        ->with('i', ($request->input('page', 1) - 1) * 50);; 
     }
 
     /**
@@ -64,10 +65,12 @@ class PackageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $this->validate($request, [
               'name' => 'required|string|max:255',
               'description' => 'required|string',
+              'meta_keywords' => 'required',
+              'meta_descriptions' => 'required',
         ]);
 
         $package_small_pic = null;
@@ -131,7 +134,7 @@ class PackageController extends Controller
         }else{
             $package->slug = Str::slug($request->name);
         }
-       
+
         $package->save();
         
         $package->categories()->sync($request->categories);
@@ -160,7 +163,7 @@ class PackageController extends Controller
         return view('admin.packages.show',compact('package'));
     }
 
-    /**
+        /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -185,6 +188,8 @@ class PackageController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'meta_keywords' => 'required',
+            'meta_descriptions' => 'required',
         ]);
         
         $package = Package::find($id);
@@ -208,7 +213,7 @@ class PackageController extends Controller
             $package->page_banner_image = $pageBanner;
         }
         $package->page_banner_alt = $request->page_banner_alt;
-
+        
         $package->name = $request->name;
         $package->description = $request->description;
         $package->program = $request->program;
@@ -244,7 +249,7 @@ class PackageController extends Controller
         }else{
             $package->slug = Str::slug($request->name);
         }
-
+        
         $package->place_covered = $request->place_covered;
         $package->save();
         if($request->categories == null) $request->categories = [1];
@@ -268,7 +273,7 @@ class PackageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    { 
+    {
         Package::find($id)->delete();
         return redirect()->route('admin.packages.index')
                         ->with('success','Package deleted successfully');
@@ -293,7 +298,7 @@ class PackageController extends Controller
             'original_name' => $file->getClientOriginalName(),
         ]);
     }
-
+    
     public function deleteImage(Request $request)
     {
         $package_id = $request->package_id;

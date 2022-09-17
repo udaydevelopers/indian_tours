@@ -18,7 +18,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        
        $this->middleware('auth')->except(
            'index' , 'contact', 'categoryDetails', 'packageDetails', 'popularPackages', 'bookingStore','subpackageDetails'
         );
@@ -72,12 +71,24 @@ class HomeController extends Controller
         return view('category-details', compact('category','title','meta_keywords','meta_descriptions'));
     }
 
-    public function packageDetails($category, $packageslug)
+    public function packageDetails($category, $package)
     {
-        $package = Package::with('images')->where('slug', $packageslug)->first(); 
+        $package = Package::with('images')->where('slug', $package)->first(); 
         if (!$package) {
             abort(404);
         }
+        
+         /// check valid subcategory
+        $catExist = Category::select('id')->where('slug', $category)->value('id');
+        if (!$catExist) {
+            abort(404);
+        }
+        // Check Product is available in category
+        $validateCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$catExist])->get();
+        
+        $this->validate_category_packages($validateCatProduct, $package->id);
+        /// check valid category End here
+        
         $reviewCount = Review::where('package_id', $package->id)->where('status', 'publish')->count();
         $categoryIds = $package->categories()->pluck('categories.id')->toArray();
         
@@ -99,26 +110,45 @@ class HomeController extends Controller
         }
 
         $similarPackages = Package::whereIn('id',  $productIds)->get();
-        // Similar Product code end //
-
         $title = ($package->name)?$package->name:"India Tours Packages";
         $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
         $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
-        return view('package-details', compact('package', 'similarPackages', 'reviewCount','title','meta_keywords','meta_descriptions'));
+        return view('package-details', compact('package','similarPackages','title','reviewCount','meta_keywords','meta_descriptions'));
     }
 
     public function subpackageDetails($category, $subcat, $package)
     {
-        // Get corrent package details
         $package = Package::with('images')->where('slug', $package)->first(); 
-
-        // 404 error if paakge not found
         if (!$package) {
             abort(404);
         }
+        
+        /// check valid subcategory
+        $catExist = Category::select('id')->where('slug', $category)->value('id');
+        if(!$catExist){
+          abort(404);  
+        }
+        
+        $subcatExist = Category::select('id')->where('slug', $subcat)->value('id');
+        if (!$subcatExist) {
+            abort(404);
+        }
+        
 
-        // Reveiw count of package
+        // Check Product is available in category
+        $validateCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$catExist])->get();
+        
+        $this->validate_category_packages($validateCatProduct, $package->id);
+        
+        // Validate Product available in subcat
+        $validateSubCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$subcatExist])->get();
+        
+        $this->validate_category_packages($validateSubCatProduct, $package->id);
+        
+        /// check valid category and subcategory End here
+        
         $reviewCount = Review::where('package_id', $package->id)->where('status', 'publish')->count();
+        $categoryIds = $package->categories()->pluck('categories.id')->toArray();
         
         // Similar Product Code start //
         $categoryId = Category::select('id')->where('slug', $category)->value('id');
@@ -138,25 +168,34 @@ class HomeController extends Controller
         }
 
         $similarPackages = Package::whereIn('id',  $productIds)->get();
-        // Similar Product code end //
-        
         $title = ($package->name)?$package->name:"India Tours Packages";
         $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
         $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
-        return view('package-details', compact('package', 'similarPackages', 'reviewCount', 'title','meta_keywords','meta_descriptions'));
+        return view('package-details', compact('package','similarPackages','title','reviewCount','meta_keywords','meta_descriptions'));
     }
+    
+    public function validate_category_packages($categories_array, $package_id)
+    {
+        $productIdsForCat = []; 
 
+        foreach($categories_array as $subCategoryProduct)
+        {   
+            $productIdsForCat[] = $subCategoryProduct->package_id.','; 
+        }
+     
+        if (($key = array_search($package_id, $productIdsForCat)) === false) {
+            abort(404);
+        }   
+    }
+    
     public function bookingStore(Request $request)
     {
-        $this->validate($request, [
+         $this->validate($request, [
             'full_name'   => 'required',
             'email' => 'required|email',
             'mobile' => 'required|numeric|min:10',
             'no_of_persons' => 'required|numeric',
-            'booking_date' => 'required|date',
-            'captcha' => 'required|captcha'
-        ],[
-            'captcha' => 'Invalid Captcha code entered'
+            'booking_date' => 'required|date'
         ]);
 
         $booking = new Booking;
@@ -169,7 +208,7 @@ class HomeController extends Controller
         $booking->package_name = $request->package_name;
 
         $booking->save();
-
+        
         $to_name = 'Indian Tours';
         $to_email = 'indiantours2@gmail.com';
         $from_name = $request->full_name;
@@ -181,8 +220,6 @@ class HomeController extends Controller
         ->subject('India Tours Booking Request');
         $message->from($from_email, $from_name);
         });
-      
         return back()->with('success', 'Your booking requested successfully.');
     }
-
 }
