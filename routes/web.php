@@ -62,8 +62,10 @@ Route::get('/popular-packages', [HomeController::class, 'popularPackages'])->nam
 Route::get('/contact', [ContactController::class, 'create'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::get('/{category}', [HomeController::class, 'categoryDetails'])->name('category-details');
-Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
-Route::get('/{category}/{subcategory}/{package}', [HomeController::class, 'subpackageDetails'])->name('package-details-subcat');
+Route::get('/tour-program/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
+//Route::get('/{category}/{package}', [HomeController::class, 'packageDetails'])->name('package-details');
+//Route::get('/{category}/{subcategory}/{package}', [HomeController::class, 'subpackageDetails'])->name('package-details-subcat');
+
 Route::post('/booking', [HomeController::class, 'bookingStore'])->name('booking.store');
 Route::post('/review', [ReviewController::class, 'store'])->name('review.store');
 

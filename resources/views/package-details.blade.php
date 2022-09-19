@@ -618,6 +618,7 @@
             </div>
             
             <!-- similar packages section html start -->
+            @if($similarPackages->count() > 0)
             <section class="similar-packages" style="margin-block-end: 75px;">
 
                <div class="container">
@@ -632,16 +633,10 @@
 
                         <div class="single-tour-slider" style="margin-bottom: 70px;">
                         @foreach($similarPackages as $package) 
-
-                        @php $catsubcat_slug = '';
-                        
-                           $catsubcat_slug = $category->parent ? ($category->parent)->slug."/" : ''; 
-                        
-                        @endphp
                         <div class="col-lg-4 col-md-6">
                            <div class="package-wrap" style="width: 375px;">
                               <figure class="feature-image">
-                              <a href="/{{ $category->slug }}/{{ $package->slug }}">
+                              <a href="/tour-package/{{ $package->slug }}">
                               <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
                                  </a>
                               </figure>
@@ -669,7 +664,7 @@
                                  </div>
                                  <div class="package-content">
                                     <h3>
-                                       <a href="/{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
+                                       <a href="/tour-package/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
                                     </h3>
                                     <div class="review-area">
                                        <span class="review-text">({!! rand(1,50) !!} reviews)</span>
@@ -679,7 +674,7 @@
                                     </div>
                                     <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:'...' }}</p>
                                     <div class="btn-wrap">
-                                       <a href="/{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
+                                       <a href="/tour-package/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
                                     </div>
                                  </div>
                               </div>
@@ -698,8 +693,9 @@
                </div>
 
             </section>
-
+            @endif
             <!-- similar packages html end -->
+        
             <!-- subscribe section html start -->
 
             <section class="subscribe-section" style="background-image: url(../assets/images/triund-trek/triund-snow-mountains.jpg);">

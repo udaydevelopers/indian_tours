@@ -71,122 +71,110 @@ class HomeController extends Controller
         return view('category-details', compact('category','title','meta_keywords','meta_descriptions'));
     }
 
-    public function packageDetails($category, $package)
+    public function packageDetails($package)
     {
         $package = Package::with('images')->where('slug', $package)->first(); 
         if (!$package) {
             abort(404);
         }
-        
-         /// check valid subcategory
-        $catExist = Category::select('id')->where('slug', $category)->value('id');
-        if (!$catExist) {
-            abort(404);
-        }
-        // Check Product is available in category
-        $validateCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$catExist])->get();
-        
-        $this->validate_category_packages($validateCatProduct, $package->id);
-        /// check valid category End here
-        
+
         $reviewCount = Review::where('package_id', $package->id)->where('status', 'publish')->count();
         $categoryIds = $package->categories()->pluck('categories.id')->toArray();
         
         // Similar Product Code start //
-        $categoryId = Category::select('id')->where('slug', $category)->value('id');
-        
-        $categoryProducts = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$categoryId])->get();
-        
+        $categoryProducts = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$categoryIds])->get();
+
         $productIds = []; 
 
         foreach($categoryProducts as $categoryProduct)
         {   
             $productIds[] = $categoryProduct->package_id.','; 
         }
- 
+        
         // Remove current package id from arary
         if (($key = array_search($package->id, $productIds)) !== false) {
             unset($productIds[$key]);
         }
-
+      
         $similarPackages = Package::whereIn('id',  $productIds)->get();
+ 
         $title = ($package->name)?$package->name:"India Tours Packages";
         $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
         $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
         return view('package-details', compact('package','similarPackages','title','reviewCount','meta_keywords','meta_descriptions'));
     }
 
-    public function subpackageDetails($category, $subcat, $package)
-    {
-        $package = Package::with('images')->where('slug', $package)->first(); 
-        if (!$package) {
-            abort(404);
-        }
+    // public function subpackageDetails($category, $subcat, $package)
+    // {
+    //     $package = Package::with('images')->where('slug', $package)->first(); 
+    //     if (!$package) {
+    //         abort(404);
+    //     }
         
-        /// check valid subcategory
-        $catExist = Category::select('id')->where('slug', $category)->value('id');
-        if(!$catExist){
-          abort(404);  
-        }
+    //     /// check valid subcategory
+    //     $catExist = Category::select('id')->where('slug', $category)->value('id');
+    //     if(!$catExist){
+    //       abort(404);  
+    //     }
         
-        $subcatExist = Category::select('id')->where('slug', $subcat)->value('id');
-        if (!$subcatExist) {
-            abort(404);
-        }
+    //     $subcatExist = Category::select('id')->where('slug', $subcat)->value('id');
+    //     if (!$subcatExist) {
+    //         abort(404);
+    //     }
         
 
-        // Check Product is available in category
-        $validateCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$catExist])->get();
+    //     // Check Product is available in category
+    //     $validateCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$catExist])->get();
         
-        $this->validate_category_packages($validateCatProduct, $package->id);
+    //     $this->validate_category_packages($validateCatProduct, $package->id);
         
-        // Validate Product available in subcat
-        $validateSubCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$subcatExist])->get();
+    //     // Validate Product available in subcat
+    //     $validateSubCatProduct = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$subcatExist])->get();
         
-        $this->validate_category_packages($validateSubCatProduct, $package->id);
+    //     $this->validate_category_packages($validateSubCatProduct, $package->id);
         
-        /// check valid category and subcategory End here
+    //     /// check valid category and subcategory End here
         
-        $reviewCount = Review::where('package_id', $package->id)->where('status', 'publish')->count();
-        $categoryIds = $package->categories()->pluck('categories.id')->toArray();
+    //     $reviewCount = Review::where('package_id', $package->id)->where('status', 'publish')->count();
+    //     $categoryIds = $package->categories()->pluck('categories.id')->toArray();
         
-        // Similar Product Code start //
-        $categoryId = Category::select('id')->where('slug', $category)->value('id');
+    //     // Similar Product Code start //
+    //     $categoryId = Category::select('id')->where('slug', $category)->value('id');
         
-        $categoryProducts = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$categoryId])->get();
+    //     $categoryProducts = \DB::table('category_package')->select('package_id')->whereIn('category_id',[$categoryId])->get();
         
-        $productIds = []; 
+    //     $productIds = []; 
 
-        foreach($categoryProducts as $categoryProduct)
-        {   
-            $productIds[] = $categoryProduct->package_id.','; 
-        }
+    //     foreach($categoryProducts as $categoryProduct)
+    //     {   
+    //         $productIds[] = $categoryProduct->package_id.','; 
+    //     }
  
-        // Remove current package id from arary
-        if (($key = array_search($package->id, $productIds)) !== false) {
-            unset($productIds[$key]);
-        }
+    //     // Remove current package id from arary
+    //     if (($key = array_search($package->id, $productIds)) !== false) {
+    //         unset($productIds[$key]);
+    //     }
 
-        $similarPackages = Package::whereIn('id',  $productIds)->get();
-        $title = ($package->name)?$package->name:"India Tours Packages";
-        $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
-        $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
-        return view('package-details', compact('package','similarPackages','title','reviewCount','meta_keywords','meta_descriptions'));
-    }
+    //     $similarPackages = Package::whereIn('id',  $productIds)->get();
+    //     $title = ($package->name)?$package->name:"India Tours Packages";
+    //     $meta_keywords = $package->meta_keywords?trim($package->meta_keywords):trim($package->title);
+    //     $meta_descriptions = $package->meta_descriptions?trim($package->meta_descriptions):trim($package->title);
+    //     return view('package-details', compact('package','similarPackages','title','reviewCount','meta_keywords','meta_descriptions'));
+    // }
     
-    public function validate_category_packages($categories_array, $package_id)
-    {
-        $productIdsForCat = []; 
+    // public function validate_category_packages($categories_array, $package_id)
+    // {
+    //     $productIdsForCat = []; 
 
-        foreach($categories_array as $subCategoryProduct)
-        {   
-            $productIdsForCat[] = $subCategoryProduct->package_id.','; 
-        }
+    //     foreach($categories_array as $subCategoryProduct)
+    //     {   
+    //         $productIdsForCat[] = $subCategoryProduct->package_id.','; 
+    //     }
      
-        if (($key = array_search($package_id, $productIdsForCat)) === false) {
-            abort(404);
-        }   
-    }
+    //     if (($key = array_search($package_id, $productIdsForCat)) === false) {
+    //         abort(404);
+    //     }   
+    // }
     
     public function bookingStore(Request $request)
     {

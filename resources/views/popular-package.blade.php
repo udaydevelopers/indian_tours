@@ -33,14 +33,10 @@
                   <div class="package-inner package-inner-list">
                      <div class="row">
                      @foreach($packages as $package)
-                        @php $cat_slug = null; @endphp
-                           @foreach($package->categories as $category)
-                              @php  $cat_slug .= "/".$category->slug @endphp
-                           @endforeach 
                         <div class="col-lg-6">
                            <div class="package-wrap package-wrap-list">
                               <figure class="feature-image">
-                                 <a href="{{ $cat_slug }}/{{ $package->slug }}">
+                                 <a href="/tour-package/{{ $package->slug }}">
                                     <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="">
                                  </a>
                                  <div class="package-price">
@@ -67,7 +63,7 @@
                               </figure>
                               <div class="package-content">
                                  <h3>
-                                    <a href="{{ $cat_slug }}/{{ $package->slug }}">{{ $package->name }}</a>
+                                    <a href="/tour-package/{{ $package->slug }}">{{ $package->name }}</a>
                                  </h3>
                                  <div class="review-area">
                                     <span class="review-text">(25 reviews)</span>
@@ -79,7 +75,7 @@
                                  {!! Str::limit($package->description, 300, ' ...') !!}
                                  <div class="btn-wrap">
                                     
-                                    <a href="{{ $cat_slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View Details<i class="fas fa-arrow-right"></i></a>
+                                    <a href="/tour-package/{{ $package->slug }}" class="button-text width-12 text-right p-3">View Details<i class="fas fa-arrow-right"></i></a>
                                  </div>
                               </div>
                            </div>

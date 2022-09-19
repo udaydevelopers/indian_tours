@@ -15,7 +15,7 @@
                   url({{ url('/images/categories/'. $inner_banner) }});">
                   <div class="container">
                      <div class="inner-banner-content">
-                        <h1 class="inner-title">{{ $category->name? $category->name:''}}</h1>
+                        <h1 class="inner-title">{{ ($category->name)? $category->name:''}}</h1>
                      </div>
                   </div>
                </div>
@@ -28,13 +28,10 @@
                   <div class="package-inner">
                      <div class="row">
                      @foreach($category->packages as $package) 
-                        @php $catsubcat_slug = '';
-                        if($category->parent !== '') $catsubcat_slug = ($category->parent)->slug."/";
-                        @endphp
                         <div class="col-lg-4 col-md-6">
                            <div class="package-wrap">
                               <figure class="feature-image">
-                              <a href="{{ $category->slug }}/{{ $package->slug }}">
+                              <a href="/tour-package/{{ $package->slug }}">
                               <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
                                  </a>
                               </figure>
@@ -62,7 +59,7 @@
                                  </div>
                                  <div class="package-content">
                                     <h3>
-                                       <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
+                                       <a href="/tour-package/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
                                     </h3>
                                     <div class="review-area">
                                        <span class="review-text">({!! rand(1,50) !!} reviews)</span>
@@ -72,7 +69,7 @@
                                     </div>
                                     <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:'...' }}</p>
                                     <div class="btn-wrap">
-                                       <a href="{{ $catsubcat_slug.$category->slug }}/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
+                                       <a href="/tour-package/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
                                     </div>
                                  </div>
                               </div>
