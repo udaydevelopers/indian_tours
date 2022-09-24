@@ -56,17 +56,19 @@ class PostController extends Controller
         $post = new Post;
         
         if ($request->hasFile('blog_image')) {  
-        $image = $request->file('blog_image');
-    
-        $filename  = $image->getClientOriginalName() ."_". time() . '.' . $image->getClientOriginalExtension();
-        $main = public_path('images/blog/' . $filename);
-        $thumb = public_path('images/blog/thumb/' . $filename);
-        $stamp = public_path('images/blog/stamp/' . $filename);
+            $image = $request->file('blog_image');
         
-        Image::make($image->getRealPath())->resize(725, 423)->save($main);
-        Image::make($image->getRealPath())->resize(348, 290)->save($thumb);
-        Image::make($image->getRealPath())->resize(80, 67)->save($stamp);
+            $filename  = $image->getClientOriginalName() ."_". time() . '.' . $image->getClientOriginalExtension();
+            $main = public_path('images/blog/' . $filename);
+            $thumb = public_path('images/blog/thumb/' . $filename);
+            $stamp = public_path('images/blog/stamp/' . $filename);
+            
+            Image::make($image->getRealPath())->resize(725, 423)->save($main);
+            Image::make($image->getRealPath())->resize(348, 290)->save($thumb);
+            Image::make($image->getRealPath())->resize(80, 67)->save($stamp);
+
         }
+
         $post->title = $request->title;
         $post->short_description = $request->short_description;
         $post->body = $request->description;
@@ -78,8 +80,6 @@ class PostController extends Controller
 
         return redirect()->route('admin.posts.index')
         ->with('success','Post has been created successfully.');
-
-        }
     }
 
     /**

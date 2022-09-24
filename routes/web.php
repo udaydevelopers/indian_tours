@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\BlogController;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
@@ -30,6 +31,9 @@ use App\Http\Controllers\Admin\PostController;
 
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/blog/index', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/{slug}', [BlogController::class, 'details'])->name('details');
+
 Route::get('/reload-captcha', [ContactController::class, 'reloadCaptcha'])->name('reload-captcha');
 
 Auth::routes(['register' => false]);

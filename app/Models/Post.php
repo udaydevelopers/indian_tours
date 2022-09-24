@@ -12,7 +12,7 @@ class Post extends Model
 
     public function tags()
     {
-    	return $this->belongsToMany('App\Models\tag','post_tags')->withTimestamps();
+    	return $this->belongsToMany('App\Models\Tag','post_tags')->withTimestamps();
     }
 
     public function getRouteKeyName()
@@ -34,4 +34,10 @@ class Post extends Model
     {
         return route('post',$value);
     }
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('id', 'DESC');
+    }
+
 }
