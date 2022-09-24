@@ -27,12 +27,12 @@
 @endif
 
 
-{!! Form::open(array('route' => 'admin.posts.store','method'=>'POST')) !!}
+{!! Form::open(array('route' => 'admin.posts.store','method'=>'POST', 'enctype' => "multipart/form-data")) !!}
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
-        <label for="short_description" class="form-label"><h4>Title</h4></label>
-            {!! Form::text('name', null, array('placeholder' => 'Blog Title/Heading','class' => 'form-control')) !!}
+        <label for="title" class="form-label"><h4>Title</h4></label>
+            {!! Form::text('title', null, array('placeholder' => 'Blog Title/Heading','class' => 'form-control')) !!}
         </div>
     </div>
 </div>
@@ -48,11 +48,37 @@
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
             <label for="description" class="form-label"><h4>Description</h4></label>
-            <input class="form-control" name="short_description" placeholder="Description" id="description">
+            <input class="form-control" name="description" placeholder="Description" id="description">
         </div>
     </div>
 </div>
 <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="description" class="form-label"><h4>Upload Image</h4></label>
+            <input type="file" class="form-control" name="blog_image" placeholder="Blog Image" id="blog_image">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="description" class="form-label"><h4>Tags</h4></label>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding: 0 50px;">
+            @foreach($tags as $tag)
+            <div class="col-xs-4 col-sm-4 col-md-4">
+            <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="defaultCheck1" style="z-index: 9999; opacity: unset !important;">
+            <label class="form-check-label" for="defaultCheck1">
+            {{ $tag->name }}
+            </label>
+            </div>
+            @endforeach
+</div>
+
+<div class="row pt-5">
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

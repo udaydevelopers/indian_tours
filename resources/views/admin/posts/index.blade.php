@@ -28,8 +28,10 @@
                             <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th></th>
                                     <th>Title</th>
-                                    <th>Slug</th>
+                                    <th>Description</th>
+                                    <th>Tags</th>
                                     <th>Created at</th>
                                     <th>action</th>
                                 </tr>
@@ -37,15 +39,24 @@
                             <tbody>
                             @foreach ($posts as $key => $post)
                                 <tr>
-                                <td>{{ ++$i }}</td>
+                                <td style="width:10px;">{{ ++$i }}</td>
+                                <td style="width:80px;"><img src="{{ url('images/blog/stamp/'.$post->image) }}"></td>
                                     <td>
-                                    {{ $post->name }}
+                                    {{ $post->title }}
                                     </td>
                                     <td>
-                                    {{ $post->slug }}
+                                    {!! $post->short_description !!}
                                     </td>
                                     <td>
-                                    {{ $post->created_at->diffForHumans() }}
+                                    @foreach($post->tags as $tag)
+                                    {{ $tag->name }} 
+                                    @if(!$loop->last)
+                                    ,
+                                    @endif
+                                    @endforeach  
+                                    </td>
+                                    <td>
+                                    {{ $post->created_at }}
                                     </td>
                                     <td style="width: 105px;">
                                         
