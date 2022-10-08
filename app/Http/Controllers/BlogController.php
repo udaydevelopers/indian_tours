@@ -10,6 +10,7 @@ class BlogController extends Controller
 {
     public function index()
     {
+
         $posts = Post::with('tags')->latest()->get();
         $title = "Blog: Indian Tours";
         $meta_keywords = 'Indian Tours Blog';
@@ -25,6 +26,13 @@ class BlogController extends Controller
         $title = $post->title;
         $meta_keywords = $post->short_description;
         $meta_descriptions = $post->short_description;
+        
+        if($post->page_banner){
+           $pageBanner = '/images/blog/page_banner/'.$post->page_banner;
+        }else{
+            $pageBanner = '/images/inner-banner.jpg';
+        }
+        $post->page_banner = $pageBanner;
 
         if(!$post){
             abort(404);  

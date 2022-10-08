@@ -10,7 +10,7 @@
             <section class="inner-banner-wrap">
             @php $inner_banner = isset($package->page_banner_image) ? $package->page_banner_image : 'inner-banner.jpg'; @endphp
                <div class="inner-baner-container" style="background-image: 
-                  url({{ url('/images/'. $inner_banner) }});">
+                  url({{ url('/images/tour-program/'. Str::slug($package->name) .'/'. $inner_banner) }});">
 
                   <div class="container">
                      <div class="inner-banner-content">
@@ -37,7 +37,7 @@
 
                            <figure class="feature-image">
 
-                              <img src="{{ url('/images/'.$package->package_large_pic) }}" alt="{{ $package->slug }}">
+                              <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'.$package->package_large_pic) }}" alt="{{ $package->slug }}">
 
                               <div class="package-meta text-center">
 
@@ -395,7 +395,7 @@
                                        $last_dot_index = strrpos($image_name, ".");
                                        $without_extention = substr($image_name, 0, $last_dot_index);
                                        @endphp
-                                       <img src="{{ url('/images/'.$image->url) }}" alt="{{ $without_extention }}">
+                                       <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'.$image->url) }}" alt="{{ $without_extention }}">
 
                                     </figure>
 
@@ -637,7 +637,7 @@
                            <div class="package-wrap" style="width: 375px;">
                               <figure class="feature-image">
                               <a href="/tour-package/{{ $package->slug }}">
-                              <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
+                              <img src="{{ url('/images/tour-program/'. Str::slug($package->name) . '/' .$package->package_small_pic) }}" alt="{{ $package->name }}">
                                  </a>
                               </figure>
                               <div class="package-price">

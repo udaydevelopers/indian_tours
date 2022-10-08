@@ -29,6 +29,13 @@ use App\Http\Controllers\Admin\PostController;
 |
 */
 
+use Spatie\Sitemap\SitemapGenerator;
+
+Route::get("generate-sitemap", function () {
+
+    SitemapGenerator::create('http://127.0.0.1:8000/')->writeToFile(public_path('sitemap.xml'));
+    dd("done");
+});
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/blog/index', [BlogController::class, 'index'])->name('blog');

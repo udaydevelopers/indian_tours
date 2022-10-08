@@ -290,13 +290,13 @@
                                       <input type="file" name="package_small_pic" class="form-control" name="image">
                                       
                                     </div>
-                                    <img src="{{ url('/images/'. $package->package_small_pic) }}">
+                                    <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'. $package->package_small_pic) }}">
                                     <div class="form-group">
                                     <span> Upload Large Image </span>
                                     <input type="file" name="package_large_pic" class="form-control" name="image">
                                    
                                     </div>
-                                    <img src="{{ url('/images/'. $package->package_large_pic) }}">
+                                    <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'. $package->package_large_pic) }}">
                             </div>
                             <hr>
                             <div class="custom-field-wrap db-media-field-wrap">
@@ -310,7 +310,7 @@
                                         <input type="file" name="page_banner_image" class="form-control">
                                     </div>
                                     @if($package->page_banner_image)
-                                    <img src="{{ url('/images/'. $package->page_banner_image) }}">
+                                    <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'. $package->page_banner_image) }}">
                                     @endif
                                     <div class="form-group">
                                         <span> H2 Tags </span>
@@ -336,7 +336,7 @@
                     <div class="row" style="padding: 5px;;">
                     @foreach($package->images as $image)
                     <div class="custom-field-wrap col-sm-2 text-center">
-                    <img src="{{ url('/images/'.$image->url) }}" width="100"> 
+                    <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'.$image->url) }}" width="100"> 
 
                     <form id="image-{{ $image->id }}" 
                     action="{{ route('admin.images.destroy') }}"

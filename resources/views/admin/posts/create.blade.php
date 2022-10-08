@@ -77,7 +77,31 @@
             </div>
             @endforeach
 </div>
-
+<hr>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="description" class="form-label"><h4>Page Banner</h4></label>
+            <input type="file" class="form-control" name="page_banner_image" placeholder="Page Banner" id="page_banner_image">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="description" class="form-label"><h4>H1 Tags</h4></label>
+            <input type="text" class="form-control" name="h1_tags" placeholder="Page Banner" id="h1_tags">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <label for="description" class="form-label"><h4>H2 Tags</h4></label>
+            <input type="text" class="form-control" name="h2_tags" placeholder="Page Banner" id="h2_tags">
+        </div>
+    </div>
+</div>
 <div class="row pt-5">
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
         <button type="submit" class="btn btn-primary">Submit</button>

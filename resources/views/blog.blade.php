@@ -8,7 +8,7 @@
 <main id="content" class="site-main">
             <!-- Inner Banner html start-->
             <section class="inner-banner-wrap">
-               <div class="inner-baner-container" style="background-image: url(assets/images/inner-banner.jpg);">
+               <div class="inner-baner-container" style="background-image: url(../assets/images/inner-banner.jpg);">
                   <div class="container">
                      <div class="inner-banner-content">
                         <h1 class="inner-title">Blog</h1>
@@ -114,9 +114,10 @@
                               </aside>
                               <aside class="widget widget_social">
                                  <h3 class="widget-title">Social share</h3>
+                                 <div class="ss-box" data-ss-social="facebook, pinterest"></div>
                                  <div class="social-icon-wrap">
                                     <div class="social-icon social-facebook">
-                                       <a href="#">
+                                       <a href="https://www.facebook.com/share.php?u={{Str::slug($post->title)}}">
                                           <i class="fab fa-facebook-f"></i>
                                           <span>Facebook</span>
                                        </a>

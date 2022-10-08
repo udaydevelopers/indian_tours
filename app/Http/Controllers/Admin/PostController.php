@@ -49,7 +49,7 @@ class PostController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'tags' => 'required',
-            'blog_image' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+            'blog_image' => 'required|image|mimes:jpg,jpeg,png,gif,svg,bmp,webp|max:2048',
         ]);
 
           
@@ -69,12 +69,21 @@ class PostController extends Controller
 
         }
 
+        // Blog Banner and alt text settings
+        if ($request->hasFile('page_banner_image')) {
+            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
+            $request->page_banner_image->move(public_path('images/blog/page_banner'), $pageBanner);
+            $post->page_banner = $pageBanner;
+        }
+
         $post->title = $request->title;
         $post->short_description = $request->short_description;
         $post->body = $request->description;
         $post->image = $filename;
         $post->slug = Str::slug($request->title);
         $post->status = 1;
+        $post->h1_tags = $request->h1_tags;
+        $post->h2_tags = $request->h2_tags;
         $post->save();
         $post->tags()->sync($request->tags);
 
@@ -122,11 +131,13 @@ class PostController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'tags' => 'required',
-            'blog_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048'
+            'blog_image' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg,bmp,webp|max:2048'
         ]);
 
         $post = Post::find($id);
         $oldFilename = $post->image;
+        // Old pae banner
+        $oldPageBnner = $post->page_banner;
 
         if ($request->hasFile('blog_image')) {
             $image = $request->file('blog_image');
@@ -149,12 +160,26 @@ class PostController extends Controller
             $post->image = $filename;
         }
 
+        // Blog Banner and alt text settings
+        if ($request->hasFile('page_banner_image')) {
+            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
+            $request->page_banner_image->move(public_path('images/blog/page_banner'), $pageBanner);
+            $post->page_banner = $pageBanner;
+            
+            // delete old page banner
+            if (file_exists('images/blog/page_banner/' . $oldPageBnner) && $oldPageBnner != 'null') { 
+                unlink('images/blog/page_banner/' . $oldPageBnner);
+            }
+        }
+
         $post->title = $request->title;
         $post->short_description = $request->short_description;
         $post->body = $request->description;
         
         $post->slug = Str::slug($request->title);
         $post->status = 1;
+        $post->h1_tags = $request->h1_tags;
+        $post->h2_tags = $request->h2_tags;
         $post->save();
         $post->tags()->sync($request->tags);
 

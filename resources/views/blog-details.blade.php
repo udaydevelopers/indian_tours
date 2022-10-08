@@ -8,10 +8,10 @@
 <main id="content" class="site-main">
             <!-- Inner Banner html start-->
             <section class="inner-banner-wrap">
-               <div class="inner-baner-container" style="background-image: url(assets/images/inner-banner.jpg);">
+               <div class="inner-baner-container" style="background-image: url({{ $post->page_banner }});">
                   <div class="container">
                      <div class="inner-banner-content">
-                        <h1 class="inner-title">{{ $post->title }}</h1>
+                        <h1 class="inner-title">{{ $post->h1_tags ? $post->h1_tags :$post->title }}</h1>
                         <div class="entry-meta">
                            <span class="byline">
                               <a href="#">Indian tours</a>
@@ -19,9 +19,9 @@
                            <span class="posted-on">
                               <a href="#">{{ $post->created_at }}</a>
                            </span>
-                           <span class="comments-link">
+                           <span>
                            @foreach($post->tags as $tag)
-                                <a href="#">{{ $tag->name }} </a>
+                                <a href="javascript:;">{{ $tag->name }} </a>
                                 @if(!$loop->last)
                                 ,
                                 @endif
@@ -40,6 +40,7 @@
                      <div class="row">
                         <div class="col-lg-8 primary right-sidebar">
                            <!-- single blog post html start -->
+                           <h2>{{ $post->h2_tags ? $post->h2_tags :'' }}</h1>
                            <figure class="feature-image">
                            <img src="{{ url('images/blog/'.$post->image) }}">
                            </figure>
@@ -58,6 +59,7 @@
                            </div>
                            <div class="post-socail-wrap">
                               <div class="social-icon-wrap">
+                              <div class="ss-box ss-responsive"></div>
                                  <div class="social-icon social-facebook">
                                     <a href="#">
                                        <i class="fab fa-facebook-f"></i>
@@ -124,15 +126,15 @@
                                      @foreach($recentPosts as $rpost)
                                     <li>
                                        <figure class="post-thumb">
-                                          <a href="#"><img src="{{ url('images/blog/thumb/'.$post->image) }}"></a>
+                                          <a href="{{ Str::slug($rpost->title) }}"><img src="{{ url('images/blog/thumb/'.$rpost->image) }}"></a>
                                        </figure>
                                        <div class="post-content">
                                           <h5>
-                                             <a href="#">{{ $rpost->title }}</a>
+                                             <a href="{{ Str::slug($rpost->title) }}">{{ $rpost->title }}</a>
                                           </h5>
                                           <div class="entry-meta">
                                              <span class="posted-on">
-                                                <a href="#">{{ $rpost->created_at }}</a>
+                                                <a href="{{ Str::slug($rpost->title) }}">{{ $rpost->created_at }}</a>
                                              </span>
                                              <!-- <span class="comments-link">
                                                 <a href="#">No Comments</a>
@@ -145,6 +147,7 @@
                               </aside>
                               <aside class="widget widget_social">
                                  <h3 class="widget-title">Social share</h3>
+                                 <div class="ss-box ss-responsive"></div>
                                  <div class="social-icon-wrap">
                                     <div class="social-icon social-facebook">
                                        <a href="#">
@@ -191,4 +194,5 @@
                </div>
             </div>
          </main>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
          @endsection

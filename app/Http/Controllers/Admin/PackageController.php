@@ -67,7 +67,7 @@ class PackageController extends Controller
     public function store(Request $request)
     { 
         $this->validate($request, [
-              'name' => 'required|string|max:255',
+              'name' => 'required|string|max:255|unique:packages,name',
               'description' => 'required|string',
               'meta_keywords' => 'required',
               'meta_descriptions' => 'required',
@@ -77,24 +77,31 @@ class PackageController extends Controller
         $package_large_pic = null;
         
         $package = new Package;
+        
+        // Check if folder exist or not
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name);
 
+        if (!is_dir($idProgramDir)) {
+            mkdir($idProgramDir, 0777, TRUE);
+        }
+        $packageSlugUrl = Str::slug($request->name);
         // Package small Image
         if ($request->hasFile('package_small_pic')) {
-            $imageSmallName = time().'_small_'.$request->package_small_pic->getClientOriginalName();  
-            $request->package_small_pic->move(public_path('images'), $imageSmallName);
+            $imageSmallName = $packageSlugUrl.'-small.'.$request->package_small_pic->getClientOriginalExtension();  
+            $request->package_small_pic->move($idProgramDir, $imageSmallName);
             $package->package_small_pic = $imageSmallName;
         }
         // Package Large Image
         if ($request->hasFile('package_large_pic')) {
-            $imageLargeName = time().'_large_'.$request->package_large_pic->getClientOriginalName();  
-            $request->package_large_pic->move(public_path('images'), $imageLargeName);
+            $imageLargeName = $packageSlugUrl.'-large.'.$request->package_large_pic->getClientOriginalExtension();  
+            $request->package_large_pic->move($idProgramDir, $imageLargeName);
             $package->package_large_pic = $imageLargeName;
         }
         
         // Packge Banner and alt text settings
         if ($request->hasFile('page_banner_image')) {
-            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
-            $request->page_banner_image->move(public_path('images'), $pageBanner);
+            $pageBanner = $packageSlugUrl.'-banner.'.$request->page_banner_image->getClientOriginalExtension();  
+            $request->page_banner_image->move($idProgramDir, $pageBanner);
             $package->page_banner_image = $pageBanner;
         }
         $package->page_banner_alt = $request->page_banner_alt;
@@ -142,7 +149,7 @@ class PackageController extends Controller
         
         foreach ($request->input('document', []) as $file) {
             $image = new Image;
-            File::copy(storage_path('tmp/uploads/'.$file), public_path('images/'.$file));
+            File::copy(storage_path('tmp/uploads/'.$file), $idProgramDir. DIRECTORY_SEPARATOR .$file);
             $image->url = $file;
             $image->package_id = $package->id;
             $image->save();
@@ -193,25 +200,53 @@ class PackageController extends Controller
         ]);
         
         $package = Package::find($id);
+        
+        // Check if folder exist or not
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name);
+
+        if (!is_dir($idProgramDir)) {
+            mkdir($idProgramDir, 0777, TRUE);
+        }
+        $packageSlugUrl = Str::slug($request->name);
 
         if ($request->hasFile('package_small_pic')) {
-            $imageSmallName = time().'_small.'.$request->package_small_pic->extension();  
-            $request->package_small_pic->move(public_path('images'), $imageSmallName);
+            
+            // delete old image
+            if (file_exists($idProgramDir ."/". $package->package_small_pic)) {
+                unlink($idProgramDir ."/". $package->package_small_pic);
+            }
+
+            $imageSmallName = $packageSlugUrl.'-small.'.$request->package_small_pic->getClientOriginalExtension();  
+            $request->package_small_pic->move($idProgramDir, $imageSmallName);
             $package->package_small_pic = $imageSmallName;
+               
         }
 
         if ($request->hasFile('package_large_pic')) {
-            $imageLargeName = time().'_large.'.$request->package_large_pic->extension();  
-            $request->package_large_pic->move(public_path('images'), $imageLargeName);
+            
+            // delete old image
+            if (file_exists($idProgramDir ."/". $package->package_large_pic)) {
+                unlink($idProgramDir ."/". $package->package_large_pic);
+            }
+
+            $imageLargeName = $packageSlugUrl.'-large.'.$request->package_large_pic->getClientOriginalExtension();  
+            $request->package_large_pic->move($idProgramDir, $imageLargeName);
             $package->package_large_pic = $imageLargeName;
         }
 
         // Packge Banner and alt text settings
         if ($request->hasFile('page_banner_image')) {
-            $pageBanner = time().'_'.$request->page_banner_image->getClientOriginalName();  
-            $request->page_banner_image->move(public_path('images'), $pageBanner);
+
+            // delete old image
+            if (file_exists($idProgramDir ."/". $package->page_banner_image)) {
+                unlink($idProgramDir ."/". $package->page_banner_image);
+            }
+
+            $pageBanner = $packageSlugUrl.'-banner.'.$request->page_banner_image->getClientOriginalExtension();  
+            $request->page_banner_image->move($idProgramDir, $pageBanner);
             $package->page_banner_image = $pageBanner;
         }
+
         $package->page_banner_alt = $request->page_banner_alt;
         
         $package->name = $request->name;
@@ -257,7 +292,7 @@ class PackageController extends Controller
 
         foreach ($request->input('document', []) as $file) {
             $image = new Image;
-            File::copy(storage_path('tmp/uploads/'.$file), public_path('images/'.$file));
+            File::copy(storage_path('tmp/uploads/'.$file), $idProgramDir. DIRECTORY_SEPARATOR .$file);
             $image->url = $file;
             $image->package_id = $package->id;
             $image->save();
@@ -274,7 +309,11 @@ class PackageController extends Controller
      */
     public function destroy($id)
     {
-        Package::find($id)->delete();
+        $package = Package::find($id);
+ 
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($package->name);
+        if (\File::exists($idProgramDir)) \File::deleteDirectory($idProgramDir);
+        $package->delete();
         return redirect()->route('admin.packages.index')
                         ->with('success','Package deleted successfully');
     }
@@ -289,7 +328,7 @@ class PackageController extends Controller
 
         $file = $request->file('file');
 
-        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $name = trim($file->getClientOriginalName());
 
         $file->move($path, $name);
 
@@ -306,8 +345,9 @@ class PackageController extends Controller
 
         $image = Image::find($image_id);
         $image_path = $image->url;
-        $filename = public_path(DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$image_path);
-        
+        //$filename = public_path(DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$image_path);
+        // Check if folder exist or not
+        $filename = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name). DIRECTORY_SEPARATOR.$image_path;
         // Destroy the Image
         if(File::exists($filename)) { 
             File::delete($filename);

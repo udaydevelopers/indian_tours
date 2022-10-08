@@ -31,8 +31,8 @@
                         <div class="col-lg-4 col-md-6">
                            <div class="package-wrap">
                               <figure class="feature-image">
-                              <a href="/tour-package/{{ $package->slug }}">
-                              <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
+                              <a href="/tour-program/{{ $package->slug }}">
+                              <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'.$package->package_small_pic) }}" alt="{{ $package->name }}">
                                  </a>
                               </figure>
                               <div class="package-price">
@@ -59,7 +59,7 @@
                                  </div>
                                  <div class="package-content">
                                     <h3>
-                                       <a href="/tour-package/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
+                                       <a href="/tour-program/{{ $package->slug }}">{{ ($package->h2_tags)?$package->h2_tags:$package->name }}</a>
                                     </h3>
                                     <div class="review-area">
                                        <span class="review-text">({!! rand(1,50) !!} reviews)</span>
@@ -69,7 +69,7 @@
                                     </div>
                                     <p>Places Covered : {{ ($package->place_covered)?$package->place_covered:'...' }}</p>
                                     <div class="btn-wrap">
-                                       <a href="/tour-package/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
+                                       <a href="/tour-program/{{ $package->slug }}" class="button-text width-12 text-right p-3">View More<i class="fas fa-arrow-right"></i></a>
                                     </div>
                                  </div>
                               </div>
