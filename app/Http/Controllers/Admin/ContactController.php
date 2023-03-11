@@ -15,7 +15,7 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
-        $contacts = Contact::orderBy('id','DESC')->paginate(20); 
+        $contacts = Contact::orderBy('id','DESC')->paginate(50); 
         return view('admin.contacts.index',compact('contacts'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -85,6 +85,13 @@ class ContactController extends Controller
     public function destroy($id)
     {
         Contact::find($id)->delete();
+        return redirect()->route('admin.contacts.index')
+                        ->with('success','Contact us Enquiry deleted successfully');
+    }
+    
+    public function deleteAll(Request $request)
+    {
+        Contact::whereIn('id', $request->ids)->delete();
         return redirect()->route('admin.contacts.index')
                         ->with('success','Contact us Enquiry deleted successfully');
     }

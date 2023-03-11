@@ -48,11 +48,11 @@ class HomeController extends Controller
     }
 
 
-    public function dashboard()
-    {
-        $this->middleware('auth');
-        return view('admin.dashboard');
-    }
+    // public function dashboard()
+    // {
+    //     $this->middleware('auth');
+    //     return view('admin.dashboard');
+    // }
 
     // public function contact()
     // {

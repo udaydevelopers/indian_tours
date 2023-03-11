@@ -13,19 +13,24 @@
                     <h4>Contact us Enquiry List</h4>
                     <p>contact us submitted by users</p>
                     <div class="table-responsive">
+                        <form id="delete-form" action="{{ route('admin.contacts.delete.all') }}" method="post">
+                            @csrf
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th style="padding-bottom:25px;"><input type="checkbox" value="1" name="check_all" id="checkAll"></th>
                                     <th>#sl</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Message</th>
-                                    <th>action</th>
+                                    <!--<th>action</th>-->
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($contacts as $contact) 
+                                
                                 <tr>
+                                <td><input type="checkbox" value="{{$contact->id}}" name="ids[]"></td>
                                 <td>{{ ++$i }}</td>
                                 <td> 
                                     </span><span class="package-name">{{ $contact->name }}</span>
@@ -33,22 +38,25 @@
                                 <td>{{ $contact->email }}</td>
                                 <td>{{ $contact->message }}</td>
   
-                                <td>
+                                <!--<td>-->
                 
-                                <a href="#" class="show_confirm"
-                                       onclick="event.preventDefault(); 
-                                                     " data-toggle="tooltip" title='Delete'>
-                                        <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
-                                    </a>
-                                    {!! Form::open(['id'=> 'delete-form','method' => 'DELETE','route' => ['admin.contacts.destroy', $contact->id],'style'=>'display:inline']) !!}
-                                    {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}
-                                    {!! Form::close() !!}
+                                <!--<a href="#" class="show_confirm"-->
+                                <!--       onclick="event.preventDefault(); -->
+                                <!--                     " data-toggle="tooltip" title='Delete'>-->
+                                <!--        <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>-->
+                                <!--    </a>-->
                                     
-                                </td>
+                                <!--    {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}-->
+                                    
+                                    
+                                <!--</td>-->
                                 </tr>
+                                
                                 @endforeach
+                                <tr><td colspan="5"><button type="submit" onclick="event.preventDefault();" data-toggle="tooltip" class="show_confirm btn btn-danger float-right">Delete All</button></td></tr>
                             </tbody>
                         </table>
+                        </form>
                     </div>
                 </div>
                 <!-- pagination html -->
@@ -56,6 +64,13 @@
                     {!! $contacts->render() !!}
                 </div>
             </div>
+            <style>
+input[type=checkbox] {
+    position: absolute;
+    z-index: 0;
+    opacity:  1 !important;
+}
+            </style>
 @endsection
 
 @section('script')
@@ -80,5 +95,8 @@
           });
       });
   
+  $("#checkAll").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 </script>
 @endsection

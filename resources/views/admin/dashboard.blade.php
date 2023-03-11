@@ -3,243 +3,108 @@
 @section('content')
 <div class="row">
     <!-- Item -->
-    <div class="col-xl-3 col-sm-6">
+    <div class="col-xl-4 col-sm-6">
         <div class="db-info-list">
             <div class="dashboard-stat-icon bg-blue">
                 <i class="far fa-chart-bar"></i>
             </div>
             <div class="dashboard-stat-content">
-                <h4>Today Views</h4>
-                <h5>22,520</h5> 
+                <h4>Package Review</h4>
+                <h5>{{ $reviewCount }}</h5> 
             </div>
         </div>
     </div>
     <!-- Item -->
-    <div class="col-xl-3 col-sm-6">
+    <div class="col-xl-4 col-sm-6">
         <div class="db-info-list">
             <div class="dashboard-stat-icon bg-green">
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="dashboard-stat-content">
-                <h4>Earnings</h4>
-                <h5>16,520</h5> 
+                <h4>Booking Enquiry</h4>
+                <h5>{{ $bookingCount }}</h5> 
             </div>
         </div>
     </div>
     <!-- Item -->
-    <div class="col-xl-3 col-sm-6">
-        <div class="db-info-list">
-            <div class="dashboard-stat-icon bg-purple">
-                <i class="fas fa-users"></i>
-            </div>
-            <div class="dashboard-stat-content">
-                <h4>Users</h4>
-                <h5>18,520</h5> 
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-3 col-sm-6">
+    <div class="col-xl-4 col-sm-6">
         <div class="db-info-list">
             <div class="dashboard-stat-icon bg-red">
                 <i class="far fa-envelope-open"></i>
             </div>
             <div class="dashboard-stat-content">
-                <h4>Enquiry</h4>
-                <h5>19,520</h5> 
+                <h4>Contact Enquiry</h4>
+                <h5>{{ $contactCount }}</h5> 
             </div>
         </div>
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="dashboard-box table-opp-color-box">
-            <h4>Recent Booking</h4>
-            <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+            <h4>Booking Enquiry</h4>
+            <p>Recent booking enquiry list</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Select</th>
-                            <th>User</th>
                             <th>Name</th>
-                            <th>Date</th>
-                            <th>City</th>
-                            <th>Enquiry</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>Package</th>
+                            <th>Booking Date</th>
+                            <th>No of Person</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($recentBookingLists as $recentBookingList)
                         <tr>
                             <td>
-                                <label class="custom-input"><input type="checkbox" checked="checked">
-                                <span class="custom-input-field"></span></label>
+                                {{ $recentBookingList->full_name }}
                             </td>
-                            <td><span class="list-img"><img src="assets/images/comment.jpg" alt=""></span>
+                            <td>{{ $recentBookingList->email }}</span>
                             </td>
-                            <td><span class="list-enq-name">John Doe</span>
+                            <td>{{ $recentBookingList->mobile }}
                             </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
+                            <td>{{ $recentBookingList->package_name }}</td>
+                            <td>{{ $recentBookingList->booking_date }}</td>
                             <td>
-                                <span class="badge badge-success">15</span>
+                                <span class="badge badge-success">{{ $recentBookingList->no_of_persons }}</span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox" checked="checked">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment2.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox" checked="checked">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment3.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox" checked="checked">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment4.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox" checked="checked">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment5.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div> 
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="dashboard-box table-opp-color-box">
-            <h4>Package Enquiry</h4>
-            <p>Airtport Hotels The Right Way To Start A Short Break Holiday</p>
+            <h4>Contat Enquiry</h4>
+            <p>Recent contact enquiry list</p>
             <div class="table-responsive">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Select</th>
-                            <th>User</th>
                             <th>Name</th>
-                            <th>Date</th>
-                            <th>City</th>
-                            <th>Enquiry</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Sent Date</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($recentContactLists as $recentContactList)
                         <tr>
                             <td>
-                                <label class="custom-input"><input type="checkbox">
-                                <span class="custom-input-field"></span></label>
+                            <span class="list-enq-name">{{ $recentContactList->name }}</span>
                             </td>
-                            <td><span class="list-img"><img src="assets/images/comment.jpg" alt=""></span>
+                            <td>{{ $recentContactList->email }}</span>
                             </td>
-                            <td><span class="list-enq-name">John Doe</span>
+                            <td>{{ $recentContactList->message }}
                             </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
+                            <td>{{ $recentContactList->created_at->diffForHumans() }}</td>
                         </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment2.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment3.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment4.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label class="custom-input"><input type="checkbox">
-                                <span class="custom-input-field"></span></label>
-                            </td>
-                            <td><span class="list-img"><img src="assets/images/comment5.jpg" alt=""></span>
-                            </td>
-                            <td><span class="list-enq-name">John Doe</span>
-                            </td>
-                            <td>12 may</td>
-                            <td>Japan</td>
-                            <td>
-                                <span class="badge badge-success">15</span>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
