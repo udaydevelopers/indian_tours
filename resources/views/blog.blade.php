@@ -66,19 +66,7 @@
                            <div class="post-navigation-wrap">
                               <nav>
                                 <ul class="pagination">
-                                  <li>
-                                    <a href="#">
-                                      <i class="fas fa-arrow-left"></i>
-                                    </a>
-                                  </li>
-                                  <li class="active"><a href="#">1</a></li>
-                                  <li><a href="#">..</a></li>
-                                  <li><a href="#">5</a></li>
-                                  <li>
-                                    <a href="#">
-                                      <i class="fas fa-arrow-right"></i>
-                                    </a>
-                                  </li>
+                                  {{ $posts->links() }}
                                 </ul>
                               </nav>
                            </div>
@@ -117,39 +105,41 @@
                                  <div class="ss-box" data-ss-social="facebook, pinterest"></div>
                                  <div class="social-icon-wrap">
                                     <div class="social-icon social-facebook">
-                                       <a href="https://www.facebook.com/share.php?u={{Str::slug($post->title)}}">
+                                       <a href="{{ Share::currentPage()
+	->facebook()
+	->getRawLinks(); }}">
                                           <i class="fab fa-facebook-f"></i>
                                           <span>Facebook</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-pinterest">
-                                       <a href="#">
+                                       <a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ Request::url() }}">
                                           <i class="fab fa-pinterest"></i>
                                           <span>Pinterest</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-whatsapp">
-                                       <a href="#">
+                                       <a target="_blank" href="https://wa.me/?text={{ Request::url() }}">
                                           <i class="fab fa-whatsapp"></i>
                                           <span>WhatsApp</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-linkedin">
-                                       <a href="#">
+                                       <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ Request::url() }}&title={{'Indian Tour Blog'}}">
                                           <i class="fab fa-linkedin"></i>
                                           <span>Linkedin</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-twitter">
-                                       <a href="#">
+                                       <a target="_blank" href="https://twitter.com/intent/tweet?text={{'Indian Tour Blog'}}&url={{ Request::url() }}">
                                           <i class="fab fa-twitter"></i>
                                           <span>Twitter</span>
                                        </a>
                                     </div>
-                                    <div class="social-icon social-google">
-                                       <a href="#">
-                                          <i class="fab fa-google-plus-g"></i>
-                                          <span>Google</span>
+                                    <div class="social-icon social-instagram">
+                                       <a target="_blank" href="https://www.instagram.com?url={{ Request::url() }}">
+                                          <i class="fab fa-instagram"></i>
+                                          <span>Instagram</span>
                                        </a>
                                     </div>
                                  </div>

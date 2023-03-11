@@ -79,7 +79,7 @@ class PackageController extends Controller
         $package = new Package;
         
         // Check if folder exist or not
-        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name);
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->page_banner_alt);
 
         if (!is_dir($idProgramDir)) {
             mkdir($idProgramDir, 0777, TRUE);
@@ -202,7 +202,7 @@ class PackageController extends Controller
         $package = Package::find($id);
         
         // Check if folder exist or not
-        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name);
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->page_banner_alt);
 
         if (!is_dir($idProgramDir)) {
             mkdir($idProgramDir, 0777, TRUE);
@@ -311,7 +311,7 @@ class PackageController extends Controller
     {
         $package = Package::find($id);
  
-        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($package->name);
+        $idProgramDir = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($package->page_banner_alt);
         if (\File::exists($idProgramDir)) \File::deleteDirectory($idProgramDir);
         $package->delete();
         return redirect()->route('admin.packages.index')
@@ -347,7 +347,7 @@ class PackageController extends Controller
         $image_path = $image->url;
         //$filename = public_path(DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.$image_path);
         // Check if folder exist or not
-        $filename = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->name). DIRECTORY_SEPARATOR.$image_path;
+        $filename = public_path() . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'tour-program' . DIRECTORY_SEPARATOR . Str::slug($request->page_banner_alt). DIRECTORY_SEPARATOR.$image_path;
         // Destroy the Image
         if(File::exists($filename)) { 
             File::delete($filename);

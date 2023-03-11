@@ -146,35 +146,34 @@
                                  </ul>
                               </aside>
                               <aside class="widget widget_social">
-                                 <h3 class="widget-title">Social share</h3>
-                                 <div class="ss-box ss-responsive"></div>
+                              <h3 class="widget-title">Social share</h3>
                                  <div class="social-icon-wrap">
                                     <div class="social-icon social-facebook">
-                                       <a href="#">
+                                       <a href="https://www.facebook.com/sharer/sharer.php?u={{ Request::url() }}">
                                           <i class="fab fa-facebook-f"></i>
                                           <span>Facebook</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-pinterest">
-                                       <a href="#">
+                                       <a href="http://pinterest.com/pin/create/button/?url={{ Request::url() }}">
                                           <i class="fab fa-pinterest"></i>
                                           <span>Pinterest</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-whatsapp">
-                                       <a href="#">
+                                       <a href="https://wa.me/?text={{ Request::url() }}">
                                           <i class="fab fa-whatsapp"></i>
                                           <span>WhatsApp</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-linkedin">
-                                       <a href="#">
+                                       <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ Request::url() }}&title={{ $post->title }}">
                                           <i class="fab fa-linkedin"></i>
                                           <span>Linkedin</span>
                                        </a>
                                     </div>
                                     <div class="social-icon social-twitter">
-                                       <a href="#">
+                                       <a href="https://twitter.com/intent/tweet?text={{ $post->title }}&url={{ Request::url() }}">
                                           <i class="fab fa-twitter"></i>
                                           <span>Twitter</span>
                                        </a>

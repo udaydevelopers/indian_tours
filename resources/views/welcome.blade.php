@@ -84,7 +84,7 @@
                            <div class="package-wrap package-wrap-list">
                               <figure class="feature-image">
                                  <a href="/tour-package/{{ $package->slug }}">
-                                    <img src="{{ url('/images/'.$package->package_small_pic) }}" alt="">
+                                 <img src="{{ url('/images/tour-program/'. Str::slug($package->name) .'/'.$package->package_small_pic) }}" alt="{{ Str::slug($package->name) }}">
                                  </a>
                                  <div class="package-price">
                                     <h6>

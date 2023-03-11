@@ -130,7 +130,7 @@
                               <a href="{{ route('contact') }}">{{ __('Contact') }}</a>
                            </li>
                            <li>
-                              <a href="#">Blog</a>
+                              <a href="{{ route('blog') }}">Blog</a>
                            </li>
                           <!--  <li class="menu-item-has-children">
                               <a href="#">Dashboard</a>
@@ -261,33 +261,23 @@
                      <div class="col-lg-3 col-md-6">
                         <aside class="widget widget_recent_post">
                            <h3 class="widget-title">Latest Post</h3>
+                          
                            <ul>
+                           @foreach($latestPost as $lpost)
                               <li>
                                  <h5>
-                                    <a href="#">Life is a beautiful journey not a destination</a>
+                                    <a href="/blog/{{ Str::slug($lpost->title) }}">{{ $lpost->title }}</a>
                                  </h5>
                                  <div class="entry-meta">
                                     <span class="post-on">
-                                       <a href="#">August 17, 2021</a>
+                                       <a href="/blog/{{ Str::slug($lpost->title) }}">{{ $lpost->created_at }}</a>
                                     </span>
-                                    <span class="comments-link">
+                                    <!-- <span class="comments-link">
                                        <a href="#">No Comments</a>
-                                    </span>
+                                    </span> -->
                                  </div>
                               </li>
-                              <li>
-                                 <h5>
-                                    <a href="#">Take only memories, leave only footprints</a>
-                                 </h5>
-                                 <div class="entry-meta">
-                                    <span class="post-on">
-                                       <a href="#">August 17, 2021</a>
-                                    </span>
-                                    <span class="comments-link">
-                                       <a href="#">No Comments</a>
-                                    </span>
-                                 </div>
-                              </li>
+                           @endforeach
                            </ul>
                         </aside>
                      </div>

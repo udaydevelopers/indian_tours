@@ -11,7 +11,7 @@ class BlogController extends Controller
     public function index()
     {
 
-        $posts = Post::with('tags')->latest()->get();
+        $posts = Post::with('tags')->latest()->paginate(1);
         $title = "Blog: Indian Tours";
         $meta_keywords = 'Indian Tours Blog';
         $meta_descriptions = 'Indian Tours Blog Descriptions';
