@@ -9,5 +9,5 @@ class Settings extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['mobile','email'];
+    protected $fillable = ['mobile','email','mobile_international','email_international'];
 }

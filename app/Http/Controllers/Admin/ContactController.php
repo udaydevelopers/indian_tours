@@ -17,7 +17,7 @@ class ContactController extends Controller
     {
         $contacts = Contact::orderBy('id','DESC')->paginate(50); 
         return view('admin.contacts.index',compact('contacts'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 50);
     }
 
     /**

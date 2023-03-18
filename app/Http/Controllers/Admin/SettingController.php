@@ -74,6 +74,8 @@ class SettingController extends Controller
         $settings = $this->validate($request, [
             'email' => 'required|email',
             'mobile' => 'required|numeric|min:10',
+            'email_international' => 'email',
+            'mobile_international' => 'numeric|min:10',
       ]);
       
       $data = Settings::find($id);

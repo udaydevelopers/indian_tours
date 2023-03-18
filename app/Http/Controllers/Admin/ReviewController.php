@@ -23,9 +23,9 @@ class ReviewController extends Controller
      */
     public function index(Request $request)
     {
-        $reviews = Review::orderBy('id','DESC')->paginate(5);
+        $reviews = Review::orderBy('id','DESC')->paginate(50);
         return view('admin.reviews.index',compact('reviews'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+            ->with('i', ($request->input('page', 1) - 1) * 50);
     }
 
     /**
@@ -126,5 +126,12 @@ class ReviewController extends Controller
         $review->status = 'publish';
         $review->save();
         return redirect()->back()->with('success','Review has been approved successfully.');
+    }
+
+    public function deleteAll(Request $request)
+    {
+        Review::whereIn('id', $request->ids)->delete();
+        return redirect()->route('admin.reviews.index')
+                        ->with('success','Reviews deleted successfully');
     }
 }

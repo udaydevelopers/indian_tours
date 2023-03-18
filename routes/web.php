@@ -82,11 +82,13 @@ Route::name('admin.')->middleware(['role:Super Admin|Admin|Editor'])->prefix('ad
     Route::resource('faqs', FaqController::class);
     Route::resource('reviews', AdminReviewController::class);
     Route::get('/reviews/approve/{id}', [AdminReviewController::class, 'approve'])->name('reviews.approve');
-    
+    Route::post('/reviews/delete-all', [AdminReviewController::class, 'deleteAll'])->name('reviews.delete.all');
+
     Route::get('dashbard', [DashboardController::class, 'index'])->name('dashboard');
     Route::post('storeMedia', [PackageController::class, 'storeMedia'])->name('storeMedia');
     Route::post('/delete-image', [PackageController::class, 'deleteImage'])->name('images.destroy');
     Route::post('/contacts/delete-all', [AdminContactController::class, 'deleteAll'])->name('contacts.delete.all');
+   
     // Routes for Blog Admin pages
     Route::resource('tags', TagController::class);
     Route::resource('posts', PostController::class);

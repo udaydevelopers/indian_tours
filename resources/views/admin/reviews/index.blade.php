@@ -24,6 +24,8 @@
                     <h4>reviews</h4>
                     <p>Website all reviews list</p>
                     <div class="table-responsive">
+                    <form id="delete-form" action="{{ route('admin.reviews.delete.all') }}" method="post">
+                            @csrf
                         <table class="table">
                             <thead>
                                 <tr>
@@ -33,7 +35,8 @@
                                     <th>Subject</th>
                                     <th>Message</th>
                                     <th>Status</th>
-                                    <th>action</th>
+                                    <th>Action</th>
+                                    <th style="padding-bottom:25px;"><input type="checkbox" value="1" name="check_all" id="checkAll"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,25 +66,39 @@
             <a class="" href="{{ route('admin.reviews.edit',$review->id) }}"><span class="badge badge-success"><i class="far fa-edit"></i></span></a>
             @endcan
             @can('review-delete')
-            <a href="#" class="show_confirm"
+            <!-- <a href="#" class="show_confirm"
             onclick="event.preventDefault(); 
                             " data-toggle="tooltip" title='Delete'>
             <span class="badge badge-danger"><i class="far fa-trash-alt"></i></span>
             </a>
                 {!! Form::open(['id' => 'delete-form', 'method' => 'DELETE','route' => ['admin.reviews.destroy', $review->id],'style'=>'display:inline']) !!}
                 {!! Form::submit('Delete', ['class' => 'badge badge-danger']) !!}
-                {!! Form::close() !!}
+                 -->
             @endcan
+           </td> 
+
+           <td>
+            <input type="checkbox" value="{{$review->id}}" name="ids[]">
                                     </td>
                                 </tr>
                                 @endforeach
+                                @can('review-delete')
+                                <tr><td colspan="8"><button type="submit" onclick="event.preventDefault();" data-toggle="tooltip" class="show_confirm btn btn-danger float-right">Delete All</button></td></tr>
+                                @endcan
                             </tbody>
                         </table>
+                    </form>
                     </div>
                 </div>
             </div>
 {!! $reviews->render() !!}
-
+<style>
+input[type=checkbox] {
+    position: absolute;
+    z-index: 0;
+    opacity:  1 !important;
+}
+            </style>
 @endsection
 
 @section('script')
@@ -105,6 +122,9 @@
             }
           });
       });
-  
+    
+    $("#checkAll").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 </script>
 @endsection

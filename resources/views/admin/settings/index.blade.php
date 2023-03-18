@@ -46,6 +46,21 @@
             </div>
         </div>
     </div>
+    <div class="heading">---------- For International ----------------</div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Mobile:</strong>
+                {!! Form::text('mobile_international', null, array('placeholder' => 'Mobile','class' => 'form-control')) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Email:</strong>
+                {!! Form::text('email_international', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+            </div>
+        </div>
+    </div>
 
 
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
