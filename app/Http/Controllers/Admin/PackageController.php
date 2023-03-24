@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Faq;
 use App\Models\Package;
 use App\Models\Image;
 use File;
@@ -55,7 +56,8 @@ class PackageController extends Controller
     public function create()
     {
         $parentCategories = Category::where('parent_id',NULL)->get();
-        return view('admin.packages.create', compact('parentCategories'));
+        $faqs = Faq::where('status','publish')->orderBy('question','ASC')->get();
+        return view('admin.packages.create', compact('parentCategories', 'faqs'));
     }
 
     /**
@@ -65,7 +67,7 @@ class PackageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
+    {  
         $this->validate($request, [
               'name' => 'required|string|max:255|unique:packages,name',
               'description' => 'required|string',
@@ -145,7 +147,10 @@ class PackageController extends Controller
         $package->save();
         
         $package->categories()->sync($request->categories);
-
+        
+        /// pacakge_faq link
+        if($request->chosen_faqs) 
+        $package->faqs()->sync($request->chosen_faqs);
         
         foreach ($request->input('document', []) as $file) {
             $image = new Image;
@@ -179,8 +184,9 @@ class PackageController extends Controller
     public function edit($id)
     {
         $parentCategories = Category::where('parent_id',NULL)->get();
-        $package = Package::with('categories', 'images')->find($id); 
-        return view('admin.packages.edit',compact('package','parentCategories'));
+        $package = Package::with('categories', 'images')->find($id);
+        $faqs = Faq::where('status','publish')->orderBy('question','ASC')->get(); 
+        return view('admin.packages.edit',compact('package','parentCategories','faqs'));
     }
 
     /**
@@ -290,6 +296,12 @@ class PackageController extends Controller
         if($request->categories == null) $request->categories = [1];
         $package->categories()->sync($request->categories);
 
+        /// pacakge_faq link
+        if($request->hid_chosen_faqs){
+            $hidFaqsArr = explode(",",$request->hid_chosen_faqs);
+            $package->faqs()->sync($hidFaqsArr);
+        } 
+        
         foreach ($request->input('document', []) as $file) {
             $image = new Image;
             File::copy(storage_path('tmp/uploads/'.$file), $idProgramDir. DIRECTORY_SEPARATOR .$file);

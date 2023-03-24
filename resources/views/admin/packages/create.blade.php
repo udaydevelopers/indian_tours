@@ -3,6 +3,22 @@
 
 @section('style')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" />
+<style type="text/css">
+select option {
+    padding: 8px;
+    background: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+option:hover {
+  background-color: #007bff;
+  color:#fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style>
 @endsection
 
 @section('content')
@@ -21,7 +37,7 @@
         </ul>
     </div>
 @endif
-{!! Form::open(array('route' => 'admin.packages.store','method'=>'POST', 'enctype' => "multipart/form-data")) !!}
+{!! Form::open(array('route' => 'admin.packages.store','method'=>'POST', 'enctype' => "multipart/form-data", 'id'=>'package-form')) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
                     <!-- Listings -->
@@ -30,15 +46,17 @@
                             <div class="custom-field-wrap">
                                 <div class="form-group">
                                     <label><h4>Title</h4></label>
-                                    <input type="text" name="name" required>
+                                    <input type="text" name="name" data-validation="required|min:3|max:255" class="form-control" required>
                                 </div>
                             <div class="form-group">
                                 <label for="description" class="form-label"><h4>Description</h4></label>
-                                <textarea class="form-control" name="description" placeholder="Description" id="description"></textarea>
+                                <textarea class="form-control" name="description" placeholder="Description" id="description" data-validation="required|min:50" required></textarea>
+                                <span class="error" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                             <div class="form-group">
                                 <label for="program" class="form-label"><h4>Program</h4></label>
                                 <input class="form-control" name="program" placeholder="Program" id="program">
+                                <span class="error-prog" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                             <div class="form-group">
                                 <label for="policy" class="form-label"><h4>Cancellation Policy</h4></label>
@@ -98,19 +116,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="adult_sp">
+                                            <input type="text" name="adult_sp" class="form-control" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="adult_rp">
+                                            <input type="text" name="adult_rp" class="form-control" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="adult_dsc">
+                                            <input type="text" name="adult_dsc" class="form-control" data-validation="required|min:0" required>
                                         </div>
                                     </div>
                                 </div>
@@ -203,10 +221,29 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="dashboard-box">
-                            
+                            <h4>FAQs</h4>
                             <div class="custom-field-wrap">
-                                <div class="row">
+                                <div class="faq-field">
+                                <div class="faq-field-inner">
+                            <select class="select-faqs" name="faq" multiple="multiple" 
+                            style="Width: 100%; height:200px; padding-bottom:10px; background-image:none !important; margin-bottom: 20px;">
+                            @foreach($faqs as $faq)   
+                                <option value="{{ $faq->id }}">{{ $faq->question }}</option>
+                            @endforeach
+                            </select>
+
+                            <select class="chosen-faqs" name="chosen_faqs[]" multiple="multiple"  
+                            style="Width: 100%;  height:200px; padding-bottom:10px; background-image:none !important; margin-bottom: 20px;">
+
+                            </select>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+   
+                        <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
@@ -215,9 +252,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
-                    </div>
                     <div class="col-lg-4 col-xl-3">
                         <div class="dashboard-box">
                         <div class="custom-field-wrap db-pop-field-wrap">
@@ -241,13 +276,13 @@
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Meta Keywords</h4>
                                 <div class="form-group">
-                                    <input type="text" name="meta_keywords" placeholder="Meta Keywords">
+                                    <input type="text" name="meta_keywords" placeholder="Meta Keywords" class="form-control" data-validation="required|min:50" required>
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Meta Descriptions</h4>
                                 <div class="form-group">
-                                    <textarea  name="meta_descriptions" placeholder="Meta Descriptions"></textarea>
+                                    <textarea  name="meta_descriptions" placeholder="Meta Descriptions" class="form-control" data-validation="required|min:50" required></textarea>
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-cat-field-wrap">
@@ -256,7 +291,7 @@
                                 @php $selectedCat = []; @endphp
                                 @foreach($parentCategories as $category)
                                 <div class="form-group">
-                                    <label class="custom-input"><input type="checkbox" value="{{ $category->id }}" name="categories[]">
+                                    <label class="custom-input"><input type="checkbox" value="{{ $category->id }}" name="categories[]" class="form-control" data-validation="required" required>
                                        <span class="custom-input-field"></span>
                                        {{ $category->name }}
                                        <?php $dash=''; ?>
@@ -320,7 +355,13 @@
             height: 300,
             menubar: false,
             plugins: "link image code lists",
-            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
         });
 
         tinymce.init({
@@ -328,8 +369,13 @@
             height: 300,
             menubar: false,
             plugins: "link image code lists",
-            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
-
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
         });
 
         tinymce.init({
@@ -387,5 +433,77 @@
       @endif
     }
   }
+
+    /* code for faq list selection */
+    $('.select-faqs').click(function () {
+        $('.select-faqs option:selected').appendTo('.chosen-faqs');
+    });
+
+    $('.chosen-faqs').click(function () {
+        $('.chosen-faqs option:selected').appendTo('.select-faqs');
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script>
+    $(function() {
+        $('#package-form').validate({
+            errorClass: 'is-invalid',
+            validClass: 'is-valid',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass);
+            }
+        });
+    });
+    
+    /// editor validation
+    $(document).on('click', '.btn-primary', chkSubmit);
+	
+	function chkSubmit() {
+
+			var msg = $('#description').val();
+			
+			var textmsg = $.trim($(msg).text());
+			
+				if (textmsg == '') {
+					
+					//alert('nogo');
+					$('.error').show();
+					$('.error').html('This field is required');
+					return false;
+				}
+				else{
+					//alert(textmsg);
+					$('.error').hide();
+					$('.error').html('');
+					
+				}
+                ////
+            var program = $('#program').val();
+			
+			var textprog = $.trim($(program).text());
+			
+				if (textprog == '') {
+					
+					//alert('nogo');
+					$('.error-prog').show();
+					$('.error-prog').html('This field is required');
+					return false;
+				}
+				else{
+					//alert(textmsg);
+					$('.error-prog').hide();
+					$('.error-prog').html('');
+					
+				}
+		
+		}
+ 
 </script>
 @endsection

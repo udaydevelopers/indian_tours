@@ -206,6 +206,37 @@
                        
                             
                         </div>
+                        @php $selectedFaqsIds = []; @endphp
+                        @foreach($package->faqs as $selectedFaqs) 
+                            @php $selectedFaqsIds[] = $selectedFaqs->id @endphp
+                        @endforeach
+                        <div class="dashboard-box">
+                            <h4>FAQs</h4>
+                            <div class="custom-field-wrap">
+                                <div class="faq-field">
+                                <div class="faq-field-inner">
+                            <select class="select-faqs" name="faq" multiple="multiple" 
+                            style="Width: 100%; height:200px; padding-bottom:10px; background-image:none !important; margin-bottom: 20px;">
+                            @foreach($faqs as $faq)
+                                @if(!in_array($faq->id, $selectedFaqsIds))
+                                <option value="{{ $faq->id }}">{{ $faq->question }}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                            <input type="hidden" name="hid_chosen_faqs" id="hidden_chosen_faqs" value="">
+                            <select class="chosen-faqs" name="chosen_faqs[]" multiple="multiple"  
+                            style="Width: 100%;  height:200px; padding-bottom:10px; background-image:none !important; margin-bottom: 20px;">
+                            @foreach($faqs as $faq)
+                                @if(in_array($faq->id, $selectedFaqsIds))
+                                <option value="{{ $faq->id }}">{{ $faq->question }}</option>
+                                @endif
+                            @endforeach
+                            </select>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+   
                         <div class="dashboard-box">
                             
                             <div class="custom-field-wrap">
@@ -417,5 +448,30 @@
       @endif
     }
   }
+
+/* code for faq list selection */
+$( document ).ready(function() {
+  $('.select-faqs').click(function () {
+        $('.select-faqs option:selected').appendTo('.chosen-faqs');
+        /// chosen select box values
+        var faqArr = [];
+        $(".chosen-faqs option").each(function()
+        {
+            faqArr.push($(this).val());
+        });
+        $("#hidden_chosen_faqs").val(faqArr);
+    });
+
+    $('.chosen-faqs').click(function () {
+        $('.chosen-faqs option:selected').appendTo('.select-faqs');
+        /// chosen select box values
+        var faqArr = [];
+        $(".chosen-faqs option").each(function()
+        {
+            faqArr.push($(this).val());
+        });
+        $("#hidden_chosen_faqs").val(faqArr);
+    });
+});
 </script>
 @endsection
