@@ -50,21 +50,23 @@ option:hover {
                                 </div>
                             <div class="form-group">
                                 <label for="description" class="form-label"><h4>Description</h4></label>
-                                <textarea class="form-control" name="description" placeholder="Description" id="description" data-validation="required|min:50" required></textarea>
+                                <input class="form-control" name="description" placeholder="Description" id="description" data-validation="required|min:50" required>
                                 <span class="error" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                             <div class="form-group">
                                 <label for="program" class="form-label"><h4>Program</h4></label>
-                                <input class="form-control" name="program" placeholder="Program" id="program">
+                                <input class="form-control" name="program" placeholder="Program" id="program" data-validation="required|min:50" required>
                                 <span class="error-prog" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                             <div class="form-group">
                                 <label for="policy" class="form-label"><h4>Cancellation Policy</h4></label>
-                                <input class="form-control" name="policy" placeholder="Policy" id="policy">
+                                <input class="form-control" name="policy" placeholder="Policy" id="policy" data-validation="required|min:50" required>
+                                <span class="error-policy" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                             <div class="form-group">
                                 <label for="inclusions" class="form-label"><h4>Inclusions</h4></label>
-                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions">
+                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions" data-validation="required|min:50" required>
+                                <span class="error-incl" style="color: #a80000;font-weight: bold;"></span>
                             </div>
                         </div>
                         </div>
@@ -77,13 +79,13 @@ option:hover {
                                             <div class="col-6">
                                                 <div class="form-group">
                                                 <span>Trip Days</span>
-                                                    <input type="number" placeholder="Days" name="trip_days">
+                                                    <input type="number" class="form-control" placeholder="Days" name="trip_days"  data-validation="required" required>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
                                                 <span>Trip Nights</span>
-                                                    <input type="number" placeholder="Nights" name="trip_nights">
+                                                    <input type="number" class="form-control" placeholder="Nights" name="trip_nights">
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +103,7 @@ option:hover {
                                         <div class="col-12">
                                                 <div class="form-group">
                                                     <span>Place Covered during the trip</span>
-                                                    <input type="text" placeholder="Place Covered Locations" name="place_covered">
+                                                    <input type="text" class="form-control" placeholder="Place Covered Locations" name="place_covered" data-validation="required" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,19 +143,19 @@ option:hover {
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="child_sp">
+                                            <input type="text" name="child_sp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="child_rp">
+                                            <input type="text" name="child_rp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="child_dsc">
+                                            <input type="text" name="child_dsc" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                 </div>
@@ -166,19 +168,19 @@ option:hover {
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="infant_sp">
+                                            <input type="text" name="infant_sp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="infant_rp">
+                                            <input type="text" name="infant_rp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="infant_dsc">
+                                            <input type="text" name="infant_dsc" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                 </div>
@@ -191,19 +193,19 @@ option:hover {
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="couple_sp">
+                                            <input type="text" name="couple_sp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="couple_rp">
+                                            <input type="text" name="couple_rp" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="couple_dsc">
+                                            <input type="text" name="couple_dsc" data-validation="required|min:9" required>
                                         </div>
                                     </div>
                                 </div>
@@ -321,7 +323,7 @@ option:hover {
                                 <h4>Page Banner Image</h4>
                                     <div class="form-group">
                                     <span> Alt Text(H1 Tags) </span>
-                                    <input type="text" name="page_banner_alt" class="form-control">
+                                    <input type="text" name="page_banner_alt" class="form-control" data-validation="required" required>
                                     </div>
                                     <div class="form-group">
                                     <span> Upload Image </span>
@@ -329,7 +331,7 @@ option:hover {
                                     </div>
                                     <div class="form-group">
                                     <span> H2 Tags </span>
-                                    <input type="text" name="h2_tags" class="form-control">
+                                    <input type="text" name="h2_tags" class="form-control" data-validation="required" required>
                                     </div>
                             </div>
                             <hr>
@@ -383,7 +385,13 @@ option:hover {
             height: 300,
             menubar: false,
             plugins: "link image code lists",
-            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
 
         });
         tinymce.init({
@@ -391,15 +399,21 @@ option:hover {
             height: 300,
             menubar: false,
             plugins: "link image code lists",
-            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
 
         });
         
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
-    <script>
-  var uploadedDocumentMap = {}
-  Dropzone.options.documentDropzone = {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+<script>
+    var uploadedDocumentMap = {}
+    Dropzone.options.documentDropzone = {
     url: "{{ route('admin.storeMedia') }}",
     maxFilesize: 2, // MB
     addRemoveLinks: true,
@@ -466,43 +480,62 @@ option:hover {
     $(document).on('click', '.btn-primary', chkSubmit);
 	
 	function chkSubmit() {
-
+            /// description validation
 			var msg = $('#description').val();
-			
 			var textmsg = $.trim($(msg).text());
-			
 				if (textmsg == '') {
-					
-					//alert('nogo');
 					$('.error').show();
 					$('.error').html('This field is required');
-					return false;
+                    $('#description').siblings().addClass("form-control valid is-invalid");
 				}
 				else{
-					//alert(textmsg);
 					$('.error').hide();
 					$('.error').html('');
-					
+                    $('#description').siblings().removeClass("is-invalid");
+                    $('#description').siblings().addClass("form-control valid is-valid");
 				}
-                ////
+            //// program validation
             var program = $('#program').val();
-			
 			var textprog = $.trim($(program).text());
-			
 				if (textprog == '') {
-					
-					//alert('nogo');
 					$('.error-prog').show();
 					$('.error-prog').html('This field is required');
-					return false;
+                    $('#program').siblings().addClass("form-control valid is-invalid");
 				}
 				else{
-					//alert(textmsg);
 					$('.error-prog').hide();
 					$('.error-prog').html('');
-					
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#program').siblings().addClass("form-control valid is-valid");
 				}
-		
+            //// cancellation policy
+            var policy = $('#policy').val();
+			var textpolicy = $.trim($(policy).text());
+				if (textpolicy == '') {
+					$('.error-policy').show();
+					$('.error-policy').html('This field is required');
+                    $('#policy').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error-policy').hide();
+					$('.error-policy').html('');
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#policy').siblings().addClass("form-control valid is-valid");
+				}
+            //// inclusions	
+            var inclusions = $('#inclusions').val();
+			var textincl = $.trim($(inclusions).text());
+				if (textincl == '') {
+					$('.error-incl').show();
+					$('.error-incl').html('This field is required');
+                    $('#inclusions').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error-incl').hide();
+					$('.error-incl').html('');
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#inclusions').siblings().addClass("form-control valid is-valid");
+				}	
 		}
  
 </script>

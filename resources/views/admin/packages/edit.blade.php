@@ -21,7 +21,7 @@
         </ul>
     </div>
 @endif
-{!! Form::model($package, ['method' => 'PATCH','route' => ['admin.packages.update', $package->id], 'enctype' => "multipart/form-data"]) !!}
+{!! Form::model($package, ['method' => 'PATCH','route' => ['admin.packages.update', $package->id], 'enctype' => "multipart/form-data", 'id'=>'package-form']) !!}
 <div class="col-lg-12 margin-tb">
                 <div class="row">
                     <!-- Listings -->
@@ -30,25 +30,23 @@
                             <div class="custom-field-wrap">
                             <div class="form-group">
                                 <label><h4>Title</h4></label>
-                                <input type="text" name="name" value="{{ $package->name }}" required>
+                                <input type="text" name="name" value="{{ $package->name }}" data-validation="required|min:3|max:255" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="description" class="form-label"><h4>Description</h4></label>
-                                <textarea class="form-control" name="description" placeholder="Description" id="description">
-                                {{ $package->description }}
-                                </textarea>
+                                <input class="form-control" name="description" placeholder="Description" id="description" value="{{ $package->description }}" data-validation="required|min:3|max:255" required>
                             </div>
                             <div class="form-group">
                                 <label for="program" class="form-label"><h4>Program</h4></label>
-                                <input class="form-control" name="program" placeholder="Program" id="program" value="{{ $package->program }}">
+                                <input class="form-control" name="program" placeholder="Program" id="program" value="{{ $package->program }}" data-validation="required|min:3|max:255" required>
                             </div>
                             <div class="form-group">
                                 <label for="policy" class="form-label"><h4>Policy</h4></label>
-                                <input class="form-control" name="policy" placeholder="Policy" id="policy" value="{{ $package->policy }}">
+                                <input class="form-control" name="policy" placeholder="Policy" id="policy" value="{{ $package->policy }}" data-validation="required|min:3|max:255" required>
                             </div>
                             <div class="form-group">
                                 <label for="inclusions" class="form-label"><h4>Inclusions</h4></label>
-                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions" value="{{ $package->inclusions }}">
+                                <input class="form-control" name="inclusions" placeholder="Inclusions" id="inclusions" value="{{ $package->inclusions }}" data-validation="required|min:3|max:255" required>
                             </div>
                         </div>
                         </div>
@@ -61,7 +59,7 @@
                                             <div class="col-6">
                                                 <div class="form-group">
                                                 <label>Days</label>
-                                                    <input type="number" placeholder="Days" name="trip_days" value="{{ $package->trip_days }}">
+                                                    <input type="number" placeholder="Days" name="trip_days" value="{{ $package->trip_days }}" class="form-control" data-validation="required" required>
                                                 </div>
                                             </div>
                                             <div class="col-6">
@@ -84,7 +82,7 @@
                                         <div class="col-12">
                                                 <div class="form-group">
                                                     <span>Place Covered during the trip</span>
-                                                    <input type="text" value="{{ ($package->place_covered)?$package->place_covered:'' }}" placeholder="Place Covered Locations" name="place_covered">
+                                                    <input type="text" value="{{ ($package->place_covered)?$package->place_covered:'' }}" placeholder="Place Covered Locations" name="place_covered" class="form-control" data-validation="required" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,19 +97,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="adult_sp" value="{{ $package->adult_sp }}">
+                                            <input type="text" name="adult_sp" value="{{ $package->adult_sp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="adult_rp" value="{{ $package->adult_rp }}">
+                                            <input type="text" name="adult_rp" value="{{ $package->adult_rp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="adult_dsc" value="{{ $package->adult_dsc }}">
+                                            <input type="text" name="adult_dsc" value="{{ $package->adult_dsc }}"  class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                 </div>
@@ -124,19 +122,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="child_sp" value="{{ $package->child_sp }}">
+                                            <input type="text" name="child_sp" value="{{ $package->child_sp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="child_rp" value="{{ $package->child_rp }}">
+                                            <input type="text" name="child_rp" value="{{ $package->child_rp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="child_dsc" value="{{ $package->child_dsc }}">
+                                            <input type="text" name="child_dsc" value="{{ $package->child_dsc }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                 </div>
@@ -149,19 +147,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="infant_sp" value="{{ $package->infant_sp }}">
+                                            <input type="text" name="infant_sp" value="{{ $package->infant_sp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="infant_rp" value="{{ $package->infant_rp }}">
+                                            <input type="text" name="infant_rp" value="{{ $package->infant_rp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="infant_dsc" value="{{ $package->infant_dsc }}">
+                                            <input type="text" name="infant_dsc" value="{{ $package->infant_dsc }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                 </div>
@@ -174,19 +172,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Sale Price</label>
-                                            <input type="text" name="couple_sp" value="{{ $package->couple_sp }}">
+                                            <input type="text" name="couple_sp" value="{{ $package->couple_sp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Regular Price</label>
-                                            <input type="text" name="couple_rp" value="{{ $package->couple_rp }}">
+                                            <input type="text" name="couple_rp" value="{{ $package->couple_rp }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Discount</label>
-                                            <input type="text" name="couple_dsc" value="{{ $package->couple_dsc }}">
+                                            <input type="text" name="couple_dsc" value="{{ $package->couple_dsc }}" class="form-control" data-validation="required" required>
                                         </div>
                                     </div>
                                 </div>
@@ -276,13 +274,13 @@
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Meta Keywords</h4>
                                 <div class="form-group">
-                                    <input type="text" name="meta_keywords" placeholder="Meta Keywords" value="{{ $package->meta_keywords }}">
+                                    <input type="text" name="meta_keywords" placeholder="Meta Keywords" value="{{ $package->meta_keywords }}" class="form-control" data-validation="required" required>
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-pop-field-wrap">
                                 <h4>Meta Descriptions</h4>
                                 <div class="form-group">
-                                    <textarea  name="meta_descriptions" placeholder="Meta Descriptions">{{ $package->meta_descriptions }}</textarea>
+                                    <textarea  name="meta_descriptions" placeholder="Meta Descriptions" class="form-control" data-validation="required" required>{{ $package->meta_descriptions }}</textarea>
                                 </div>
                             </div>
                             <div class="custom-field-wrap db-cat-field-wrap">
@@ -334,7 +332,7 @@
                                 <h4>Page Banner Image</h4>
                                     <div class="form-group">
                                         <span> Alt Text(H1 Tags) </span>
-                                        <input type="text" name="page_banner_alt" class="form-control" value="{{ $package->page_banner_alt}}">
+                                        <input type="text" name="page_banner_alt" class="form-control" value="{{ $package->page_banner_alt}}" data-validation="required" required>
                                     </div>
                                     <div class="form-group">
                                         <span> Upload Image </span>
@@ -345,7 +343,7 @@
                                     @endif
                                     <div class="form-group">
                                         <span> H2 Tags </span>
-                                        <input type="text" name="h2_tags" class="form-control"  value="{{ $package->h2_tags}}">
+                                        <input type="text" name="h2_tags" class="form-control"  value="{{ $package->h2_tags}}" data-validation="required" required>
                                     </div>
                             </div>
                             <hr>
@@ -391,24 +389,62 @@
 
 @section('script')
 <script src="{!! url('admin/assets/tinymce/js/tinymce/tinymce.min.js') !!}"></script>
-    <script type="text/javascript">
+<script type="text/javascript">
         tinymce.init({
             selector: '#description',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
         });
 
         tinymce.init({
             selector: '#program',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
         });
 
         tinymce.init({
             selector: '#policy',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
+
         });
         tinymce.init({
             selector: '#inclusions',
-            height: 300
+            height: 300,
+            menubar: false,
+            plugins: "link image code lists",
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | numlist bullist | alignleft aligncenter alignright alignjustify | outdent indent | link image | code',
+            setup: function (editor) {
+            editor.on('change', function () {
+                tinymce.triggerSave();
+				chkSubmit();
+            });
+            }
+
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
@@ -473,5 +509,87 @@ $( document ).ready(function() {
         $("#hidden_chosen_faqs").val(faqArr);
     });
 });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script>
+    $(function() {
+        $('#package-form').validate({
+            errorClass: 'is-invalid',
+            validClass: 'is-valid',
+            errorPlacement: function(error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass(errorClass).removeClass(validClass);
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass(errorClass).addClass(validClass);
+            }
+        });
+    });
+    
+    /// editor validation
+    $(document).on('click', '.btn-primary', chkSubmit);
+	
+	function chkSubmit() {
+            /// description validation
+			var msg = $('#description').val();
+			var textmsg = $.trim($(msg).text());
+				if (textmsg == '') {
+					$('.error').show();
+					$('.error').html('This field is required');
+                    $('#description').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error').hide();
+					$('.error').html('');
+                    $('#description').siblings().removeClass("is-invalid");
+                    $('#description').siblings().addClass("form-control valid is-valid");
+				}
+            //// program validation
+            var program = $('#program').val();
+			var textprog = $.trim($(program).text());
+				if (textprog == '') {
+					$('.error-prog').show();
+					$('.error-prog').html('This field is required');
+                    $('#program').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error-prog').hide();
+					$('.error-prog').html('');
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#program').siblings().addClass("form-control valid is-valid");
+				}
+            //// cancellation policy
+            var policy = $('#policy').val();
+			var textpolicy = $.trim($(policy).text());
+				if (textpolicy == '') {
+					$('.error-policy').show();
+					$('.error-policy').html('This field is required');
+                    $('#policy').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error-policy').hide();
+					$('.error-policy').html('');
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#policy').siblings().addClass("form-control valid is-valid");
+				}
+            //// inclusions	
+            var inclusions = $('#inclusions').val();
+			var textincl = $.trim($(inclusions).text());
+				if (textincl == '') {
+					$('.error-incl').show();
+					$('.error-incl').html('This field is required');
+                    $('#inclusions').siblings().addClass("form-control valid is-invalid");
+				}
+				else{
+					$('.error-incl').hide();
+					$('.error-incl').html('');
+                    $('.tox-tinymce').removeClass("is-invalid");
+                    $('#inclusions').siblings().addClass("form-control valid is-valid");
+				}	
+		}
+ 
 </script>
 @endsection
